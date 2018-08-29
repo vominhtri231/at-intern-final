@@ -6,4 +6,8 @@
     <color name="colorBlueZodiac">#102F51</color>
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorNepal">#90AAC6</color>
+    <color name="colorBlack">#262323</color>
+    <color name="colorTransparent">#00000000</color>
+    <color name="colorDarkGray">#E0E0E0</color>
+    <color name="colorGray">#60FFFFFF</color>
 </resources>
