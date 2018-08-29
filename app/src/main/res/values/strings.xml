@@ -5,4 +5,7 @@
     <string name="prompt_password">Password</string>
     <string name="action_login">Login</string>
     <string name="action_register">Register?</string>
+    <string name="loading_name_app">English Music</string>
+    <string name="loading_progress1">loading progress</string>
+    <string name="loading_decription_logo">imageview</string>
 </resources>

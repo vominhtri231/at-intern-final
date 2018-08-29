@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/imgLoadingBg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/bg_background_loading"
+        android:contentDescription="@string/loading_decription_logo" />
+
+    <ImageView
+        android:id="@+id/imgLoadingIcon"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="116dp"
+        android:contentDescription="@string/loading_decription_logo"
+        android:src="@drawable/img_app_music" />
+
+    <TextView
+        android:id="@+id/tvNameApp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="80dp"
+        android:text="@string/loading_name_app" />
+
+    <LinearLayout
+        android:id="@+id/llLoading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="42dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/imgLoadingProgress1"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:contentDescription="@string/loading_progress1"
+            android:src="@drawable/btn_progress" />
+
+        <ImageView
+            android:id="@+id/imgLoadingProgress2"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:contentDescription="@string/loading_progress1"
+            android:src="@drawable/btn_progress" />
+
+        <ImageView
+            android:id="@+id/imgLoadingProgress3"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:contentDescription="@string/loading_decription_logo"
+            android:src="@drawable/btn_progress" />
+
+        <ImageView
+            android:id="@+id/imgLoadingProgress4"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:contentDescription="@string/loading_progress1"
+            android:src="@drawable/btn_progress" />
+
+    </LinearLayout>
+</RelativeLayout>
