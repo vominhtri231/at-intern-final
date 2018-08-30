@@ -8,8 +8,8 @@
         android:id="@+id/imgHomeQuickplayer"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:src="@drawable/ic_quickplayer_blue"
-        android:contentDescription="@string/todo" />
+        android:contentDescription="@string/todo"
+        android:src="@drawable/ic_quickplayer_blue" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -48,9 +48,23 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="5dp"
             android:progress="25" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/minibar_time_default"
+            android:textSize="12sp" />
         <!--Use the following code to get the spinner in various expected color.Here we use
          the hexcode to display spinner in blue color.-->
     </LinearLayout>
+
+    <Button
+        android:id="@+id/btnPlayingListMiniBar"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_gravity="center"
+        android:background="@drawable/ic_favourite_default" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -60,37 +74,22 @@
 
         <Button
             android:id="@+id/btnPreviousPlayMiniBar"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_marginEnd="15dp"
+            style="@style/ButtonStateSong"
             android:background="@drawable/ic_previous_song" />
 
         <Button
             android:id="@+id/btnPlayMiniBar"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_marginEnd="15dp"
-            android:background="@drawable/ic_btn_minibar_play_normal" />
+            style="@style/ButtonStateSong"
+            android:background="@drawable/ic_btn_play_song" />
 
         <Button
             android:id="@+id/btnNextMiniBar"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_marginEnd="15dp"
-            android:background="@drawable/ic_btn_minibar_next_normal" />
+            style="@style/ButtonStateSong"
+            android:background="@drawable/ic_btn_next_song" />
 
         <Button
-            android:id="@+id/btnPlayingListMiniBar"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_marginEnd="15dp"
-            android:background="@drawable/ic_btn_minibar_playinglist" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/minibar_time_default" />
-
+            android:id="@+id/btnExitMinibar"
+            style="@style/ButtonStateSong"
+            android:background="@drawable/ic_exit_remote_view" />
     </LinearLayout>
 </LinearLayout>

@@ -8,4 +8,10 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="ButtonStateSong" parent="Widget.AppCompat.Button">
+        <item name="android:layout_width">25dp</item>
+        <item name="android:layout_height">25dp</item>
+        <item name="android:layout_marginEnd">10dp</item>
+    </style>
+
 </resources>
