@@ -20,16 +20,23 @@
         android:visibility="gone" />
 
     <ScrollView
-        android:id="@+id/scrollViewLoginForm"
+        android:id="@+id/login_form"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <LinearLayout
-            android:id="@+id/llLoginForm"
+            android:id="@+id/email_login_form"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:gravity="center"
             android:orientation="vertical">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/imgAvatar"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginBottom="20dp"
+                android:src="@drawable/img_avatar" />
 
             <EditText
                 android:id="@+id/edtPhone"
@@ -45,24 +52,43 @@
                 android:hint="@string/prompt_password"
                 android:inputType="textPassword" />
 
+            <EditText
+                android:id="@+id/edtRepeatPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/prompt_repeat_password"
+                android:inputType="textPassword" />
+
+            <EditText
+                android:id="@+id/edtName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/prompt_name"
+                android:inputType="text" />
+
+            <EditText
+                android:id="@+id/edtAge"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/prompt_age"
+                android:inputType="number" />
+
+            <fragment
+                android:id="@+id/map"
+                android:name="com.google.android.gms.maps.MapFragment"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:layout_marginBottom="20dp" />
+
             <Button
-                android:id="@+id/btnLogin"
+                android:id="@+id/btnSignUp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:background="@color/colorBlueZodiac"
-                android:text="@string/action_login"
+                android:text="@string/action_sign_up"
                 android:textColor="@color/colorWhite"
                 android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/tvSignUp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16sp"
-                android:gravity="center_horizontal"
-                android:text="@string/action_register"
-                android:textSize="@dimen/text_size_text_view" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
