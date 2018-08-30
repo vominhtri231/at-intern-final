@@ -13,4 +13,6 @@
     <string name="prompt_name">Name</string>
     <string name="prompt_age">Age</string>
     <string name="map_api_key">AIzaSyAFYsveOdOJB25LC0BgwpoqSwgj4KejkrE</string>
+    <string name="description_menu">menu</string>
+    <string name="log_out">Logout</string>
 </resources>
