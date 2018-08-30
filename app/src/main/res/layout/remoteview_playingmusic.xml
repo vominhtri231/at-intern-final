@@ -28,7 +28,7 @@
             android:marqueeRepeatLimit="marquee_forever"
             android:singleLine="true"
             android:text="@string/home_minibar_test_name_song"
-            android:textColor="@color/colorBlack"
+            android:textColor="@color/colorMineShaft"
             android:textSize="12sp" />
 
         <TextView
@@ -50,6 +50,7 @@
             android:progress="25" />
 
         <TextView
+            android:id="@+id/tvRunningTimeMiniBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
