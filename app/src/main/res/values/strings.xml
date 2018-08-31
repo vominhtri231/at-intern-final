@@ -13,4 +13,12 @@
     <string name="prompt_name">Name</string>
     <string name="prompt_age">Age</string>
     <string name="map_api_key">AIzaSyAFYsveOdOJB25LC0BgwpoqSwgj4KejkrE</string>
+    <string name="description_menu">menu</string>
+    <string name="log_out">Logout</string>
+    <string name="error_password">Password is 6 or more character and only contains letter and number </string>
+    <string name="error_name">Name is fail format</string>
+    <string name="error_phone">Phone is fail format</string>
+    <string name="error_age">Age is fail</string>
+    <string name="password_not_match_repeat_password">Password is not match repeat password</string>
+    <string name="not_enough_information">Please, fill up your information</string>
 </resources>
