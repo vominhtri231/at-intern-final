@@ -1,8 +1,14 @@
 <resources>
     <string name="app_name">2018SummerFinal</string>
-    <string name="title_activity_login">Login</string>
     <string name="prompt_phone">Phone</string>
     <string name="prompt_password">Password</string>
     <string name="action_login">Login</string>
     <string name="action_register">Register?</string>
+    <string name="action_sign_up">Sign up</string>
+    <string name="prompt_repeat_password">Repeat Password</string>
+    <string name="prompt_name">Name</string>
+    <string name="prompt_age">Age</string>
+    <string name="map_api_key">AIzaSyAFYsveOdOJB25LC0BgwpoqSwgj4KejkrE</string>
+    <string name="toolbar_text_hint_search">Nhập Tên bài hát, ca sĩ</string>
+    <string name="toolbar_text_libary">Thư viện nhạc</string>
 </resources>
