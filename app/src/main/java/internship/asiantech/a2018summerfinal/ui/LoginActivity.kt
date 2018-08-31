@@ -1,8 +1,9 @@
-package internship.asiantech.a2018summerfinal
+package internship.asiantech.a2018summerfinal.ui
 
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import internship.asiantech.a2018summerfinal.R
 import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : AppCompatActivity() {
