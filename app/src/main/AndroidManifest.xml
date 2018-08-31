@@ -16,15 +16,15 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/map_api_key" />
 
-        <activity android:name=".MainActivity">
+        <activity android:name=".ui.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".SignUpActivity" />
+        <activity android:name=".MainActivity" />
+        <activity android:name=".ui.SignUpActivity" />
     </application>
 
 </manifest>
