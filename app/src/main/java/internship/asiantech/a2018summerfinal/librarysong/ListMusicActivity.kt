@@ -10,7 +10,7 @@ import internship.asiantech.a2018summerfinal.adapter.LibraryPagerAdapter
 class ListMusicActivity : AppCompatActivity() {
     private lateinit var mViewPager: ViewPager
     private lateinit var mTabLayout : TabLayout
-    private lateinit var mLibraryPagerAdapter : LibraryPagerAdapter
+    private var mLibraryPagerAdapter : LibraryPagerAdapter = LibraryPagerAdapter(supportFragmentManager)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,7 +23,6 @@ class ListMusicActivity : AppCompatActivity() {
         mTabLayout = findViewById(R.id.tabLayout)
     }
     private fun initViewPager(){
-        mLibraryPagerAdapter = LibraryPagerAdapter(supportFragmentManager)
         mViewPager.adapter = mLibraryPagerAdapter
         mTabLayout.setupWithViewPager(mViewPager)
     }
