@@ -25,6 +25,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.ProfileUserActivity" />
+        <activity android:name=".MainActivity" />
+        <activity android:name=".librarysong.ListMusicActivity" />
         <activity android:name=".ui.SignUpActivity" />
     </application>
 

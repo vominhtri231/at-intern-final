@@ -76,7 +76,7 @@
         <Button
             android:id="@+id/btnPreviousPlayMiniBar"
             style="@style/ButtonStateSong"
-            android:background="@drawable/ic_previous_song" />
+            android:background="@drawable/ic_btn_previous_song" />
 
         <Button
             android:id="@+id/btnPlayMiniBar"
