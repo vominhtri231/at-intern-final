@@ -1,14 +1,13 @@
 package internship.asiantech.a2018summerfinal.validate
 
-import java.util.regex.Matcher
 import java.util.regex.Pattern
 
 class UserValidate {
     companion object {
-        fun phoneValidate(phone: String): Boolean {
-            val validatePhone =
-                    Pattern.compile("[0-9]{8,16}$", Pattern.CASE_INSENSITIVE)
-            val matcher = validatePhone.matcher(phone)
+        fun mailValidate(mail: String): Boolean {
+            val validateMail =
+                    Pattern.compile("^[a-zA-Z]+[a-zA-Z0-9._%+-]*+@[a-zA-Z0-9]+\\.[a-zA-Z]{2,6}$", Pattern.CASE_INSENSITIVE)
+            val matcher = validateMail.matcher(mail)
             return matcher.find()
         }
 

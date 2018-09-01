@@ -5,6 +5,7 @@ import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -18,25 +19,37 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.storage.FirebaseStorage
 import internship.asiantech.a2018summerfinal.R
+import internship.asiantech.a2018summerfinal.model.User
 import internship.asiantech.a2018summerfinal.validate.UserValidate
 import kotlinx.android.synthetic.main.activity_sign_up.*
+import java.io.ByteArrayOutputStream
 import java.io.IOException
+import java.util.*
 
 
-@Suppress("DEPRECATED_IDENTITY_EQUALS")
+@Suppress("DEPRECATED_IDENTITY_EQUALS", "UNUSED_EXPRESSION")
 class SignUpActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapClickListener {
     private lateinit var map: GoogleMap
-    private lateinit var phone: String
+    private lateinit var mail: String
     private lateinit var name: String
     private lateinit var password: String
     private lateinit var repeatPassword: String
-    private lateinit var avatar: Bitmap
+    private var avatar: String = ""
     private var age: Int = 0
     private var location: LatLng = LatLng(16.0544, 108.2022)
+    private val auth: FirebaseAuth? = FirebaseAuth.getInstance()
+    private val database = FirebaseDatabase.getInstance().reference
+    private val storage = FirebaseStorage.getInstance()
+
     companion object {
         private const val PICK_FROM_CAMERA = 1
         private const val PICK_FROM_GALLERY = 2
+        private const val URL_IMAGE = "gs://a2018summerfinal-76c35.appspot.com"
+        const val MAIL_KEY = "mail"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,6 +58,19 @@ class SignUpActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapC
         val mapFragment = supportFragmentManager
                 .findFragmentById(R.id.fragmentMap) as SupportMapFragment?
         mapFragment?.getMapAsync(this)
+        btnSignUp.setOnClickListener {
+            mail = edtMail.text.toString()
+            name = edtName.text.toString()
+            password = edtPassword.text.toString()
+            repeatPassword = edtRepeatPassword.text.toString()
+            val ageString = edtAge.text.toString()
+            if (checkUser(mail, name, password, repeatPassword, ageString)) {
+                signUp()
+            }
+        }
+        imgAvatar.setOnClickListener {
+            dialog()
+        }
     }
 
     override fun onMapReady(p0: GoogleMap?) {
@@ -53,18 +79,6 @@ class SignUpActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapC
         map.moveCamera(CameraUpdateFactory.newLatLng(danang))
         map.uiSettings.isZoomControlsEnabled = true
         map.setOnMapClickListener(this)
-        btnSignUp.setOnClickListener {
-            phone = edtPhone.text.toString()
-            name = edtName.text.toString()
-            password = edtPassword.text.toString()
-            repeatPassword = edtRepeatPassword.text.toString()
-            val ageString = edtRepeatPassword.text.toString()
-            checkUser(phone, name, password, repeatPassword, ageString)
-        }
-
-        imgAvatar.setOnClickListener {
-            dialog()
-        }
     }
 
     override fun onMapClick(p0: LatLng?) {
@@ -74,14 +88,40 @@ class SignUpActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapC
         map.moveCamera(CameraUpdateFactory.newLatLng(location))
     }
 
-    private fun checkUser(phone: String, name: String, password: String, repeatPassword: String, ageString: String): Boolean {
-        if (ageString == "" || phone == "" || name == "" || password == "" || repeatPassword == "") {
-            tvError.text = resources.getString(R.string.not_enough_information)
+    private fun signUp() {
+        auth?.createUserWithEmailAndPassword(mail, password)
+                ?.addOnCompleteListener(this) { task ->
+                    if (task.isSuccessful) {
+                        createUser()
+                        val intent = Intent(this, LoginActivity::class.java)
+                        intent.putExtra(MAIL_KEY, mail)
+                        setResult(LoginActivity.REQUEST_CODE, intent)
+                        finish()
+                    } else {
+                        tvError.text = resources.getString(R.string.error_sign_up)
+                        tvError.setBackgroundResource(R.drawable.border_text_view_error)
+                    }
+                }
+    }
+
+    private fun createUser() {
+        uploadImage()
+        var idUser = ""
+        database.child("Users").push().key?.let {
+            idUser = it
+        }
+        val user = User(idUser, mail, name, password, age, avatar, location)
+        database.child("Users").child(idUser).setValue(user)
+    }
+
+    private fun checkUser(mail: String, name: String, password: String, repeatPassword: String, ageString: String): Boolean {
+        if (ageString == "" || mail == "" || name == "" || password == "" || repeatPassword == "") {
+            tvError.text = resources.getString(R.string.error_not_enough_information)
             tvError.setBackgroundResource(R.drawable.border_text_view_error)
             return false
         }
         if (password != repeatPassword) {
-            tvError.text = resources.getString(R.string.not_enough_information)
+            tvError.text = resources.getString(R.string.error_password_not_match_repeat_password)
             tvError.setBackgroundResource(R.drawable.border_text_view_error)
             return false
         }
@@ -96,8 +136,8 @@ class SignUpActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapC
             tvError.text = resources.getString(R.string.error_age)
             tvError.setBackgroundResource(R.drawable.border_text_view_error)
         }
-        if (!UserValidate.phoneValidate(phone)) {
-            tvError.text = resources.getString(R.string.error_phone)
+        if (!UserValidate.mailValidate(mail)) {
+            tvError.text = resources.getString(R.string.error_mail)
             tvError.setBackgroundResource(R.drawable.border_text_view_error)
         }
         if (!UserValidate.nameValidate(name)) {
@@ -109,6 +149,26 @@ class SignUpActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapC
             tvError.setBackgroundResource(R.drawable.border_text_view_error)
         }
         return true
+    }
+
+    private fun uploadImage() {
+        val storageRef = storage.getReferenceFromUrl(URL_IMAGE.trim())
+        val calendar = Calendar.getInstance()
+        val mountainsRef = storageRef.child("${calendar.timeInMillis}.png")
+        imgAvatar.isDrawingCacheEnabled = true
+        imgAvatar.buildDrawingCache()
+        val bitmap = (imgAvatar.drawable as BitmapDrawable).bitmap
+        val baos = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos)
+        val data = baos.toByteArray()
+        val uploadTask = mountainsRef.putBytes(data)
+        uploadTask.addOnFailureListener {
+            Toast.makeText(this, resources.getString(R.string.error_upload_image), Toast.LENGTH_SHORT).show()
+        }.addOnSuccessListener { p0 ->
+            p0?.uploadSessionUri?.let {
+                avatar = it.toString()
+            }
+        }
     }
 
     private fun dialog() {
@@ -148,14 +208,12 @@ class SignUpActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapC
                 if (data.extras != null) {
                     val bp = data.extras!!.get("data") as Bitmap
                     imgAvatar.setImageBitmap(bp)
-                    avatar=bp
                 }
             } else {
                 uri = data.data
                 try {
                     val bp = MediaStore.Images.Media.getBitmap(this.contentResolver, uri)
                     imgAvatar.setImageBitmap(bp)
-                    avatar=bp
                 } catch (e: IOException) {
                     Toast.makeText(this, "Error load gallery!", Toast.LENGTH_SHORT).show()
                 }
