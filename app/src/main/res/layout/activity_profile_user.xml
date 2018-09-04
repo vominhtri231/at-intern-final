@@ -10,7 +10,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".ui.LoginActivity">
+    tools:context=".ui.ProfileUserActivity">
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -25,44 +25,71 @@
         android:layout_height="match_parent">
 
         <LinearLayout
-            android:id="@+id/llLoginForm"
+            android:id="@+id/llEmailLoginForm"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:gravity="center"
             android:orientation="vertical">
 
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/imgAvatar"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginBottom="20dp"
+                android:src="@drawable/img_avatar" />
+
             <EditText
+                android:enabled="false"
                 android:id="@+id/edtMail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/prompt_mail"
-                android:inputType="textEmailAddress" />
+                android:inputType="textEmailAddress"
+                tools:targetApi="cupcake" />
 
             <EditText
+                android:enabled="false"
                 android:id="@+id/edtPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/prompt_password"
-                android:inputType="textPassword" />
+                android:inputType="textPassword"
+                tools:targetApi="cupcake" />
+
+            <EditText
+                android:enabled="false"
+                android:id="@+id/edtName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/prompt_name"
+                android:inputType="text"
+                tools:targetApi="cupcake" />
+
+            <EditText
+                android:enabled="false"
+                android:id="@+id/edtAge"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/prompt_age"
+                android:inputType="number"
+                tools:targetApi="cupcake" />
+
+            <fragment
+                android:id="@+id/fragmentMap"
+                android:name="com.google.android.gms.maps.MapFragment"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:layout_marginBottom="20dp" />
 
             <Button
-                android:id="@+id/btnLogin"
+                android:id="@+id/btnSignUp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:background="@color/colorBlueZodiac"
-                android:text="@string/action_login"
+                android:text="@string/action_edit"
                 android:textColor="@color/colorWhite"
                 android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/tvSignUp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16sp"
-                android:gravity="center_horizontal"
-                android:text="@string/action_register"
-                android:textSize="@dimen/text_size_text_view" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

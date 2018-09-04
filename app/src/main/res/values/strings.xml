@@ -1,9 +1,11 @@
 <resources>
     <string name="app_name">2018SummerFinal</string>
-    <string name="prompt_phone">Phone</string>
+    <string name="prompt_mail">Email</string>
     <string name="prompt_password">Password</string>
     <string name="action_login">Login</string>
     <string name="action_register">Register?</string>
+    <string name="action_sign_up">Sign up</string>
+    <string name="action_edit">Edit</string>
     <string name="loading_name_app">English Music</string>
     <string name="loading_progress1">loading progress</string>
     <string name="loading_decription_logo">imageview</string>
@@ -11,7 +13,6 @@
     <string name="home_minibar_test_name_song">Co gai den tu hom qua</string>
     <string name="home_minibar_test_name_author">My Tam</string>
     <string name="todo">TODO</string>
-    <string name="action_sign_up">Sign up</string>
     <string name="prompt_repeat_password">Repeat Password</string>
     <string name="prompt_name">Name</string>
     <string name="prompt_age">Age</string>
@@ -24,4 +25,12 @@
     <string name="date_time">04/08/2018</string>
     <string name="add_album">Add album</string>
     <string name="avatar_article">Avatar article</string>
+    <string name="error_password">Password is 6 or more character and only contains letter and number </string>
+    <string name="error_name">Name is fail format</string>
+    <string name="error_mail">Mail is fail format</string>
+    <string name="error_age">Age is fail</string>
+    <string name="error_password_not_match_repeat_password">Password is not match repeat password</string>
+    <string name="error_not_enough_information">Please, fill up your information</string>
+    <string name="error_sign_up">Sign up failed</string>
+    <string name="error_upload_image">Upload avatar image is fail</string>
 </resources>
