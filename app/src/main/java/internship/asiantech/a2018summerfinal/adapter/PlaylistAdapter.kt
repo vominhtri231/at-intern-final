@@ -11,7 +11,7 @@ class PlaylistAdapter( listPlaylist : MutableList<Music>) : RecyclerView.Adapter
     private var mlistPlayList : MutableList<Music> = listPlaylist
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val view  = LayoutInflater.from(parent.context).inflate(R.layout.fragment_playlist, parent,false)
+        val view  = LayoutInflater.from(parent.context).inflate(R.layout.viewholder_playlist_item, parent,false)
         return PlaylistViewHolder(view)
     }
 
@@ -22,10 +22,5 @@ class PlaylistAdapter( listPlaylist : MutableList<Music>) : RecyclerView.Adapter
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         onBindViewHolder(holder as PlaylistViewHolder,position)
-
-
-    }
-    private fun onBindViewHolder(playlistViewHolder: PlaylistViewHolder,position: Int){
-
     }
 }

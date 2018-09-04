@@ -8,8 +8,9 @@ import internship.asiantech.a2018summerfinal.R
 import kotlinx.android.synthetic.main.fragment_playlist.view.*
 
 class PlaylistViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
-    val tvCountPlaylist : TextView? = itemView?.findViewById(R.id.tvCountPlaylist)
-    val imgAddPlaylist : ImageButton? = itemView?.findViewById(R.id.imgAddPlaylist)
-    val imgChangePlaylist : ImageButton? = itemView?.findViewById(R.id.imgChangePlaylist)
+    val tvNamePlaylist : TextView? = itemView?.findViewById(R.id.tvNamePlaylist)
+    val tvCountSongOfPlaylist : TextView? = itemView?.findViewById(R.id.tvCountSongOfPlaylist)
+
+
 
 }
