@@ -20,4 +20,7 @@
     <string name="toolbar_text_libary">Thư viện nhạc</string>
     <string name="description_menu">menu</string>
     <string name="log_out">Logout</string>
+    <string name="play_list">playlist</string>
+    <string name="tao_moi">tạo mới</string>
+    <string name="chinh_sua">chỉnh sửa</string>
 </resources>
