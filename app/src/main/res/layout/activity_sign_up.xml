@@ -39,11 +39,11 @@
                 android:src="@drawable/img_avatar" />
 
             <EditText
-                android:id="@+id/edtPhone"
+                android:id="@+id/edtMail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/prompt_phone"
-                android:inputType="phone" />
+                android:hint="@string/prompt_mail"
+                android:inputType="textEmailAddress" />
 
             <EditText
                 android:id="@+id/edtPassword"
@@ -75,10 +75,21 @@
 
             <fragment
                 android:id="@+id/fragmentMap"
-                android:name="com.google.android.gms.maps.MapFragment"
+                android:name="com.google.android.gms.maps.SupportMapFragment"
                 android:layout_width="match_parent"
-                android:layout_height="250dp"
+                android:layout_height="800dp"
                 android:layout_marginBottom="20dp" />
+
+            <TextView
+                android:id="@+id/tvError"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:paddingBottom="6dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:paddingTop="6dp"
+                android:textColor="@color/colorMonza" />
 
             <Button
                 android:id="@+id/btnSignUp"
