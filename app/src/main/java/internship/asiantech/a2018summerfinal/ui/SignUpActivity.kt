@@ -24,20 +24,16 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
 import internship.asiantech.a2018summerfinal.R
 import internship.asiantech.a2018summerfinal.model.User
-import internship.asiantech.a2018summerfinal.validate.UserValidate
 import kotlinx.android.synthetic.main.activity_sign_up.*
 import java.io.ByteArrayOutputStream
 import java.io.IOException
 import java.util.*
+import java.util.regex.Pattern
 
 
 @Suppress("DEPRECATED_IDENTITY_EQUALS", "UNUSED_EXPRESSION")
 class SignUpActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapClickListener {
     private lateinit var map: GoogleMap
-    private lateinit var mail: String
-    private lateinit var name: String
-    private lateinit var password: String
-    private lateinit var repeatPassword: String
     private var avatar: String = ""
     private var age: Int = 0
     private var location: LatLng = LatLng(16.0544, 108.2022)
@@ -52,6 +48,33 @@ class SignUpActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapC
         const val MAIL_KEY = "mail"
     }
 
+    object UserValidate{
+        fun mailValidate(mail: String): Boolean {
+            val validateMail =
+                    Pattern.compile("^[a-zA-Z]+[a-zA-Z0-9._%+-]*+@[a-zA-Z0-9]+\\.[a-zA-Z]{2,6}$", Pattern.CASE_INSENSITIVE)
+            val matcher = validateMail.matcher(mail)
+            return matcher.find()
+        }
+
+        fun nameValidate(name: String): Boolean {
+            val validatePhone =
+                    Pattern.compile("[a-zA-Z]{2,40}$", Pattern.CASE_INSENSITIVE)
+            val matcher = validatePhone.matcher(name)
+            return matcher.find()
+        }
+
+        fun passwordValidate(password: String): Boolean {
+            val validatePhone =
+                    Pattern.compile("[a-zA-Z0-9]{6,}", Pattern.CASE_INSENSITIVE)
+            val matcher = validatePhone.matcher(password)
+            return matcher.find()
+        }
+
+        fun ageValidate(age: Int): Boolean {
+            return age in 10..100
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up)
@@ -59,17 +82,17 @@ class SignUpActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapC
                 .findFragmentById(R.id.fragmentMap) as SupportMapFragment?
         mapFragment?.getMapAsync(this)
         btnSignUp.setOnClickListener {
-            mail = edtMail.text.toString()
-            name = edtName.text.toString()
-            password = edtPassword.text.toString()
-            repeatPassword = edtRepeatPassword.text.toString()
+           val mail = edtMail.text.toString()
+           val name = edtName.text.toString()
+           val password = edtPassword.text.toString()
+           val repeatPassword = edtRepeatPassword.text.toString()
             val ageString = edtAge.text.toString()
             if (checkUser(mail, name, password, repeatPassword, ageString)) {
-                signUp()
+                signUp(mail, password, name)
             }
         }
         imgAvatar.setOnClickListener {
-            dialog()
+            createDialog()
         }
     }
 
@@ -88,11 +111,11 @@ class SignUpActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapC
         map.moveCamera(CameraUpdateFactory.newLatLng(location))
     }
 
-    private fun signUp() {
+    private fun signUp(mail: String, password: String, name: String) {
         auth?.createUserWithEmailAndPassword(mail, password)
                 ?.addOnCompleteListener(this) { task ->
                     if (task.isSuccessful) {
-                        createUser()
+                        insertUser(mail, name, password)
                         val intent = Intent(this, LoginActivity::class.java)
                         intent.putExtra(MAIL_KEY, mail)
                         setResult(LoginActivity.REQUEST_CODE, intent)
@@ -104,7 +127,7 @@ class SignUpActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapC
                 }
     }
 
-    private fun createUser() {
+    private fun insertUser(mail: String, name: String, password: String) {
         uploadImage()
         var idUser = ""
         database.child("Users").push().key?.let {
@@ -171,7 +194,7 @@ class SignUpActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapC
         }
     }
 
-    private fun dialog() {
+    private fun createDialog() {
         val items = arrayOf("Camera", "Gallery")
         val adapter = ArrayAdapter(this, android.R.layout.select_dialog_item, items)
         val builder = AlertDialog.Builder(this)
@@ -206,7 +229,7 @@ class SignUpActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapC
             val uri: Uri?
             if (requestCode == PICK_FROM_CAMERA) {
                 if (data.extras != null) {
-                    val bp = data.extras!!.get("data") as Bitmap
+                    val bp = data.extras?.get("data") as Bitmap
                     imgAvatar.setImageBitmap(bp)
                 }
             } else {
