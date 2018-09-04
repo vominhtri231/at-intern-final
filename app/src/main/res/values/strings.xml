@@ -22,4 +22,6 @@
     <string name="log_out">Logout</string>
     <string name="album">Album</string>
     <string name="date_time">04/08/2018</string>
+    <string name="add_album">Add album</string>
+    <string name="avatar_article">Avatar article</string>
 </resources>
