@@ -20,4 +20,6 @@
     <string name="toolbar_text_libary">Thư viện nhạc</string>
     <string name="description_menu">menu</string>
     <string name="log_out">Logout</string>
+    <string name="album">Album</string>
+    <string name="date_time">04/08/2018</string>
 </resources>

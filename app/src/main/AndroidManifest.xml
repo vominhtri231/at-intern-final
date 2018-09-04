@@ -17,7 +17,6 @@
             android:value="@string/map_api_key" />
 
         <activity android:name=".librarysong.ListMusicActivity">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -27,6 +26,7 @@
         <activity android:name=".MainActivity" />
         <activity android:name=".ui.LoginActivity" />
         <activity android:name=".ui.SignUpActivity" />
+        <activity android:name=".ui.ListAlbumActivity"/>
     </application>
 
 </manifest>
