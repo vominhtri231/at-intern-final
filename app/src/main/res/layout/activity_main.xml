@@ -15,4 +15,10 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <internship.asiantech.a2018summerfinal.ui.CircleImage
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/img_avatar_2"
+        app:isRunning="true" />
+
 </android.support.constraint.ConstraintLayout>
