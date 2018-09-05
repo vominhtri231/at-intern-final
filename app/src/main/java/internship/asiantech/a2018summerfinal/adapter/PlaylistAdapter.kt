@@ -7,8 +7,7 @@ import internship.asiantech.a2018summerfinal.R
 import internship.asiantech.a2018summerfinal.model.Music
 import internship.asiantech.a2018summerfinal.viewholder.PlaylistViewHolder
 
-class PlaylistAdapter( listPlaylist : MutableList<Music>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    private var mlistPlayList : MutableList<Music> = listPlaylist
+class PlaylistAdapter(var listPlaylist : MutableList<Music>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val view  = LayoutInflater.from(parent.context).inflate(R.layout.viewholder_playlist_item, parent,false)
@@ -16,7 +15,7 @@ class PlaylistAdapter( listPlaylist : MutableList<Music>) : RecyclerView.Adapter
     }
 
     override fun getItemCount(): Int {
-        return mlistPlayList.size
+        return listPlaylist.size
 
     }
 
