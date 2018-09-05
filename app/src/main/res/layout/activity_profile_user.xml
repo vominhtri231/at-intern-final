@@ -40,11 +40,11 @@
 
             <EditText
                 android:enabled="false"
-                android:id="@+id/edtPhone"
+                android:id="@+id/edtMail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/prompt_phone"
-                android:inputType="phone" />
+                android:hint="@string/prompt_mail"
+                android:inputType="textEmailAddress" />
 
             <EditText
                 android:enabled="false"
