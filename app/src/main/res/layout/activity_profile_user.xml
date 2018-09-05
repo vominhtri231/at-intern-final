@@ -39,34 +39,34 @@
                 android:src="@drawable/img_avatar" />
 
             <EditText
-                android:enabled="false"
                 android:id="@+id/edtMail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:enabled="false"
                 android:hint="@string/prompt_mail"
                 android:inputType="textEmailAddress" />
 
             <EditText
-                android:enabled="false"
                 android:id="@+id/edtPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:enabled="false"
                 android:hint="@string/prompt_password"
                 android:inputType="textPassword" />
 
             <EditText
-                android:enabled="false"
                 android:id="@+id/edtName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:enabled="false"
                 android:hint="@string/prompt_name"
                 android:inputType="text" />
 
             <EditText
-                android:enabled="false"
                 android:id="@+id/edtAge"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:enabled="false"
                 android:hint="@string/prompt_age"
                 android:inputType="number" />
 
