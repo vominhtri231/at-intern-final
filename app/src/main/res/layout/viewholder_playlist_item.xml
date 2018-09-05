@@ -7,7 +7,7 @@
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:background="@drawable/ic_playlist"
-        android:contentDescription="@string/todo" />
+        android:contentDescription="@string/imageview" />
 
     <LinearLayout
         android:layout_width="wrap_content"
