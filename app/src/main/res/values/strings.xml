@@ -23,7 +23,7 @@
     <string name="description_menu">menu</string>
     <string name="log_out">Logout</string>
     <string name="play_list">playlist</string>
-    <string name="tao_moi">create new</string>
+    <string name="create_new">create new</string>
     <string name="change_playlist">Change Playlist</string>
     <string name="error_password">Password is 6 or more character and only contains letter and number </string>
     <string name="error_name">Name is fail format</string>
