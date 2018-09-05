@@ -1,18 +1,32 @@
 <resources>
     <string name="app_name">2018SummerFinal</string>
-    <string name="prompt_phone">Phone</string>
+    <string name="prompt_mail">Email</string>
     <string name="prompt_password">Password</string>
     <string name="action_login">Login</string>
     <string name="action_register">Register?</string>
+    <string name="action_sign_up">Sign up</string>
+    <string name="action_edit">Edit</string>
+    <string name="loading_name_app">English Music</string>
+    <string name="loading_progress1">loading progress</string>
+    <string name="loading_decription_logo">imageview</string>
     <string name="minibar_time_default">00:00</string>
     <string name="home_minibar_test_name_song">Co gai den tu hom qua</string>
     <string name="home_minibar_test_name_author">My Tam</string>
     <string name="todo">TODO</string>
-    <string name="action_sign_up">Sign up</string>
     <string name="prompt_repeat_password">Repeat Password</string>
     <string name="prompt_name">Name</string>
     <string name="prompt_age">Age</string>
     <string name="map_api_key">AIzaSyAFYsveOdOJB25LC0BgwpoqSwgj4KejkrE</string>
     <string name="description_menu">menu</string>
     <string name="log_out">Logout</string>
+    <string name="toolbar_text_hint_search">Nhập Tên bài hát, ca sĩ</string>
+    <string name="toolbar_text_libary">Thư viện nhạc</string>
+    <string name="error_password">Password is 6 or more character and only contains letter and number </string>
+    <string name="error_name">Name is fail format</string>
+    <string name="error_mail">Mail is fail format</string>
+    <string name="error_age">Age is fail</string>
+    <string name="error_password_not_match_repeat_password">Password is not match repeat password</string>
+    <string name="error_not_enough_information">Please, fill up your information</string>
+    <string name="error_sign_up">Sign up failed</string>
+    <string name="error_upload_image">Upload avatar image is fail</string>
 </resources>

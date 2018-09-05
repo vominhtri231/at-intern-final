@@ -10,8 +10,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".ui.LoginActivity">
-    tools:context=".ui.SignUpActivity">
+    tools:context=".ui.ProfileUserActivity">
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -40,18 +39,15 @@
                 android:src="@drawable/img_avatar" />
 
             <EditText
-                android:id="@+id/edtMail"
+                android:enabled="false"
+                android:id="@+id/edtPhone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/prompt_mail"
-                android:inputType="textEmailAddress" />
-            android:id="@+id/edtMail"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/prompt_mail"
-            android:inputType="textEmailAddress" />
+                android:inputType="phone" />
 
             <EditText
+                android:enabled="false"
                 android:id="@+id/edtPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -59,13 +55,7 @@
                 android:inputType="textPassword" />
 
             <EditText
-                android:id="@+id/edtRepeatPassword"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/prompt_repeat_password"
-                android:inputType="textPassword" />
-
-            <EditText
+                android:enabled="false"
                 android:id="@+id/edtName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -73,6 +63,7 @@
                 android:inputType="text" />
 
             <EditText
+                android:enabled="false"
                 android:id="@+id/edtAge"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -85,21 +76,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
                 android:layout_marginBottom="20dp" />
-            android:name="com.google.android.gms.maps.SupportMapFragment"
-            android:layout_width="match_parent"
-            android:layout_height="800dp"
-            android:layout_marginBottom="20dp" />
-
-            <TextView
-                android:id="@+id/tvError"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:paddingBottom="6dp"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
-                android:paddingTop="6dp"
-                android:textColor="@color/colorMonza" />
 
             <Button
                 android:id="@+id/btnSignUp"
@@ -107,7 +83,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:background="@color/colorBlueZodiac"
-                android:text="@string/action_sign_up"
+                android:text="@string/action_edit"
                 android:textColor="@color/colorWhite"
                 android:textStyle="bold" />
         </LinearLayout>

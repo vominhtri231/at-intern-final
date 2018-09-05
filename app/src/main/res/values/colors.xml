@@ -6,8 +6,12 @@
     <color name="colorBlueZodiac">#102F51</color>
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorNepal">#90AAC6</color>
+    <color name="colorBrightTurquoise">#22F1EF</color>
+    <color name="colorBlack">#000000</color>
+    <color name="colorAzureRadiance">#0080FF</color>
     <color name="colorMineShaft">#262323</color>
     <color name="colorDarkGray">#E0E0E0</color>
     <color name="colorSirocco">#60FFFFFF</color>
     <color name="colorShades">#2BBDC0</color>
+    <color name="colorMonza">#CA000D</color>
 </resources>
