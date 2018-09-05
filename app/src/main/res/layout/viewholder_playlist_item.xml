@@ -26,7 +26,7 @@
             android:id="@+id/tvCountSongOfPlaylist"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/bai_hat"
+            android:text="@string/song"
             android:textColor="@color/colorNepal"
             android:textSize="20sp" />
 

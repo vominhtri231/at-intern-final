@@ -51,7 +51,7 @@
         android:layout_height="wrap_content"
         android:paddingStart="10dp"
         android:paddingEnd="5dp"
-        android:text="@string/chinh_sua"
+        android:text="@string/change_playlist"
         android:textSize="20sp" />
     </LinearLayout>
     <android.support.v7.widget.RecyclerView
