@@ -39,12 +39,12 @@
                 android:src="@drawable/img_avatar" />
 
             <EditText
-                android:id="@+id/edtPhone"
+                android:id="@+id/edtMail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:enabled="false"
                 android:hint="@string/prompt_mail"
-                android:inputType="phone" />
+                android:inputType="textEmailAddress" />
 
             <EditText
                 android:id="@+id/edtPassword"

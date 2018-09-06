@@ -32,6 +32,7 @@
     <string name="error_password_not_match_repeat_password">Password is not match repeat password</string>
     <string name="error_not_enough_information">Please, fill up your information</string>
     <string name="error_sign_up">Sign up failed</string>
-    <string name="error_upload_image">Upload avatar image is fail</string>
+    <string name="error_upload_image">Upload avatar image is failed</string>
+    <string name="error_login">Login fail</string>
     <string name="song">song</string>
 </resources>
