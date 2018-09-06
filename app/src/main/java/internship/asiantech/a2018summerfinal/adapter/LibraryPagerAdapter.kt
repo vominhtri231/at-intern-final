@@ -3,7 +3,7 @@ package internship.asiantech.a2018summerfinal.adapter
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentStatePagerAdapter
-import internship.asiantech.a2018summerfinal.fragment.AlbumFragment
+import internship.asiantech.a2018summerfinal.fragment.PlaylistFragment
 import internship.asiantech.a2018summerfinal.fragment.FavouriteFragment
 import internship.asiantech.a2018summerfinal.fragment.HistoryFragment
 import internship.asiantech.a2018summerfinal.fragment.ListSongsFragment
@@ -22,7 +22,7 @@ class LibraryPagerAdapter(fm: FragmentManager?) : FragmentStatePagerAdapter(fm) 
 
     private fun addFragment() {
         mListFragment.add(ListSongsFragment())
-        mListFragment.add(AlbumFragment())
+        mListFragment.add(PlaylistFragment())
         mListFragment.add(FavouriteFragment())
         mListFragment.add(HistoryFragment())
     }
