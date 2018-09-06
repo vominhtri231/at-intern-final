@@ -8,7 +8,7 @@
         android:id="@+id/imgHomeQuickplayer"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:contentDescription="@string/todo"
+        android:contentDescription="@string/play_list"
         android:src="@drawable/ic_quickplayer_blue" />
 
     <LinearLayout
