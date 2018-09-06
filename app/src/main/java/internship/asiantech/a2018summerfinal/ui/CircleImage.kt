@@ -15,7 +15,6 @@ import java.lang.ref.WeakReference
 import kotlin.properties.Delegates
 
 class CircleImage : ImageView {
-
     private val rect: RectF = RectF()
     private val bitmapPaint: Paint = Paint()
 
@@ -28,11 +27,12 @@ class CircleImage : ImageView {
     private var bitmapHeight: Int = 0
     private var radius: Float = 0f
 
+
     private var angle = 0
     private var angleStep = 2
     private var rotateMaker: RotateMaker? = null
-    var isRunning by Delegates.observable(false) { _, _, new: Boolean ->
-        if (!new) {
+    var isRunning by Delegates.observable(false) { _, _, newState: Boolean ->
+        if (!newState) {
             rotateMaker?.endRotate()
         } else {
             rotateMaker = RotateMaker(this)
