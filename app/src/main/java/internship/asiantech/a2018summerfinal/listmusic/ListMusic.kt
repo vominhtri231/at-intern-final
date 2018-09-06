@@ -48,6 +48,7 @@ class ListMusic(private val context: Context) {
                         listMusics?.add(Music(thisId, thisTitle, thisArtist, duration))
                     } while (musicCursor.moveToNext())
                 }
+                musicCursor.close()
             }
         }
         return listMusics as ArrayList<Music>
