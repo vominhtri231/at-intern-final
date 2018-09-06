@@ -1,0 +1,6 @@
+<resources>
+    <declare-styleable name="CircleImage">
+        <attr name="isRunning" format="boolean" />
+        <attr name="angleStep" format="integer" />
+    </declare-styleable>
+</resources>
