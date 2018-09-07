@@ -4,6 +4,7 @@ import android.arch.persistence.room.ColumnInfo
 import android.arch.persistence.room.Entity
 import android.arch.persistence.room.ForeignKey
 import android.arch.persistence.room.PrimaryKey
+import org.jetbrains.annotations.NotNull
 
 @Entity(tableName = "playlist_song",
         foreignKeys = arrayOf(
@@ -20,10 +21,12 @@ import android.arch.persistence.room.PrimaryKey
 
 data class PlaylistSong(
         @PrimaryKey
+        @NotNull
         @ColumnInfo(name = "playlist_name")
         var playlistName: String = "",
 
         @PrimaryKey
+        @NotNull
         @ColumnInfo(name = "song_id")
         var songId: String = ""
 )

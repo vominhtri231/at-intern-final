@@ -1,4 +1,4 @@
-package internship.asiantech.a2018summerfinal.database.DAO
+package internship.asiantech.a2018summerfinal.database.dao
 
 import android.arch.persistence.room.Dao
 import android.arch.persistence.room.Insert

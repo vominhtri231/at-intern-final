@@ -1,6 +1,9 @@
-package internship.asiantech.a2018summerfinal.database.DAO
+package internship.asiantech.a2018summerfinal.database.dao
 
-import android.arch.persistence.room.*
+import android.arch.persistence.room.Dao
+import android.arch.persistence.room.Insert
+import android.arch.persistence.room.OnConflictStrategy
+import android.arch.persistence.room.Query
 import internship.asiantech.a2018summerfinal.database.model.Song
 
 @Dao
@@ -12,12 +15,6 @@ interface SongDAO {
     @Insert(onConflict = OnConflictStrategy.ABORT)
     fun addSong(song: Song)
 
-    @Insert(onConflict = OnConflictStrategy.ABORT)
-    fun addAllSong(songs: List<Song>)
-
     @Query("Delete from song where id= :id")
     fun deleteSongWithId(id: String)
-
-    @Update(onConflict = OnConflictStrategy.REPLACE)
-    fun updateSong(song: Song)
 }
