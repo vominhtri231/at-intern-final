@@ -2,15 +2,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginLeft="@dimen/activity_vertical_margin"
-    android:layout_marginRight="@dimen/activity_vertical_margin"
     android:gravity="center_vertical"
+    android:background="@color/colorShades"
     android:weightSum="1">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/imgAvatar"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_margin="10dp"
         android:src="@drawable/img_avatar" />
 
@@ -18,7 +17,8 @@
         android:id="@+id/tvName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
         android:layout_weight="1"
         android:text="@string/prompt_name" />
 
@@ -26,7 +26,7 @@
         android:id="@+id/btnLogout"
         android:layout_width="60dp"
         android:layout_height="30dp"
-        android:layout_marginEnd="@dimen/activity_vertical_margin"
+        android:layout_marginEnd="5dp"
         android:background="@color/colorBlueZodiac"
         android:text="@string/log_out"
         android:textColor="@color/colorWhite" />

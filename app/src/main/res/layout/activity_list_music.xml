@@ -5,81 +5,98 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
+    <android.support.v4.widget.DrawerLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <android.support.design.widget.AppBarLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbarPlayMusicOffline"
+            <android.support.design.widget.AppBarLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/colorAzureRadiance">
+                android:layout_height="wrap_content">
 
-                <Button
-                    android:id="@+id/btnToolBarButtonBack"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:background="@drawable/ic_back" />
-
-                <TextView
-                    android:id="@+id/tvToolBarName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="25dp"
-                    android:text="@string/toolbar_text_libary"
-                    android:textColor="@color/colorWhite"
-                    android:textSize="20sp" />
-
-                <Button
-                    android:id="@+id/btnToolBarButtonSearch"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:layout_gravity="end"
-                    android:layout_marginEnd="30dp"
-                    android:background="@drawable/ic_search" />
-
-                <EditText
-                    android:id="@+id/edtToolBarSearch"
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/toolbarPlayMusicOffline"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginTop="5dp"
-                    android:backgroundTint="@color/colorNepal"
-                    android:hint="@string/toolbar_text_hint_search"
-                    android:inputType="text"
-                    android:maxLines="1"
-                    android:visibility="gone"
-                    tools:ignore="UnusedAttribute" />
-            </android.support.v7.widget.Toolbar>
-        </android.support.design.widget.AppBarLayout>
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorAzureRadiance">
 
-        <android.support.design.widget.AppBarLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+                    <Button
+                        android:id="@+id/btnToolBarButtonBack"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:background="@drawable/ic_back" />
 
-            <android.support.design.widget.TabLayout
-                android:id="@+id/tabLayout"
+                    <TextView
+                        android:id="@+id/tvToolBarName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="25dp"
+                        android:text="@string/toolbar_text_libary"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="20sp" />
+
+                    <Button
+                        android:id="@+id/btnToolBarButtonSearch"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_gravity="end"
+                        android:layout_marginEnd="30dp"
+                        android:background="@drawable/ic_search" />
+
+                    <EditText
+                        android:id="@+id/edtToolBarSearch"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="5dp"
+                        android:backgroundTint="@color/colorNepal"
+                        android:hint="@string/toolbar_text_hint_search"
+                        android:inputType="text"
+                        android:maxLines="1"
+                        android:visibility="gone"
+                        tools:ignore="UnusedAttribute" />
+                </android.support.v7.widget.Toolbar>
+            </android.support.design.widget.AppBarLayout>
+
+            <android.support.design.widget.AppBarLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:background="@color/colorWhite"
-                app:tabIndicatorColor="@color/colorBrightTurquoise"
-                app:tabMode="fixed"
-                app:tabTextColor="@color/colorBlack">
+                android:layout_height="wrap_content">
 
-            </android.support.design.widget.TabLayout>
-        </android.support.design.widget.AppBarLayout>
+                <android.support.design.widget.TabLayout
+                    android:id="@+id/tabLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/colorWhite"
+                    app:tabIndicatorColor="@color/colorBrightTurquoise"
+                    app:tabMode="fixed"
+                    app:tabTextColor="@color/colorBlack">
 
-        <android.support.v4.view.ViewPager
-            android:id="@+id/viewPager"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+                </android.support.design.widget.TabLayout>
+            </android.support.design.widget.AppBarLayout>
 
-        </android.support.v4.view.ViewPager>
-    </LinearLayout>
+            <android.support.v4.view.ViewPager
+                android:id="@+id/viewPager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </android.support.v4.view.ViewPager>
+        </LinearLayout>
+
+        <LinearLayout
+            android:background="@color/colorWhite"
+            android:layout_width="300dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="start">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerViewMenu"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+    </android.support.v4.widget.DrawerLayout>
 </android.support.design.widget.CoordinatorLayout>
