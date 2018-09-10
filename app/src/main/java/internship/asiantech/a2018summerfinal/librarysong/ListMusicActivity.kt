@@ -23,7 +23,7 @@ class ListMusicActivity : AppCompatActivity() {
     private var mLibraryPagerAdapter: LibraryPagerAdapter = LibraryPagerAdapter(supportFragmentManager)
     private lateinit var drawerLayoutAdapter: DrawerLayoutAdapter
     private val menuItems : List<MenuItem> = ArrayList()
-    private val users : ArrayList<User> = ArrayList()
+    private val users : MutableList<User> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
