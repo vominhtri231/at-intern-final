@@ -13,12 +13,8 @@ import android.support.v4.app.ActivityCompat
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.text.Editable
-import android.text.InputType
-import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
-import android.widget.EditText
-import android.widget.FrameLayout
 import android.widget.Toast
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -85,8 +81,6 @@ class ProfileUserActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.O
         val oldPassword = edtPassword.text.toString()
         val newPassword = edtNewPassword.text.toString()
         val repeatPassword = edtRepeatPassword.text.toString()
-        Log.d("aaa", newPassword + "assd")
-
         val ageString = edtAge.text.toString()
         if (checkUser(name, oldPassword, newPassword, repeatPassword, ageString)) {
             resetPassword(newPassword)
