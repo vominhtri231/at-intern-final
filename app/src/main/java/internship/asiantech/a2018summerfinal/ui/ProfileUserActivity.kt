@@ -103,8 +103,8 @@ class ProfileUserActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.O
             edtName.isEnabled = false
             edtAge.isEnabled = false
             edtPassword.isEnabled = false
-//            edtNewPassword.visibility = View.VISIBLE
-//            edtRepeatPassword.visibility = View.VISIBLE
+            edtNewPassword.visibility = View.GONE
+            edtRepeatPassword.visibility = View.GONE
             edtPassword.text = Editable.Factory.getInstance().newEditable(newPassword)
         } else {
             isSave = false
