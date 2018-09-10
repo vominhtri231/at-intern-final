@@ -12,6 +12,7 @@ import internship.asiantech.a2018summerfinal.librarysong.ListMusicActivity
 import kotlinx.android.synthetic.main.activity_login.*
 import com.google.firebase.analytics.FirebaseAnalytics.Event.LOGIN
 import com.google.firebase.database.*
+import com.google.gson.Gson
 import internship.asiantech.a2018summerfinal.model.SingletonUser
 import internship.asiantech.a2018summerfinal.model.User
 
@@ -21,6 +22,7 @@ class LoginActivity : AppCompatActivity() {
         private const val LOGIN_KEY = "is login"
         private const val MAIL_KEY = "mail"
         private const val PASSWORD_KEY = "password"
+        const val USER = "user"
     }
 
     private val auth = FirebaseAuth.getInstance()
@@ -80,11 +82,13 @@ class LoginActivity : AppCompatActivity() {
                 .addOnCompleteListener(this) { task ->
                     if (task.isSuccessful) {
                         getCurrentUser(mail, password)
-                        val intent = Intent(this, ListMusicActivity::class.java)
+                        val intent = Intent(this, ProfileUserActivity::class.java)
                         startActivity(intent)
                     } else {
-                        tvError.text = resources.getString(R.string.error_password)
-                        tvError.setBackgroundResource(R.drawable.border_text_view_error)
+                        if (tvError != null) {
+                            tvError.text = resources.getString(R.string.error_password)
+                            tvError.setBackgroundResource(R.drawable.border_text_view_error)
+                        }
                     }
                 }
     }
@@ -115,6 +119,10 @@ class LoginActivity : AppCompatActivity() {
                     SingletonUser.instance.avatar = user.avatar
                     SingletonUser.instance.latitude = user.latitude
                     SingletonUser.instance.longitude = user.longitude
+                    val gson = Gson()
+                    val json = gson.toJson(user)
+                    editor.putString(USER, json)
+                    editor.commit()
                 }
             }
 
