@@ -1,10 +1,12 @@
 package internship.asiantech.a2018summerfinal.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
@@ -12,6 +14,7 @@ import de.hdodenhof.circleimageview.CircleImageView
 import internship.asiantech.a2018summerfinal.R
 import internship.asiantech.a2018summerfinal.model.MenuItem
 import internship.asiantech.a2018summerfinal.model.User
+import internship.asiantech.a2018summerfinal.ui.ProfileUserActivity
 
 internal class DrawerLayoutAdapter(private val menuItemList: List<MenuItem>, private val user: List<User>, private val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun getItemCount(): Int {
@@ -33,7 +36,11 @@ internal class DrawerLayoutAdapter(private val menuItemList: List<MenuItem>, pri
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (position == 0) {
-            Glide.with(context).load(user[0].avatar).into((holder as HeaderItemHolder).imgAvatar)
+            if (user[0].avatar != "") {
+                Glide.with(context).load(user[0].avatar).into((holder as HeaderItemHolder).imgAvatar)
+            } else {
+                (holder as HeaderItemHolder).imgAvatar.setImageResource(R.drawable.img_avatar)
+            }
             holder.tvName.text = user[0].name
         } else {
             (holder as MenuItemHolder).imgItem.setImageResource(menuItemList[position - 1].image)
@@ -57,6 +64,13 @@ internal class DrawerLayoutAdapter(private val menuItemList: List<MenuItem>, pri
     inner class HeaderItemHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val imgAvatar: CircleImageView = itemView.findViewById(R.id.imgAvatar)
         val tvName: TextView = itemView.findViewById(R.id.tvName)
-        val btnLogout: CircleImageView = itemView.findViewById(R.id.btnLogout)
+        val btnLogout: Button = itemView.findViewById(R.id.btnLogout)
+
+        init {
+            imgAvatar.setOnClickListener {
+                val intent = Intent(context, ProfileUserActivity::class.java)
+                context.startActivity(intent)
+            }
+        }
     }
 }

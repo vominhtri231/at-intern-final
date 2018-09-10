@@ -14,6 +14,8 @@ import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.text.Editable
 import android.text.InputType
+import android.util.Log
+import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.FrameLayout
@@ -40,8 +42,6 @@ import java.util.*
 class ProfileUserActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapClickListener {
     private lateinit var map: GoogleMap
     private lateinit var user: User
-    private lateinit var edtNewPassword: EditText
-    private lateinit var edtRepeatPassword: EditText
     private lateinit var location: LatLng
     private lateinit var avatar: String
     private var age: Int = 0
@@ -60,11 +60,9 @@ class ProfileUserActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.O
         initMap()
         initUser()
         btnEdit.setOnClickListener { _ ->
-            edtNewPassword = EditText(this)
-            edtRepeatPassword = EditText(this)
             if (!isSave) {
-                createEditText(edtNewPassword, resources.getString(R.string.prompt_new_password), 5)
-                createEditText(edtRepeatPassword, resources.getString(R.string.prompt_repeat_password), 6)
+                edtNewPassword.visibility = View.VISIBLE
+                edtRepeatPassword.visibility = View.VISIBLE
                 edtName.isEnabled = true
                 edtAge.isEnabled = true
                 edtPassword.isEnabled = true
@@ -87,32 +85,40 @@ class ProfileUserActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.O
         val oldPassword = edtPassword.text.toString()
         val newPassword = edtNewPassword.text.toString()
         val repeatPassword = edtRepeatPassword.text.toString()
+        Log.d("aaa", newPassword + "assd")
+
         val ageString = edtAge.text.toString()
         if (checkUser(name, oldPassword, newPassword, repeatPassword, ageString)) {
-            if (resetPassword(newPassword)) {
-                uploadImage()
-                val userUpdate = User(user.idUser, user.mail, name, newPassword, age, avatar, location.latitude, location.longitude)
-                database.child("Users").child(user.idUser).setValue(userUpdate)
-                btnEdit.text = resources.getString(R.string.action_edit)
-                edtName.isEnabled = false
-                edtAge.isEnabled = false
-                edtPassword.isEnabled = false
-                llProfileUser.removeViewAt(5)
-                llProfileUser.removeViewAt(5)
-            }
-            else{
-                toastError(resources.getString(R.string.error_reset_password))
-            }
+            resetPassword(newPassword)
+            uploadImage()
+            val userUpdate = User(user.idUser, user.mail, name, newPassword, age, avatar, location.latitude, location.longitude)
+            database.child("Users").child(user.idUser).setValue(userUpdate)
+            val sharedPreferences = getSharedPreferences(FirebaseAnalytics.Event.LOGIN, MODE_PRIVATE)
+            val editor = sharedPreferences.edit()
+            val gson = Gson()
+            val json = gson.toJson(userUpdate)
+            editor.putString(LoginActivity.USER, json)
+            editor.apply()
+            btnEdit.text = resources.getString(R.string.action_edit)
+            edtName.isEnabled = false
+            edtAge.isEnabled = false
+            edtPassword.isEnabled = false
+//            edtNewPassword.visibility = View.VISIBLE
+//            edtRepeatPassword.visibility = View.VISIBLE
+            edtPassword.text = Editable.Factory.getInstance().newEditable(newPassword)
+        } else {
+            isSave = false
         }
     }
 
-    private fun resetPassword(newPassword: String): Boolean{
+    private fun resetPassword(newPassword: String) {
         val currentUser = FirebaseAuth.getInstance().currentUser
         currentUser?.updatePassword(newPassword)
-                                    ?.addOnCompleteListener(this){task ->
-                                        task.isSuccessful
-                                    }
-        return false
+                ?.addOnCompleteListener(this) { task ->
+                    if (!task.isSuccessful) {
+                        toastError(resources.getString(R.string.error_reset_password))
+                    }
+                }
     }
 
     private fun checkUser(name: String, oldPassword: String, newPassword: String, repeatPassword: String, ageString: String): Boolean {
@@ -189,14 +195,6 @@ class ProfileUserActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.O
         }
         builder.create()
         builder.show()
-    }
-
-
-    private fun createEditText(edt: EditText, hint: String, index: Int) {
-        edt.layoutParams = FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.WRAP_CONTENT)
-        edt.hint = hint
-        edt.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
-        llProfileUser.addView(edt, index)
     }
 
     private fun initUser() {

@@ -58,6 +58,22 @@
             android:hint="@string/prompt_password"
             android:inputType="textPassword" />
 
+        <EditText
+            android:id="@+id/edtNewPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/prompt_new_password"
+            android:inputType="textPassword"
+            android:visibility="gone" />
+
+        <EditText
+            android:id="@+id/edtRepeatPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/prompt_repeat_password"
+            android:inputType="textPassword"
+            android:visibility="gone" />
+
         <fragment
             android:id="@+id/fragmentMap"
             android:name="com.google.android.gms.maps.SupportMapFragment"

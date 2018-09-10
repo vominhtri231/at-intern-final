@@ -19,9 +19,9 @@ import internship.asiantech.a2018summerfinal.model.User
 class LoginActivity : AppCompatActivity() {
     companion object {
         const val REQUEST_CODE = 100
-        private const val LOGIN_KEY = "is login"
-        private const val MAIL_KEY = "mail"
-        private const val PASSWORD_KEY = "password"
+        const val LOGIN_KEY = "is login"
+        const val MAIL_KEY = "mail"
+        const val PASSWORD_KEY = "password"
         const val USER = "user"
     }
 
@@ -81,7 +81,7 @@ class LoginActivity : AppCompatActivity() {
         auth.signInWithEmailAndPassword(mail, password)
                 .addOnCompleteListener(this) { task ->
                     if (task.isSuccessful) {
-                        getCurrentUser(mail, password)
+                        getCurrentUser(mail)
                         val intent = Intent(this, ProfileUserActivity::class.java)
                         startActivity(intent)
                     } else {
@@ -93,14 +93,9 @@ class LoginActivity : AppCompatActivity() {
                 }
     }
 
-    private fun getCurrentUser(mail: String, password: String) {
+    private fun getCurrentUser(mail: String) {
         val sharedPreferences = getSharedPreferences(LOGIN, MODE_PRIVATE)
         val editor = sharedPreferences.edit()
-        editor.putBoolean(LOGIN_KEY, true)
-        editor.putString(MAIL_KEY, mail)
-        editor.putString(PASSWORD_KEY, password)
-        editor.apply()
-
         database.child("Users").addChildEventListener(object : ValueEventListener, ChildEventListener {
             override fun onChildMoved(p0: DataSnapshot, p1: String?) {
             }
