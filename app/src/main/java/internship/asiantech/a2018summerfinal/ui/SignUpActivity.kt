@@ -134,7 +134,7 @@ class SignUpActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapC
         database.child("Users").push().key?.let {
             idUser = it
         }
-        val user = User(idUser, mail, name, password, age, avatar, location)
+        val user = User(idUser, mail, name, password, age, avatar, location.latitude, location.longitude)
         database.child("Users").child(idUser).setValue(user)
     }
 
