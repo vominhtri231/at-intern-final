@@ -35,7 +35,7 @@ class ListMusic(private val context: Context) {
                         MediaStore.Audio.Media.DURATION,
                         MediaStore.Audio.Media.ALBUM)
                 val musicCursor: Cursor
-                musicCursor = context.contentResolver.query(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, project, selection, null, null)
+                musicCursor = context.contentResolver.query(MediaStore.Audio.Media.INTERNAL_CONTENT_URI, project, selection, null, null)
                 if (musicCursor != null && musicCursor.moveToFirst()) {
                     val titleColumn = musicCursor.getColumnIndex(android.provider.MediaStore.Audio.Media.TITLE)
                     val idColumn = musicCursor.getColumnIndex(android.provider.MediaStore.Audio.Media._ID)
@@ -45,7 +45,7 @@ class ListMusic(private val context: Context) {
                         val thisId = musicCursor.getLong(idColumn)
                         val thisTitle = musicCursor.getString(titleColumn)
                         val thisArtist = musicCursor.getString(artistColumn)
-                        listMusics?.add(Music(thisId, thisTitle, thisArtist, duration))
+                        listMusics?.add(Music(thisId, thisTitle, thisArtist, duration, false))
                     } while (musicCursor.moveToNext())
                 }
                 musicCursor.close()

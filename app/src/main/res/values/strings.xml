@@ -39,4 +39,5 @@
     <string name="error_upload_image">Upload avatar image is failed</string>
     <string name="error_login">Login fail</string>
     <string name="song">song</string>
+    <string name="favourite">Favourite</string>
 </resources>
