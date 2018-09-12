@@ -16,15 +16,15 @@
     <string name="imagebutton">image button not load</string>
     <string name="prompt_repeat_password">Repeat Password</string>
     <string name="prompt_name">Name</string>
-   <string name="prompt_age">Age</string>
+    <string name="prompt_age">Age</string>
     <string name="map_api_key">AIzaSyAFYsveOdOJB25LC0BgwpoqSwgj4KejkrE</string>
     <string name="toolbar_text_hint_search">Input Name, Song, Artist</string>
     <string name="toolbar_text_libary">Library music</string>
     <string name="description_menu">menu</string>
     <string name="log_out">Logout</string>
     <string name="play_list">playlist</string>
-    <string name="create_new">create new</string>
-    <string name="change_playlist">Change Playlist</string>
+    <string name="create_new">Create new</string>
+    <string name="change_playlist">Change</string>
     <string name="error_password">Password is 6 or more character and only contains letter and number </string>
     <string name="error_name">Name is fail format</string>
     <string name="error_mail">Mail is fail format</string>
@@ -35,4 +35,7 @@
     <string name="error_upload_image">Upload avatar image is failed</string>
     <string name="error_login">Login fail</string>
     <string name="song">song</string>
+    <string name="toolbar_text_choice">action</string>
+    <string name="choiceAllSOng">choice all songs</string>
+    <string name="playlist_choice_text_add">Add songs</string>
 </resources>

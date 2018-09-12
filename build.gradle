@@ -2,6 +2,10 @@
 
 buildscript {
     ext.kotlin_version = '1.2.61'
+    ext {
+        kotlin_version = '1.2.61'
+        roomVersion = '1.0.0-alpha4'
+    }
     repositories {
         google()
         jcenter()
