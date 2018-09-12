@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="internship.asiantech.a2018summerfinal">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -15,8 +16,8 @@
 
     <uses-feature
         android:name="android.hardware.camera"
-        android:required="true" />
-
+        android:required="true"
+        tools:targetApi="eclair" />
     <application
         android:allowBackup="true"
         android:fullBackupContent="@xml/backup_descriptor"
@@ -24,7 +25,9 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        tools:targetApi="donut">
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/map_api_key" />
@@ -45,6 +48,7 @@
             android:name=".broadcast.HeadphoneStateReceiver"
             android:enabled="true"
             android:exported="true"/>
+        <activity android:name=".ui.ListAlbumActivity" />
     </application>
 
 </manifest>
