@@ -16,7 +16,7 @@ import internship.asiantech.a2018summerfinal.model.MenuItem
 import internship.asiantech.a2018summerfinal.model.User
 import internship.asiantech.a2018summerfinal.ui.ProfileUserActivity
 
-internal class DrawerLayoutAdapter(private val menuItemList: List<MenuItem>, private val user: List<User>, private val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+internal class DrawerLayoutAdapter(private val menuItemList: List<MenuItem>, private val user: List<User>, private val context: Context, val logoutListener: () -> Unit) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun getItemCount(): Int {
         return menuItemList.size + user.size
     }
@@ -70,6 +70,10 @@ internal class DrawerLayoutAdapter(private val menuItemList: List<MenuItem>, pri
             imgAvatar.setOnClickListener {
                 val intent = Intent(context, ProfileUserActivity::class.java)
                 context.startActivity(intent)
+            }
+
+            btnLogout.setOnClickListener {
+                logoutListener()
             }
         }
     }

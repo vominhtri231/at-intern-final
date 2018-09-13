@@ -22,13 +22,12 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
-import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
-import com.google.gson.Gson
 import internship.asiantech.a2018summerfinal.R
 import internship.asiantech.a2018summerfinal.model.User
+import internship.asiantech.a2018summerfinal.sharepreference.UserSharePreference
 import kotlinx.android.synthetic.main.activity_profile_user.*
 import java.io.ByteArrayOutputStream
 import java.io.IOException
@@ -43,6 +42,7 @@ class ProfileUserActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.O
     private var age: Int = 0
     private var isSave = false
     private val storage = FirebaseStorage.getInstance()
+    private lateinit var userSharedPreferences: UserSharePreference
 
     companion object {
         private const val PICK_FROM_CAMERA = 1
@@ -53,6 +53,7 @@ class ProfileUserActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.O
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile_user)
+        userSharedPreferences = UserSharePreference(this)
         initMap()
         initUser()
         btnEdit.setOnClickListener { _ ->
@@ -87,12 +88,8 @@ class ProfileUserActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.O
             uploadImage()
             val userUpdate = User(user.idUser, user.mail, name, newPassword, age, avatar, location.latitude, location.longitude)
             database.child("Users").child(user.idUser).setValue(userUpdate)
-            val sharedPreferences = getSharedPreferences(FirebaseAnalytics.Event.LOGIN, MODE_PRIVATE)
-            val editor = sharedPreferences.edit()
-            val gson = Gson()
-            val json = gson.toJson(userUpdate)
-            editor.putString(LoginActivity.USER, json)
-            editor.apply()
+            userSharedPreferences.removeUserCurrent()
+            userSharedPreferences.saveUserLogin(user)
             btnEdit.text = resources.getString(R.string.action_edit)
             edtName.isEnabled = false
             edtAge.isEnabled = false
@@ -192,10 +189,7 @@ class ProfileUserActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.O
     }
 
     private fun initUser() {
-        val sharedPreferences = getSharedPreferences(FirebaseAnalytics.Event.LOGIN, MODE_PRIVATE)
-        val gson = Gson()
-        val json = sharedPreferences.getString(LoginActivity.USER, "")
-        user = gson.fromJson<User>(json, User::class.java)
+        user = userSharedPreferences.getCurrentUser()
         avatar = user.avatar
         location = LatLng(user.latitude, user.longitude)
         edtMail.text = Editable.Factory.getInstance().newEditable(user.mail)

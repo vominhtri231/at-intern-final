@@ -5,22 +5,20 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.text.Editable
-import com.google.firebase.analytics.FirebaseAnalytics.Event.LOGIN
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
-import com.google.gson.Gson
 import internship.asiantech.a2018summerfinal.R
 import internship.asiantech.a2018summerfinal.model.SingletonUser
 import internship.asiantech.a2018summerfinal.model.User
+import internship.asiantech.a2018summerfinal.sharepreference.UserSharePreference
 import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : AppCompatActivity() {
     companion object {
         const val REQUEST_CODE = 100
-        const val LOGIN_KEY = "is login"
-        const val USER = "user"
     }
 
+    private lateinit var userSharedPreferences: UserSharePreference
     private val auth = FirebaseAuth.getInstance()
     private val database = FirebaseDatabase.getInstance().reference
     private var mail = ""
@@ -28,8 +26,8 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val sharedPreferences = getSharedPreferences(LOGIN, MODE_PRIVATE)
-        val check: Boolean = sharedPreferences.getBoolean(LOGIN_KEY, false)
+        val sharedPreferences = getSharedPreferences(UserSharePreference.LOGIN, MODE_PRIVATE)
+        val check: Boolean = sharedPreferences.getBoolean(UserSharePreference.LOGIN_KEY, false)
         if (check) {
             val intent = Intent(this, ProfileUserActivity::class.java)
             startActivity(intent)
@@ -37,11 +35,11 @@ class LoginActivity : AppCompatActivity() {
         } else {
             setContentView(R.layout.activity_login)
         }
+        userSharedPreferences = UserSharePreference(this)
         tvSignUp.setOnClickListener {
             val intent = Intent(this, SignUpActivity::class.java)
             startActivityForResult(intent, REQUEST_CODE)
         }
-
         btnLogin.setOnClickListener {
             mail = edtMail.text.toString()
             password = edtPassword.text.toString()
@@ -89,10 +87,6 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun getCurrentUser(mail: String) {
-        val sharedPreferences = getSharedPreferences(LOGIN, MODE_PRIVATE)
-        val editor = sharedPreferences.edit()
-        editor.putBoolean(LOGIN_KEY, true)
-        editor.apply()
 
         database.child("Users").addChildEventListener(object : ValueEventListener, ChildEventListener {
             override fun onChildMoved(p0: DataSnapshot, p1: String?) {
@@ -112,10 +106,7 @@ class LoginActivity : AppCompatActivity() {
                     SingletonUser.instance.avatar = user.avatar
                     SingletonUser.instance.latitude = user.latitude
                     SingletonUser.instance.longitude = user.longitude
-                    val gson = Gson()
-                    val json = gson.toJson(user)
-                    editor.putString(USER, json)
-                    editor.commit()
+                    userSharedPreferences.saveUserLogin(user)
                 }
             }
 
