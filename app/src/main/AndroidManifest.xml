@@ -44,6 +44,11 @@
         <activity android:name=".librarysong.ListMusicActivity" />
         <activity android:name=".ui.SignUpActivity" />
         <activity android:name=".ui.ListAlbumActivity" />
+
+        <service
+            android:name=".service.MusicService"
+            android:enabled="true"
+            android:exported="true" />
     </application>
 
 </manifest>
