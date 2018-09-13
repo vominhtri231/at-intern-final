@@ -22,6 +22,10 @@
     <string name="toolbar_text_libary">Library music</string>
     <string name="description_menu">menu</string>
     <string name="log_out">Logout</string>
+    <string name="album">Album</string>
+    <string name="date_time">04/08/2018</string>
+    <string name="add_album">Add album</string>
+    <string name="avatar_article">Avatar article</string>
     <string name="play_list">playlist</string>
     <string name="create_new">Create new</string>
     <string name="change_playlist">Change</string>
@@ -38,4 +42,10 @@
     <string name="toolbar_text_choice">action</string>
     <string name="choiceAllSOng">choice all songs</string>
     <string name="playlist_choice_text_add">Add songs</string>
+    <string name="title_dialog">New Create</string>
+    <string name="input_playlist">input playlist</string>
+    <string name="ok">OK</string>
+    <string name="exit">EXIT</string>
+    <string name="exit_choice_all">clear choice all</string>
+
 </resources>

@@ -47,20 +47,13 @@
                 android:inputType="textEmailAddress" />
 
             <EditText
-                android:id="@+id/edtPassword"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:enabled="false"
-                android:hint="@string/prompt_password"
-                android:inputType="textPassword" />
-
-            <EditText
                 android:id="@+id/edtName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:enabled="false"
                 android:hint="@string/prompt_name"
-                android:inputType="text" />
+                android:inputType="text"
+                tools:targetApi="cupcake" />
 
             <EditText
                 android:id="@+id/edtAge"
@@ -68,7 +61,16 @@
                 android:layout_height="wrap_content"
                 android:enabled="false"
                 android:hint="@string/prompt_age"
-                android:inputType="number" />
+                android:inputType="number"
+                tools:targetApi="cupcake" />
+
+            <EditText
+                android:id="@+id/edtPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:enabled="false"
+                android:hint="@string/prompt_password"
+                android:inputType="textPassword" />
 
             <fragment
                 android:id="@+id/fragmentMap"

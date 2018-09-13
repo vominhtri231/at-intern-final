@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/llOpenPlaylist"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
+
     <ImageView
+        android:id="@+id/btnCloseShowDelete"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_gravity="center"
         android:layout_marginEnd="20sp"
-        android:visibility="gone"
-        android:id="@+id/btnCloseShowDelete"
+        android:contentDescription="@string/imageview"
         android:src="@drawable/ic_delete_playlist"
-        android:contentDescription="@string/imageview" />
+        android:visibility="gone" />
 
     <ImageView
         android:layout_width="60dp"
