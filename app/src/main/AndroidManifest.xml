@@ -18,6 +18,7 @@
         android:name="android.hardware.camera"
         android:required="true"
         tools:targetApi="eclair" />
+
     <application
         android:allowBackup="true"
         android:fullBackupContent="@xml/backup_descriptor"
@@ -27,7 +28,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:targetApi="donut">
-
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/map_api_key" />
@@ -49,6 +49,8 @@
             android:name=".service.MusicService"
             android:enabled="true"
             android:exported="true" />
+
+        <activity android:name=".ui.SearchedActivity"></activity>
     </application>
 
 </manifest>

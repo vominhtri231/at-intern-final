@@ -17,7 +17,7 @@
     <string name="imagebutton">image button not load</string>
     <string name="prompt_repeat_password">Repeat Password</string>
     <string name="prompt_name">Name</string>
-   <string name="prompt_age">Age</string>
+    <string name="prompt_age">Age</string>
     <string name="map_api_key">AIzaSyAFYsveOdOJB25LC0BgwpoqSwgj4KejkrE</string>
     <string name="toolbar_text_hint_search">Input Name, Song, Artist</string>
     <string name="toolbar_text_libary">Library music</string>

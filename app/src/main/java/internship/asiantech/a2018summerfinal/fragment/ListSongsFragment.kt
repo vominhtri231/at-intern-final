@@ -7,15 +7,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import internship.asiantech.a2018summerfinal.R
-import internship.asiantech.a2018summerfinal.model.Music
 import internship.asiantech.a2018summerfinal.adapter.MusicAdapter
 import internship.asiantech.a2018summerfinal.listmusic.ListMusic
+import internship.asiantech.a2018summerfinal.model.Music
 import kotlinx.android.synthetic.main.fragment_list_songs.*
 
 class ListSongsFragment : Fragment() {
     private lateinit var musicAdapter: MusicAdapter
     private lateinit var musics: MutableList<Music>
-
     companion object {
         private const val KEY_POSITION = "position"
         fun instance(position: Int): ListSongsFragment {
@@ -31,28 +30,6 @@ class ListSongsFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_list_songs, container, false)
     }
 
-    private fun getListSearch(listMusics: List<Music>, strSearch: String): List<Music> {
-        val listSearch = mutableListOf<Music>()
-        for (music in listMusics) {
-            if (isWordInString(strSearch, music.songTitle)) {
-                listSearch.add(music)
-                continue
-            }
-            if (isWordInString(strSearch, music.artist)) {
-                listSearch.add(music)
-                continue
-            }
-        }
-        return listSearch
-    }
-
-    private fun isWordInString(strSearch: String, str: String): Boolean {
-        val words = strSearch.split(" ".toRegex())
-        for (word in words) {
-            return str.contains(strSearch)
-        }
-        return false
-    }
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         initListMusic()

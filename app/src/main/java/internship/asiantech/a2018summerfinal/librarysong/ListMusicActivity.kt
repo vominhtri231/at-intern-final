@@ -1,5 +1,6 @@
 package internship.asiantech.a2018summerfinal.librarysong
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.TabLayout
 import android.support.v4.view.ViewPager
@@ -14,8 +15,8 @@ import internship.asiantech.a2018summerfinal.adapter.LibraryPagerAdapter
 import internship.asiantech.a2018summerfinal.model.MenuItem
 import internship.asiantech.a2018summerfinal.model.User
 import internship.asiantech.a2018summerfinal.ui.LoginActivity
+import internship.asiantech.a2018summerfinal.ui.SearchedActivity
 import kotlinx.android.synthetic.main.activity_list_music.*
-
 
 class ListMusicActivity : AppCompatActivity() {
     private lateinit var mViewPager: ViewPager
@@ -24,6 +25,11 @@ class ListMusicActivity : AppCompatActivity() {
     private lateinit var drawerLayoutAdapter: DrawerLayoutAdapter
     private val menuItems: List<MenuItem> = ArrayList()
     private val users: MutableList<User> = ArrayList()
+    private var isSearch: Boolean = false
+
+    companion object {
+        const val KEY_SEARCH = "search"
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,8 +38,18 @@ class ListMusicActivity : AppCompatActivity() {
         initViewPager()
         initRecyclerView()
         btnToolBarButtonSearch.setOnClickListener {
-            tvToolBarName.visibility = View.GONE
-            edtSearch.visibility = View.VISIBLE
+            if (!isSearch) {
+                tvToolBarName.visibility = View.GONE
+                edtSearch.visibility = View.VISIBLE
+                isSearch = true
+            } else {
+                if (edtSearch.text.toString() != "") {
+                    val intent = Intent(this, SearchedActivity::class.java)
+                    intent.putExtra(KEY_SEARCH, edtSearch.text.toString())
+                    startActivity(intent)
+                    isSearch = false
+                }
+            }
         }
     }
 
@@ -59,4 +75,5 @@ class ListMusicActivity : AppCompatActivity() {
         mViewPager.currentItem
         mTabLayout.setupWithViewPager(mViewPager)
     }
+
 }
