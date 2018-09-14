@@ -48,7 +48,7 @@ class SignUpActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapC
         const val MAIL_KEY = "mail"
     }
 
-    object UserValidate{
+    object UserValidate {
         fun mailValidate(mail: String): Boolean {
             val validateMail =
                     Pattern.compile("^[a-zA-Z]+[a-zA-Z0-9._%+-]*+@[a-zA-Z0-9]+\\.[a-zA-Z]{2,6}$", Pattern.CASE_INSENSITIVE)
@@ -82,10 +82,10 @@ class SignUpActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapC
                 .findFragmentById(R.id.fragmentMap) as SupportMapFragment?
         mapFragment?.getMapAsync(this)
         btnSignUp.setOnClickListener {
-           val mail = edtMail.text.toString()
-           val name = edtName.text.toString()
-           val password = edtPassword.text.toString()
-           val repeatPassword = edtRepeatPassword.text.toString()
+            val mail = edtMail.text.toString()
+            val name = edtName.text.toString()
+            val password = edtPassword.text.toString()
+            val repeatPassword = edtRepeatPassword.text.toString()
             val ageString = edtAge.text.toString()
             if (checkUser(mail, name, password, repeatPassword, ageString)) {
                 signUp(mail, password, name)
@@ -158,18 +158,22 @@ class SignUpActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapC
         if (!UserValidate.ageValidate(age)) {
             tvError.text = resources.getString(R.string.error_age)
             tvError.setBackgroundResource(R.drawable.border_text_view_error)
+            return false
         }
         if (!UserValidate.mailValidate(mail)) {
             tvError.text = resources.getString(R.string.error_mail)
             tvError.setBackgroundResource(R.drawable.border_text_view_error)
+            return false
         }
         if (!UserValidate.nameValidate(name)) {
             tvError.text = resources.getString(R.string.error_name)
             tvError.setBackgroundResource(R.drawable.border_text_view_error)
+            return false
         }
         if (!UserValidate.passwordValidate(password)) {
             tvError.text = resources.getString(R.string.error_password)
             tvError.setBackgroundResource(R.drawable.border_text_view_error)
+            return false
         }
         return true
     }

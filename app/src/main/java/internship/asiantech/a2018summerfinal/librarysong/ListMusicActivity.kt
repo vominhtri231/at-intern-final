@@ -7,14 +7,12 @@ import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
-import com.google.firebase.analytics.FirebaseAnalytics
-import com.google.gson.Gson
 import internship.asiantech.a2018summerfinal.R
 import internship.asiantech.a2018summerfinal.adapter.DrawerLayoutAdapter
 import internship.asiantech.a2018summerfinal.adapter.LibraryPagerAdapter
 import internship.asiantech.a2018summerfinal.model.MenuItem
 import internship.asiantech.a2018summerfinal.model.User
-import internship.asiantech.a2018summerfinal.ui.LoginActivity
+import internship.asiantech.a2018summerfinal.sharepreference.UserSharePreference
 import internship.asiantech.a2018summerfinal.ui.SearchedActivity
 import kotlinx.android.synthetic.main.activity_list_music.*
 
@@ -56,12 +54,12 @@ class ListMusicActivity : AppCompatActivity() {
     private fun initRecyclerView() {
         val layoutManager = LinearLayoutManager(this)
         recyclerViewMenu.layoutManager = layoutManager
-        val sharedPreferences = getSharedPreferences(FirebaseAnalytics.Event.LOGIN, MODE_PRIVATE)
-        val gson = Gson()
-        val json = sharedPreferences.getString(LoginActivity.USER, "")
-        val user = gson.fromJson<User>(json, User::class.java)
+        val userSharedPreferences = UserSharePreference(this)
+        val user = userSharedPreferences.getCurrentUser()
         users.add(user)
-        drawerLayoutAdapter = DrawerLayoutAdapter(menuItems, users, this)
+        drawerLayoutAdapter = DrawerLayoutAdapter(menuItems, users, this) {
+            userSharedPreferences.removeUserCurrent()
+        }
         recyclerViewMenu.adapter = drawerLayoutAdapter
     }
 
