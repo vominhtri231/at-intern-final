@@ -51,14 +51,14 @@ class AppDataHelper private constructor(val database: AppDatabase) {
      *
      * @param id the song's id
      */
-    fun deleteSongWithId(id: String) = DeleteSongAsyncTask(database.songDAO()).execute()
+    fun deleteSongWithId(id: String) = DeleteSongAsyncTask(database.songDAO()).execute(id)
 
     /**
      * add playlist to the database
      *
      * @param playlist the playlist that need to add
      */
-    fun addPlaylist(playlist: Playlist) = AddPlaylistAsyncTask(database.playlistDAO()).execute()
+    fun addPlaylist(playlist: Playlist) = AddPlaylistAsyncTask(database.playlistDAO()).execute(playlist)
 
     /**
      * get all playlists in the database

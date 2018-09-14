@@ -12,7 +12,7 @@ import android.support.annotation.IntDef
  * Command(context,Command.PLAY_OR_PAUSE).build()
  */
 
-class Command(private val context: Context, @Command private val command: Int) {
+class Command(private val context: Context, private val command: Int) {
     fun build(): Intent = Intent(context, MusicService::class.java).apply {
         putExtra(COMMAND_KEY, command)
     }
@@ -32,7 +32,6 @@ class Command(private val context: Context, @Command private val command: Int) {
         /**
          * To check command type of intent when you receive a command Intent
          */
-        @Command
         internal fun getCommand(intent: Intent): Int = intent.getIntExtra(COMMAND_KEY, INVALID)
     }
 }

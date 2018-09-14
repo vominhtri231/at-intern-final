@@ -12,7 +12,7 @@ interface SongDAO {
     @Query("Select * from song")
     fun getAllSong(): List<Song>
 
-    @Insert(onConflict = OnConflictStrategy.ABORT)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun addSong(song: Song)
 
     @Query("Delete from song where id= :id")
