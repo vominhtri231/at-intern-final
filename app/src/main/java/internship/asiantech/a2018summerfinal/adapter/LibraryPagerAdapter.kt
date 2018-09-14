@@ -21,10 +21,10 @@ class LibraryPagerAdapter(fm: FragmentManager?) : FragmentStatePagerAdapter(fm) 
     }
 
     private fun addFragment() {
-        mListFragment.add(ListSongsFragment())
+        mListFragment.add(ListSongsFragment.instance(0))
         mListFragment.add(PlaylistFragment())
-        mListFragment.add(FavouriteFragment())
-        mListFragment.add(HistoryFragment())
+        mListFragment.add(ListSongsFragment.instance(1))
+        mListFragment.add(ListSongsFragment.instance(2))
     }
 
     override fun getItem(position: Int): Fragment {

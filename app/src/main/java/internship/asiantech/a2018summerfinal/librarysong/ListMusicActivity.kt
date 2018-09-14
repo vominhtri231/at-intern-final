@@ -5,7 +5,6 @@ import android.support.design.widget.TabLayout
 import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
 import android.view.View
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.gson.Gson
@@ -57,6 +56,7 @@ class ListMusicActivity : AppCompatActivity() {
 
     private fun initViewPager() {
         mViewPager.adapter = mLibraryPagerAdapter
+        mViewPager.currentItem
         mTabLayout.setupWithViewPager(mViewPager)
     }
 }
