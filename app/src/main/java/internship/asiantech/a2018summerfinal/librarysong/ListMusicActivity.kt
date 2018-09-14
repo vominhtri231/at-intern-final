@@ -14,6 +14,7 @@ import internship.asiantech.a2018summerfinal.model.MenuItem
 import internship.asiantech.a2018summerfinal.model.User
 import kotlinx.android.synthetic.main.activity_list_music.*
 import com.google.gson.Gson
+import internship.asiantech.a2018summerfinal.fragment.ListSongsFragment
 import internship.asiantech.a2018summerfinal.ui.LoginActivity
 
 
@@ -52,6 +53,7 @@ class ListMusicActivity : AppCompatActivity() {
 
     private fun initViewPager() {
         mViewPager.adapter = mLibraryPagerAdapter
+        mViewPager.currentItem
         mTabLayout.setupWithViewPager(mViewPager)
     }
 }
