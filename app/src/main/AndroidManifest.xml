@@ -32,18 +32,23 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/map_api_key" />
 
-        <activity android:name=".ui.LoginActivity">
+        <activity android:name=".librarysong.ListMusicActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ui.LoginActivity"/>
         <activity android:name=".ui.ProfileUserActivity" />
         <activity android:name=".MainActivity" />
-        <activity android:name=".librarysong.ListMusicActivity" />
         <activity android:name=".ui.SignUpActivity" />
         <activity android:name=".ui.ListAlbumActivity" />
+
+        <service
+            android:name=".service.MusicService"
+            android:enabled="true"
+            android:exported="true" />
     </application>
 
 </manifest>

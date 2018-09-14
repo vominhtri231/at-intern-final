@@ -11,9 +11,10 @@
 
         <ImageView
             android:id="@+id/imgSinger"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:contentDescription="@string/avatar_article" />
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:contentDescription="@string/avatar_article"
+            android:src="@drawable/img_music" />
 
         <TextView
             android:id="@+id/tvTitleSong"
@@ -32,6 +33,17 @@
             android:layout_below="@+id/tvTitleSong"
             android:layout_marginStart="10dp"
             android:layout_toEndOf="@+id/imgSinger"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/imgFavourite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvSinger"
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@+id/imgSinger"
+            android:contentDescription="@string/favourite"
+            android:src="@drawable/ic_unlike"
             android:textStyle="bold" />
     </RelativeLayout>
 </android.support.v7.widget.CardView>

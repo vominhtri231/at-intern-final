@@ -13,7 +13,6 @@ import internship.asiantech.a2018summerfinal.model.User
 import internship.asiantech.a2018summerfinal.sharepreference.UserSharePreference
 import kotlinx.android.synthetic.main.activity_list_music.*
 
-
 class ListMusicActivity : AppCompatActivity() {
     private lateinit var mViewPager: ViewPager
     private lateinit var mTabLayout: TabLayout
@@ -49,6 +48,7 @@ class ListMusicActivity : AppCompatActivity() {
 
     private fun initViewPager() {
         mViewPager.adapter = mLibraryPagerAdapter
+        mViewPager.currentItem
         mTabLayout.setupWithViewPager(mViewPager)
     }
 }

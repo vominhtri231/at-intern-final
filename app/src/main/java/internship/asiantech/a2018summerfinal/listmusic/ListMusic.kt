@@ -45,7 +45,7 @@ class ListMusic(private val context: Context) {
                         val thisId = musicCursor.getLong(idColumn)
                         val thisTitle = musicCursor.getString(titleColumn)
                         val thisArtist = musicCursor.getString(artistColumn)
-                        listMusics?.add(Music(thisId, thisTitle, thisArtist, duration))
+                        listMusics?.add(Music(thisId, thisTitle, thisArtist, duration, false))
                     } while (musicCursor.moveToNext())
                 }
                 musicCursor.close()
