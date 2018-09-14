@@ -6,15 +6,16 @@ import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
+import android.view.View
 import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.gson.Gson
 import internship.asiantech.a2018summerfinal.R
 import internship.asiantech.a2018summerfinal.adapter.DrawerLayoutAdapter
 import internship.asiantech.a2018summerfinal.adapter.LibraryPagerAdapter
 import internship.asiantech.a2018summerfinal.model.MenuItem
 import internship.asiantech.a2018summerfinal.model.User
-import kotlinx.android.synthetic.main.activity_list_music.*
-import com.google.gson.Gson
 import internship.asiantech.a2018summerfinal.ui.LoginActivity
+import kotlinx.android.synthetic.main.activity_list_music.*
 
 
 class ListMusicActivity : AppCompatActivity() {
@@ -22,8 +23,8 @@ class ListMusicActivity : AppCompatActivity() {
     private lateinit var mTabLayout: TabLayout
     private var mLibraryPagerAdapter: LibraryPagerAdapter = LibraryPagerAdapter(supportFragmentManager)
     private lateinit var drawerLayoutAdapter: DrawerLayoutAdapter
-    private val menuItems : List<MenuItem> = ArrayList()
-    private val users : MutableList<User> = ArrayList()
+    private val menuItems: List<MenuItem> = ArrayList()
+    private val users: MutableList<User> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,18 +32,22 @@ class ListMusicActivity : AppCompatActivity() {
         initViews()
         initViewPager()
         initRecyclerView()
+        btnToolBarButtonSearch.setOnClickListener {
+            tvToolBarName.visibility = View.GONE
+            edtSearch.visibility = View.VISIBLE
+        }
     }
 
     private fun initRecyclerView() {
-        val layoutManager=LinearLayoutManager(this)
-        recyclerViewMenu.layoutManager=layoutManager
+        val layoutManager = LinearLayoutManager(this)
+        recyclerViewMenu.layoutManager = layoutManager
         val sharedPreferences = getSharedPreferences(FirebaseAnalytics.Event.LOGIN, MODE_PRIVATE)
         val gson = Gson()
         val json = sharedPreferences.getString(LoginActivity.USER, "")
         val user = gson.fromJson<User>(json, User::class.java)
         users.add(user)
-        drawerLayoutAdapter= DrawerLayoutAdapter(menuItems, users, this)
-        recyclerViewMenu.adapter=drawerLayoutAdapter
+        drawerLayoutAdapter = DrawerLayoutAdapter(menuItems, users, this)
+        recyclerViewMenu.adapter = drawerLayoutAdapter
     }
 
     private fun initViews() {
