@@ -159,18 +159,22 @@ class SignUpActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapC
         if (!UserValidate.ageValidate(age)) {
             tvError.text = resources.getString(R.string.error_age)
             tvError.setBackgroundResource(R.drawable.border_text_view_error)
+            return false
         }
         if (!UserValidate.mailValidate(mail)) {
             tvError.text = resources.getString(R.string.error_mail)
             tvError.setBackgroundResource(R.drawable.border_text_view_error)
+            return false
         }
         if (!UserValidate.nameValidate(name)) {
             tvError.text = resources.getString(R.string.error_name)
             tvError.setBackgroundResource(R.drawable.border_text_view_error)
+            return false
         }
         if (!UserValidate.passwordValidate(password)) {
             tvError.text = resources.getString(R.string.error_password)
             tvError.setBackgroundResource(R.drawable.border_text_view_error)
+            return false
         }
         return true
     }

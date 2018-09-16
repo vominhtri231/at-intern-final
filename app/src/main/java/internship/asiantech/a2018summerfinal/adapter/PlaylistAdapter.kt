@@ -19,7 +19,7 @@ class PlaylistAdapter(var listPlaylist: MutableList<Playlist>, val context: Cont
     private var mIsShowButtonClose: Boolean = false
     private var listSongUpdater = mutableListOf<Song>()
     private lateinit var mListenerButtonDelete: ButtonEventListener
-    private lateinit var mUpdater: SongUpdater
+//    private lateinit var mUpdater: SongUpdater
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlaylistViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.viewholder_playlist_item, parent, false)
@@ -44,17 +44,17 @@ class PlaylistAdapter(var listPlaylist: MutableList<Playlist>, val context: Cont
         }
 
         /*handle item on viewholder*/
-        val name = (listPlaylist.get(position).name)
-        mUpdater.getSongResult(listSongUpdater)
-
-        holder.llOpenPlaylist?.setOnClickListener(View.OnClickListener {
-            AppDataHelper.getInstance(context).getSongInPlaylist(name, mUpdater)
-            getPosition(position)
-        })
-
-        holder.imgShowDeletePlaylist?.setOnClickListener(View.OnClickListener {
-            AppDataHelper.getInstance(context).deletePlaylist(name)
-        })
+//        val name = (listPlaylist.get(position).name)
+//        mUpdater.getSongResult(listSongUpdater)
+//
+//        holder.llOpenPlaylist?.setOnClickListener(View.OnClickListener {
+//            AppDataHelper.getInstance(context).getSongInPlaylist(name, mUpdater)
+//            getPosition(position)
+//        })
+//
+//        holder.imgShowDeletePlaylist?.setOnClickListener(View.OnClickListener {
+//            AppDataHelper.getInstance(context).deletePlaylist(name)
+//        })
     }
 
     fun setStateShowButton(isClosed: Boolean) {
@@ -66,19 +66,19 @@ class PlaylistAdapter(var listPlaylist: MutableList<Playlist>, val context: Cont
         notifyDataSetChanged()
     }
 
-    private fun setListenerItemPlaylist(holder: PlaylistViewHolder, position: Int) {
-
-        val name = (listPlaylist.get(position).name)
-        mUpdater.getSongResult(listSongUpdater)
-
-        holder.llOpenPlaylist?.setOnClickListener(View.OnClickListener {
-            AppDataHelper.getInstance(context).getSongInPlaylist(name, mUpdater)
-        })
-
-        holder.imgShowDeletePlaylist?.setOnClickListener(View.OnClickListener {
-            AppDataHelper.getInstance(context).deletePlaylist(name)
-        })
-    }
+//    private fun setListenerItemPlaylist(holder: PlaylistViewHolder, position: Int) {
+//
+//        val name = (listPlaylist.get(position).name)
+//        mUpdater.getSongResult(listSongUpdater)
+//
+//        holder.llOpenPlaylist?.setOnClickListener(View.OnClickListener {
+//            AppDataHelper.getInstance(context).getSongInPlaylist(name, mUpdater)
+//        })
+//
+//        holder.imgShowDeletePlaylist?.setOnClickListener(View.OnClickListener {
+//            AppDataHelper.getInstance(context).deletePlaylist(name)
+//        })
+//    }
 
 //    fun addListPlaylist(list: MutableList<Playlist>){
 //        listPlaylist = list

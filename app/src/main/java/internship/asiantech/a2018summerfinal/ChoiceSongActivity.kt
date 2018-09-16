@@ -1,6 +1,8 @@
 package internship.asiantech.a2018summerfinal
 
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
@@ -13,7 +15,9 @@ import android.widget.TextView
 import internship.asiantech.a2018summerfinal.adapter.PlaylistChoiceAdapter
 import internship.asiantech.a2018summerfinal.database.model.Playlist
 import internship.asiantech.a2018summerfinal.database.model.Song
-import internship.asiantech.a2018summerfinal.fragment.PlaylistFragment
+import internship.asiantech.a2018summerfinal.listmusic.ListMusic
+import internship.asiantech.a2018summerfinal.model.Music
+import kotlinx.android.synthetic.main.activity_choice_song.*
 
 class ChoiceSongActivity : AppCompatActivity() {
     private lateinit var mImgbPlaylistChoiceComplete: ImageButton
@@ -22,13 +26,19 @@ class ChoiceSongActivity : AppCompatActivity() {
     private lateinit var mTvStateChoiceAll: TextView
     private lateinit var mRecyclerviewPlaylistChoiceSong: RecyclerView
     private lateinit var mLinearLayoutManager: LinearLayoutManager
-    private lateinit var listSongInDevices: MutableList<Song>
+    private lateinit var listSongInDevices: ArrayList<Song>
+    //listplaylist.
     private lateinit var listPlaylist: MutableList<Playlist>
     private lateinit var mContext: Context
-    val KEY_POSITION = "key_position"
+    companion object {
+        val KEY_POSITION = "key_position"
+        val RESULT_KEY = "RESULT_KEY"
+    }
+
+
 
     private var mIsCheckAll = false
-    private var mAdapterChoiceSong = PlaylistChoiceAdapter(listSongInDevices)
+    private lateinit var mAdapterChoiceSong: PlaylistChoiceAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +48,7 @@ class ChoiceSongActivity : AppCompatActivity() {
     }
 
     private fun initViews() {
+       var listSongInDevices =ListMusic(this).getListMusics()
         mTvStateChoiceAll = findViewById(R.id.tvStateChoiceAll)
         mImgbPlaylistChoiceComplete = findViewById(R.id.imgbPlaylistChoiceComplete)
         mRbItemPlaylistChoiceAll = findViewById(R.id.rbItemPlaylistChoiceAll)
@@ -64,8 +75,13 @@ class ChoiceSongActivity : AppCompatActivity() {
             }
             mAdapterChoiceSong.choiceAllItem(mIsCheckAll,position)
         })
-//        mImgbPlaylistChoiceComplete.setOnClickListener(View.OnClickListener {
-//            AppDataHelper.getInstance(this).addSongToPlaylist(,)
-//        })
+        imgbPlaylistChoiceComplete.setOnClickListener(View.OnClickListener {
+            mAdapterChoiceSong.getListChoice()
+            var intent2 = Intent().apply {
+                putParcelableArrayListExtra(RESULT_KEY,ArrayList(mAdapterChoiceSong.getListChoice()))
+            }
+            setResult(Activity.RESULT_OK,intent2)
+            finish()
+        })
     }
 }

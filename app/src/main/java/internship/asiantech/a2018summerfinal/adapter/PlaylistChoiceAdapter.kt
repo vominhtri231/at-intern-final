@@ -12,11 +12,12 @@ import internship.asiantech.a2018summerfinal.viewholder.RadioButtonEventChoice
 class PlaylistChoiceAdapter(var listSongs: MutableList<Song>) : RecyclerView.Adapter<RecyclerView.ViewHolder>(),RadioButtonEventChoice {
 
     private var mListBoolChoice = mutableListOf<Boolean>()
-    private var listSongInPlaylist = mutableListOf<PlaylistSong>()
-
-
+    private var listSongInPlaylist = mutableListOf<Song>()
+    private var mListChoiced = mutableListOf<Boolean>()
     private var mIsCheck = false
+
     private lateinit var listener :RadioButtonEventChoice
+
     init {
         for (index in listSongInPlaylist.indices) {
             mListBoolChoice.add(false)
@@ -40,24 +41,31 @@ class PlaylistChoiceAdapter(var listSongs: MutableList<Song>) : RecyclerView.Ada
     }
 
     override fun onRadioButtonClickListener(position: Int, ischeck: Boolean) {
-        val song : Song
-        var a = listSongs.get(position)
-        var namePlaylist = listSongInPlaylist[position].playlistName
-
+        var music = listSongs.get(position)
         if (mIsCheck){
-            listSongInPlaylist.add(PlaylistSong(namePlaylist, a.id))
+            listSongInPlaylist.add(music)
             mListBoolChoice[position] = true
 
         }else{
-            listSongInPlaylist.remove(PlaylistSong(namePlaylist, a.id))
+            listSongInPlaylist.remove(music)
             mListBoolChoice[position] =false
         }
+
+    }
+    fun getListChoice(): MutableList<Song> {
+        val mListChoicedSong = mutableListOf<Song>()
+       listSongInPlaylist.forEachIndexed { index, song ->
+           if (mListBoolChoice[index] == true) {
+               mListChoicedSong.add(song)
+           }
+       }
+        return mListChoicedSong
     }
     fun choiceAllItem(isCheck: Boolean, position: Int){
-        var namePlaylist = listSongInPlaylist[position].playlistName
+        var namePlaylist = listSongInPlaylist[position]
         if (isCheck){
             for(song in listSongs){
-            listSongInPlaylist.add(PlaylistSong(namePlaylist,song.id))
+            listSongInPlaylist.add(song)
             }
             for (index in mListBoolChoice.indices){
                 mListBoolChoice[index] = true

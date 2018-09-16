@@ -5,26 +5,20 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.text.Editable
-import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
-import internship.asiantech.a2018summerfinal.R
-import internship.asiantech.a2018summerfinal.librarysong.ListMusicActivity
-import kotlinx.android.synthetic.main.activity_login.*
-import com.google.firebase.analytics.FirebaseAnalytics.Event.LOGIN
 import com.google.firebase.database.*
-import com.google.gson.Gson
+import internship.asiantech.a2018summerfinal.R
 import internship.asiantech.a2018summerfinal.model.SingletonUser
 import internship.asiantech.a2018summerfinal.model.User
+import internship.asiantech.a2018summerfinal.sharepreference.UserSharePreference
+import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : AppCompatActivity() {
     companion object {
         const val REQUEST_CODE = 100
-        private const val LOGIN_KEY = "is login"
-        private const val MAIL_KEY = "mail"
-        private const val PASSWORD_KEY = "password"
-        const val USER = "user"
     }
 
+    private lateinit var userSharedPreferences: UserSharePreference
     private val auth = FirebaseAuth.getInstance()
     private val database = FirebaseDatabase.getInstance().reference
     private var mail = ""
@@ -32,22 +26,21 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val sharedPreferences = getSharedPreferences(LOGIN, MODE_PRIVATE)
-        val check: Boolean = sharedPreferences.getBoolean(LOGIN_KEY, false)
+        val sharedPreferences = getSharedPreferences(UserSharePreference.LOGIN, MODE_PRIVATE)
+        val check: Boolean = sharedPreferences.getBoolean(UserSharePreference.LOGIN_KEY, false)
         if (check) {
-            mail = sharedPreferences.getString(MAIL_KEY, "")
-            password = sharedPreferences.getString(PASSWORD_KEY, "")
-            login(mail, password)
+            val intent = Intent(this, ProfileUserActivity::class.java)
+            startActivity(intent)
             return
         } else {
             setContentView(R.layout.activity_login)
         }
+        userSharedPreferences = UserSharePreference(this)
         tvSignUp.setOnClickListener {
             val intent = Intent(this, SignUpActivity::class.java)
             startActivity(intent)
             startActivityForResult(intent, REQUEST_CODE)
         }
-
         btnLogin.setOnClickListener {
             mail = edtMail.text.toString()
             password = edtPassword.text.toString()
@@ -82,23 +75,19 @@ class LoginActivity : AppCompatActivity() {
         auth.signInWithEmailAndPassword(mail, password)
                 .addOnCompleteListener(this) { task ->
                     if (task.isSuccessful) {
-                        getCurrentUser(mail, password)
-                        val intent = Intent(this, ListMusicActivity::class.java)
+                        getCurrentUser(mail)
+                        val intent = Intent(this, ProfileUserActivity::class.java)
                         startActivity(intent)
                     } else {
-                        tvError.text = resources.getString(R.string.error_password)
-                        tvError.setBackgroundResource(R.drawable.border_text_view_error)
+                        if (tvError != null) {
+                            tvError.text = resources.getString(R.string.error_password)
+                            tvError.setBackgroundResource(R.drawable.border_text_view_error)
+                        }
                     }
                 }
     }
 
-    private fun getCurrentUser(mail: String, password: String) {
-        val sharedPreferences = getSharedPreferences(LOGIN, MODE_PRIVATE)
-        val editor = sharedPreferences.edit()
-        editor.putBoolean(LOGIN_KEY, true)
-        editor.putString(MAIL_KEY, mail)
-        editor.putString(PASSWORD_KEY, password)
-        editor.apply()
+    private fun getCurrentUser(mail: String) {
 
         database.child("Users").addChildEventListener(object : ValueEventListener, ChildEventListener {
             override fun onChildMoved(p0: DataSnapshot, p1: String?) {
@@ -118,10 +107,7 @@ class LoginActivity : AppCompatActivity() {
                     SingletonUser.instance.avatar = user.avatar
                     SingletonUser.instance.latitude = user.latitude
                     SingletonUser.instance.longitude = user.longitude
-                    val gson = Gson()
-                    val json = gson.toJson(user)
-                    editor.putString(USER, json)
-                    editor.commit()
+                    userSharedPreferences.saveUserLogin(user)
                 }
             }
 
