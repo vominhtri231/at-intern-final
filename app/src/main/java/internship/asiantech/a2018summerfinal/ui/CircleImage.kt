@@ -35,10 +35,8 @@ class CircleImage : ImageView {
     var isRunning by Delegates.observable(false) { _, oldState: Boolean, newState: Boolean ->
         if (oldState != newState) {
             if (!newState) {
-                Log.e("TTT", "end rotate")
                 rotateMaker?.endRotate()
             } else {
-                Log.e("TTT", "start rotate")
                 rotateMaker = RotateMaker(this)
                 rotateMaker?.start()
             }

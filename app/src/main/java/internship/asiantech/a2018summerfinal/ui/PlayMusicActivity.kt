@@ -56,7 +56,10 @@ class PlayMusicActivity : AppCompatActivity() {
         override fun onServiceConnected(p0: ComponentName?, p1: IBinder?) {
             val binder = p1 as MusicBinder
             musicPlayer = binder.musicPlayer
-            musicPlayer?.setMusicList(songs)
+            musicPlayer?.apply {
+                setMusicList(songs)
+                transferPlayerState()
+            }
         }
     }
 

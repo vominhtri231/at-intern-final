@@ -5,7 +5,6 @@ import android.content.Context
 import android.media.MediaPlayer
 import android.provider.MediaStore
 import android.support.annotation.IntDef
-import android.util.Log
 import internship.asiantech.a2018summerfinal.database.model.Song
 import java.lang.ref.WeakReference
 import java.util.*
@@ -47,7 +46,6 @@ class MusicPlayer(private val context: Context, private val listener: MusicPlaye
     fun setMusicList(songs: List<Song>) {
         this.songs.clear()
         this.songs.addAll(songs)
-        Log.e("TTT", "after add :" + this.songs)
     }
 
 
@@ -123,6 +121,9 @@ class MusicPlayer(private val context: Context, private val listener: MusicPlaye
      */
     fun nextSong() {
         stopUpdateTime()
+        if (songs.size == 0) {
+            return
+        }
         if (isPaused) {
             isPaused = false
         }
@@ -168,9 +169,17 @@ class MusicPlayer(private val context: Context, private val listener: MusicPlaye
     /**
      * notify song's information including title and duration
      */
-    fun transferPlayingSongInfo() {
-        listener.onPlayerStart(songs[currentPosition].title,
-                mediaPlayer.duration)
+    fun transferPlayerState() {
+        if (isPaused || mediaPlayer.isPlaying) {
+            listener.onPlayerPlaying(mediaPlayer.currentPosition)
+            listener.onPlayerStart(songs[currentPosition].title,
+                    mediaPlayer.duration)
+        }
+        if (isPaused || !mediaPlayer.isPlaying) {
+            listener.onPlayerPause()
+        } else {
+            listener.onPlayerUnPause()
+        }
     }
 
     /**
