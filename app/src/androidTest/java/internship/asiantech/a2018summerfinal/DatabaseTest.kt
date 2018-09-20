@@ -18,9 +18,9 @@ class DatabaseTest {
 
     @Test
     fun insertSong() {
-        val song1 = Song(name = "a", id = "1", author = "aa")
-        val song2 = Song(name = "b", id = "2", author = "bb")
-        val song3 = Song(name = "c", id = "3", author = "cc")
+        val song1 = Song(title = "a", id = 1, artist = "aa")
+        val song2 = Song(title = "b", id = 2, artist = "bb")
+        val song3 = Song(title = "c", id = 3, artist = "cc")
         dataHelper.addSong(song1)
         dataHelper.addSong(song2)
         dataHelper.addSong(song3)
@@ -33,9 +33,9 @@ class DatabaseTest {
 
     @Test
     fun deleteSong() {
-        val song1 = Song(name = "a", id = "1", author = "aa")
-        val song2 = Song(name = "b", id = "2", author = "bb")
-        val song3 = Song(name = "c", id = "3", author = "cc")
+        val song1 = Song(title = "a", id = 1, artist = "aa")
+        val song2 = Song(title = "b", id = 2, artist = "bb")
+        val song3 = Song(title = "c", id = 3, artist = "cc")
         dataHelper.addSong(song1)
         dataHelper.addSong(song2)
         dataHelper.addSong(song3)
@@ -43,7 +43,7 @@ class DatabaseTest {
         dataHelper.getAllSong(object : SongUpdater {
             override fun getSongResult(result: List<Song>) {
                 assert(result.size == 2)
-                assert(result[0].id == "2")
+                assert(result[0].id == 2L)
             }
 
         })
@@ -80,9 +80,9 @@ class DatabaseTest {
 
     @Test
     fun addSongToPlaylist() {
-        val song1 = Song(name = "a", id = "1", author = "aa")
-        val song2 = Song(name = "b", id = "2", author = "bb")
-        val song3 = Song(name = "c", id = "3", author = "cc")
+        val song1 = Song(title = "a", id = 1, artist = "aa")
+        val song2 = Song(title = "b", id = 2, artist = "bb")
+        val song3 = Song(title = "c", id = 3, artist = "cc")
         dataHelper.addSong(song1)
         dataHelper.addSong(song2)
         dataHelper.addSong(song3)
@@ -95,7 +95,7 @@ class DatabaseTest {
         dataHelper.getSongInPlaylist("p1", object : SongUpdater {
             override fun getSongResult(result: List<Song>) {
                 assert(result.size == 2)
-                assert(result[0].id == "2")
+                assert(result[0].id == 2L)
             }
         })
         dataHelper.getSongInPlaylist("p2", object : SongUpdater {
@@ -107,9 +107,9 @@ class DatabaseTest {
 
     @Test
     fun deleteSongInPlaylist() {
-        val song1 = Song(name = "a", id = "1", author = "aa")
-        val song2 = Song(name = "b", id = "2", author = "bb")
-        val song3 = Song(name = "c", id = "3", author = "cc")
+        val song1 = Song(title = "a", id = 1, artist = "aa")
+        val song2 = Song(title = "b", id = 2, artist = "bb")
+        val song3 = Song(title = "c", id = 3, artist = "cc")
         dataHelper.addSong(song1)
         dataHelper.addSong(song2)
         dataHelper.addSong(song3)
@@ -123,16 +123,16 @@ class DatabaseTest {
         dataHelper.getSongInPlaylist("p1", object : SongUpdater {
             override fun getSongResult(result: List<Song>) {
                 assert(result.size == 1)
-                assert(result[0].id == "3")
+                assert(result[0].id == 3L)
             }
         })
     }
 
     @Test
     fun deletePlaylistAfterAdd() {
-        val song1 = Song(name = "a", id = "1", author = "aa")
-        val song2 = Song(name = "b", id = "2", author = "bb")
-        val song3 = Song(name = "c", id = "3", author = "cc")
+        val song1 = Song(title = "a", id = 1, artist = "aa")
+        val song2 = Song(title = "b", id = 2, artist = "bb")
+        val song3 = Song(title = "c", id = 3, artist = "cc")
         dataHelper.addSong(song1)
         dataHelper.addSong(song2)
         dataHelper.addSong(song3)

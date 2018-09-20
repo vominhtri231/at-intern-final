@@ -8,8 +8,8 @@ import android.support.annotation.IntDef
  *
  * Command is a handmade Intent for MusicService
  *
- * how to control music player via command
- * Command(context,Command.PLAY_OR_PAUSE).build()
+ * how to control music player via command:
+ *      startService(Command(context,Command.PLAY_OR_PAUSE).build())
  */
 
 class Command(private val context: Context, private val command: Int) {
