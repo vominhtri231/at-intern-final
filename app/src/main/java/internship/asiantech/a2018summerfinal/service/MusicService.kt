@@ -123,7 +123,7 @@ class MusicService : Service() {
         remoteView = RemoteViews(packageName, R.layout.remoteview_playingmusic)
         builder = NotificationCompat.Builder(applicationContext, CHANEL_ID)
                 .setCustomBigContentView(remoteView)
-                .setSmallIcon(R.drawable.ic_play)
+                .setSmallIcon(R.drawable.ic_like)
                 .setOngoing(true)
 
         val playPendingIntent: PendingIntent = PendingIntent.getService(this, 0,

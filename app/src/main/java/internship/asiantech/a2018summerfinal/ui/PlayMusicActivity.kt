@@ -5,6 +5,7 @@ import android.content.ComponentName
 import android.content.Intent
 import android.content.IntentFilter
 import android.content.ServiceConnection
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.IBinder
 import android.support.v7.app.AppCompatActivity
@@ -96,7 +97,7 @@ class PlayMusicActivity : AppCompatActivity() {
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
-        if (requestCode == READ_EXTERNAL_REQUEST_CODE) {
+        if (requestCode == READ_EXTERNAL_REQUEST_CODE && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             songs.addAll(querySongs(contentResolver))
         } else {
             super.onRequestPermissionsResult(requestCode, permissions, grantResults)
