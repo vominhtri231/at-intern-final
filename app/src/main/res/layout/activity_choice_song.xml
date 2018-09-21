@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:layout_width="match_parent"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:orientation="vertical">
+
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbarPlaylistChoice"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/colorPrimary"
+        android:background="@color/colorCerulean"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
@@ -26,11 +27,13 @@
             android:textColor="@color/colorWhite"
             android:textSize="20sp" />
     </android.support.v7.widget.Toolbar>
+
     <LinearLayout
+        android:id="@+id/llChoiceAllSong"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/llChoiceAllSong"
         android:orientation="horizontal">
+
         <RadioButton
             android:id="@+id/rbItemPlaylistChoiceAll"
             android:layout_width="wrap_content"
@@ -38,11 +41,12 @@
             android:buttonTint="@color/colorCerulean"
             android:clickable="false"
             android:focusable="false" />
+
         <TextView
+            android:id="@+id/tvStateChoiceAll"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/tvStateChoiceAll"
-            android:text="@string/choiceAllSOng"/>
+            android:text="@string/choiceAllSOng" />
 
     </LinearLayout>
 
@@ -52,20 +56,22 @@
         android:layout_height="350dp">
 
     </android.support.v7.widget.RecyclerView>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="vertical">
+
         <ImageButton
             android:id="@+id/imgbPlaylistChoiceComplete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/colorSirocco"
-            android:src="@drawable/ic_create_playlist_new"
-            android:tint="@color/colorBlack"
+            android:contentDescription="@string/imagebutton"
             android:focusable="false"
-            android:contentDescription="@string/imagebutton" />
+            android:src="@drawable/ic_create_playlist_new"
+            android:tint="@color/colorBlack" />
 
         <TextView
             android:id="@+id/tvPlaylistChoiceAdd"
@@ -73,8 +79,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/imgbPlaylistChoiceComplete"
             android:layout_marginBottom="10dp"
-            android:textSize="20sp"
             android:text="@string/playlist_choice_text_add"
-            android:textColor="@color/colorBlack" />
+            android:textColor="@color/colorBlack"
+            android:textSize="20sp" />
     </RelativeLayout>
 </LinearLayout>

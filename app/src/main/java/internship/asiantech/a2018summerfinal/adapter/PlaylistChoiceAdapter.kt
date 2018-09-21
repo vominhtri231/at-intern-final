@@ -2,30 +2,22 @@ package internship.asiantech.a2018summerfinal.adapter
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
+import android.widget.RadioButton
+import android.widget.TextView
 import internship.asiantech.a2018summerfinal.R
 import internship.asiantech.a2018summerfinal.database.model.PlaylistSong
 import internship.asiantech.a2018summerfinal.database.model.Song
-import internship.asiantech.a2018summerfinal.viewholder.ListSongsChoiceViewHolder
 import internship.asiantech.a2018summerfinal.viewholder.RadioButtonEventChoice
 
-class PlaylistChoiceAdapter(var listSongs: MutableList<Song>) : RecyclerView.Adapter<RecyclerView.ViewHolder>(),RadioButtonEventChoice {
-
-    private var mListBoolChoice = mutableListOf<Boolean>()
-    private var listSongInPlaylist = mutableListOf<Song>()
+class PlaylistChoiceAdapter(var listChoice: MutableList<Boolean>, var listSongs: MutableList<Song>, private val listener: RadioButtonEventChoice) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private var mListChoiced = mutableListOf<Boolean>()
     private var mIsCheck = false
-
-    private lateinit var listener :RadioButtonEventChoice
-
-    init {
-        for (index in listSongInPlaylist.indices) {
-            mListBoolChoice.add(false)
-        }
-    }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_row_choice_song_add_playlist, parent, false)
-        return ListSongsChoiceViewHolder(view, listener)
+        return ListSongsChoiceViewHolder(view)
     }
 
     override fun getItemCount(): Int {
@@ -34,49 +26,24 @@ class PlaylistChoiceAdapter(var listSongs: MutableList<Song>) : RecyclerView.Ada
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val song = listSongs[position]
-
         holder as ListSongsChoiceViewHolder
         holder.tvNameSongListChoice.text = song.name
         holder.tvAristListChoice.text = song.author
+        holder.rbSonglistChoice.isChecked = listChoice[position]
     }
 
-    override fun onRadioButtonClickListener(position: Int, ischeck: Boolean) {
-        var music = listSongs.get(position)
-        if (mIsCheck){
-            listSongInPlaylist.add(music)
-            mListBoolChoice[position] = true
+    inner class ListSongsChoiceViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        }else{
-            listSongInPlaylist.remove(music)
-            mListBoolChoice[position] =false
+        val tvNameSongListChoice: TextView = itemView.findViewById(R.id.tvItemNameSongListChoice)
+        val tvAristListChoice: TextView = itemView.findViewById(R.id.tvSongArtistListChoice)
+        val rbSonglistChoice: RadioButton = itemView.findViewById(R.id.rbSonglistChoice)
+        val llPlaylistChoice: LinearLayout = itemView.findViewById(R.id.llPlaylistChoice)
+        init {
+            llPlaylistChoice.setOnClickListener(View.OnClickListener {
+                val isCheck = rbSonglistChoice.isChecked.not()
+                rbSonglistChoice.isChecked = isCheck
+                listener.onRadioButtonClickListener(adapterPosition, isCheck)
+            })
         }
-
-    }
-    fun getListChoice(): MutableList<Song> {
-        val mListChoicedSong = mutableListOf<Song>()
-       listSongInPlaylist.forEachIndexed { index, song ->
-           if (mListBoolChoice[index] == true) {
-               mListChoicedSong.add(song)
-           }
-       }
-        return mListChoicedSong
-    }
-    fun choiceAllItem(isCheck: Boolean, position: Int){
-        var namePlaylist = listSongInPlaylist[position]
-        if (isCheck){
-            for(song in listSongs){
-            listSongInPlaylist.add(song)
-            }
-            for (index in mListBoolChoice.indices){
-                mListBoolChoice[index] = true
-
-            }
-        }else{
-            listSongInPlaylist.clear()
-            for (index in mListBoolChoice.indices){
-                mListBoolChoice[index] = false
-            }
-        }
-        notifyDataSetChanged()
     }
 }

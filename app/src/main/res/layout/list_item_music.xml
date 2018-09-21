@@ -7,14 +7,15 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/rlItemSongInPlaylist"
         android:padding="10dp">
 
         <ImageView
             android:id="@+id/imgSinger"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:contentDescription="@string/avatar_article"
-            android:src="@drawable/img_music" />
+            android:src="@drawable/ic_label_song" />
 
         <TextView
             android:id="@+id/tvTitleSong"

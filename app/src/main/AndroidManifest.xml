@@ -46,6 +46,7 @@
         <activity android:name=".ui.SignUpActivity" />
         <activity android:name=".ChoiceSongActivity" />
         <activity android:name=".ui.ListAlbumActivity" />
+        <activity android:name=".ui.ListSongInPlaylistActivity"/>
         <service
             android:name=".service.MusicService"
             android:enabled="true"

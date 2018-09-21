@@ -10,9 +10,8 @@ import android.widget.TextView
 import internship.asiantech.a2018summerfinal.R
 import internship.asiantech.a2018summerfinal.adapter.MusicAdapter.MusicHolder
 import internship.asiantech.a2018summerfinal.database.model.Song
-import internship.asiantech.a2018summerfinal.model.Music
 
-class MusicAdapter(private val musics: List<Song>, private val context: Context, private val onFavouriteListener:(position: Int)->Unit) : RecyclerView.Adapter<MusicHolder>() {
+class MusicAdapter(private val musics: List<Song>, private val context: Context, private val onFavouriteListener: (position: Int) -> Unit) : RecyclerView.Adapter<MusicHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MusicHolder {
         val view = LayoutInflater.from(context)
                 .inflate(R.layout.list_item_music, parent, false)
@@ -26,10 +25,9 @@ class MusicAdapter(private val musics: List<Song>, private val context: Context,
     override fun onBindViewHolder(holder: MusicHolder, position: Int) {
         holder.tvTitleSong?.text = musics[position].name
         holder.tvSinger?.text = musics[position].author
-        if (musics[position].isFavourite){
+        if (musics[position].isFavourite) {
             holder.imgFavourite?.setImageResource(R.drawable.ic_like)
-        }
-        else{
+        } else {
             holder.imgFavourite?.setImageResource(R.drawable.ic_unlike)
         }
     }
@@ -41,7 +39,7 @@ class MusicAdapter(private val musics: List<Song>, private val context: Context,
 
         init {
             imgFavourite?.setOnClickListener {
-                val position=layoutPosition
+                val position = layoutPosition
                 onFavouriteListener(position)
             }
         }
