@@ -31,14 +31,11 @@ class DialogCreatePlaylist() : DialogFragment() {
         builder.setView(rootView)
                 .setPositiveButton(R.string.ok, DialogInterface.OnClickListener { _, i ->
                     mListener.addPlaylist(mEdtInputNamePlaylist.text.toString(),mDataListPlaylists)
-
                 })
                 .setNegativeButton(R.string.exit) { dialogInterface, i ->
 
                     dialogInterface.cancel()
                 }
-
         return builder.create()
-
     }
 }

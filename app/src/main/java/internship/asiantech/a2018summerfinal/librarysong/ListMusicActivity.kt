@@ -6,6 +6,7 @@ import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import internship.asiantech.a2018summerfinal.R
+import internship.asiantech.a2018summerfinal.adapter.DrawerLayoutAdapter
 import internship.asiantech.a2018summerfinal.adapter.LibraryPagerAdapter
 import internship.asiantech.a2018summerfinal.model.MenuItem
 import internship.asiantech.a2018summerfinal.model.User
@@ -16,7 +17,7 @@ class ListMusicActivity : AppCompatActivity() {
     private lateinit var mViewPager: ViewPager
     private lateinit var mTabLayout: TabLayout
     private var mLibraryPagerAdapter: LibraryPagerAdapter = LibraryPagerAdapter(supportFragmentManager)
-//    private lateinit var drawerLayoutAdapter: DrawerLayoutAdapter
+    private lateinit var drawerLayoutAdapter: DrawerLayoutAdapter
     private val menuItems: List<MenuItem> = ArrayList()
     private val users: MutableList<User> = ArrayList()
 
@@ -25,20 +26,20 @@ class ListMusicActivity : AppCompatActivity() {
         setContentView(R.layout.activity_list_music)
         initViews()
         initViewPager()
-        //initRecyclerView()
+        initRecyclerView()
     }
 
-//    private fun initRecyclerView() {
-//        val layoutManager = LinearLayoutManager(this)
-//        recyclerViewMenu.layoutManager = layoutManager
-//        val userSharedPreferences = UserSharePreference(this)
-//        val user = userSharedPreferences.getCurrentUser()
-//        users.add(user)
-//        drawerLayoutAdapter = DrawerLayoutAdapter(menuItems, users, this) {
-//            userSharedPreferences.removeUserCurrent()
-//        }
-//        recyclerViewMenu.adapter = drawerLayoutAdapter
-//    }
+    private fun initRecyclerView() {
+        val layoutManager = LinearLayoutManager(this)
+        recyclerViewMenu.layoutManager = layoutManager
+        val userSharedPreferences = UserSharePreference(this)
+        val user = userSharedPreferences.getCurrentUser()
+        users.add(user)
+        drawerLayoutAdapter = DrawerLayoutAdapter(menuItems, users, this) {
+            userSharedPreferences.removeUserCurrent()
+        }
+        recyclerViewMenu.adapter = drawerLayoutAdapter
+    }
 
     private fun initViews() {
         mViewPager = findViewById(R.id.viewPager)

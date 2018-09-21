@@ -15,7 +15,6 @@ import internship.asiantech.a2018summerfinal.database.model.Song
 
 class ListMusic(private val context: Context) {
     private var listMusics: ArrayList<Song>? = null
-
     companion object {
         private const val REQUEST_PERMISSION = 1
     }
