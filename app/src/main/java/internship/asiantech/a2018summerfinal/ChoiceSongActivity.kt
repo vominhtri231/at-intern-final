@@ -27,8 +27,8 @@ class ChoiceSongActivity : AppCompatActivity() {
     private var mIsCheck = false
 
     companion object {
-        val KEY_POSITION = "key_position"
-        val RESULT_KEY = "RESULT_KEY"
+       const val KEY_POSITION = "key_position"
+       const val RESULT_KEY = "RESULT_KEY"
     }
 
     private var mIsCheckAll = false
@@ -105,12 +105,12 @@ class ChoiceSongActivity : AppCompatActivity() {
     }
 
     private fun getListChoice(): MutableList<Song> {
-        val mListChoicedSong = mutableListOf<Song>()
+        val listChoicedSong = mutableListOf<Song>()
         listSongInDevices.forEachIndexed { index, song ->
             if (mListBoolChoice[index]) {
-                mListChoicedSong.add(song)
+                listChoicedSong.add(song)
             }
         }
-        return mListChoicedSong
+        return listChoicedSong
     }
 }

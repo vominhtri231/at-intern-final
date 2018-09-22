@@ -26,8 +26,6 @@ import kotlinx.android.synthetic.main.fragment_playlist.*
 
 @Suppress("DEPRECATION")
 class PlaylistFragment : Fragment(), EventAddPlaylistListener, EventClickItemOpenListSong {
-
-
     private lateinit var mTvCreatePlaylist: TextView
     private lateinit var mTvChangePlaylist: TextView
     private var listPlaylist: MutableList<Playlist> = mutableListOf()
@@ -39,8 +37,8 @@ class PlaylistFragment : Fragment(), EventAddPlaylistListener, EventClickItemOpe
 
     companion object {
         const val ADD_PLAYLIST = 200
-        val KEY_POSITION = "key_position"
-        val KEY_ID_PLAYLIST_BUNDLE = "keyIdNamePlaylist"
+        const val KEY_POSITION = "key_position"
+        const val KEY_ID_PLAYLIST_BUNDLE = "keyIdNamePlaylist"
 
     }
 
@@ -122,9 +120,8 @@ class PlaylistFragment : Fragment(), EventAddPlaylistListener, EventClickItemOpe
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == ADD_PLAYLIST && resultCode == RESULT_OK) {
             val listSongs = data?.getParcelableArrayListExtra<Song>(RESULT_KEY)!!
-            for (song in listSongs) {
                 mAdapterPlaylist.notifyDataSetChanged()
-            }
+
         }
     }
 }
