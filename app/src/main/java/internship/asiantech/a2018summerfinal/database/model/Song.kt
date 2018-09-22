@@ -14,5 +14,11 @@ data class Song(
         var name: String = "",
 
         @ColumnInfo(name = "author")
-        var author: String = ""
+        var author: String = "",
+
+        @ColumnInfo(name = "duration")
+        var duration: Int = 0,
+
+        @ColumnInfo(name = "isFavourite")
+        var isFavourite: Boolean = false
 )
