@@ -97,7 +97,6 @@ class PlayMusicActivity : AppCompatActivity() {
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
-        Log.e(TAG, "$requestCode,${permissions[0]},${grantResults[0]}")
         if (requestCode == READ_EXTERNAL_REQUEST_CODE && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             songs.addAll(querySongs(contentResolver))
             initService()
@@ -144,6 +143,5 @@ class PlayMusicActivity : AppCompatActivity() {
 
     companion object {
         const val READ_EXTERNAL_REQUEST_CODE = 231
-        val TAG: String = this::class.java.simpleName
     }
 }
