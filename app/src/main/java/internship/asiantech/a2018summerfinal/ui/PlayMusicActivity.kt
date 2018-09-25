@@ -9,11 +9,12 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.IBinder
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.widget.SeekBar
 import internship.asiantech.a2018summerfinal.R
 import internship.asiantech.a2018summerfinal.database.model.Song
 import internship.asiantech.a2018summerfinal.receiver.MusicReceiver
-import internship.asiantech.a2018summerfinal.service.Command
+import internship.asiantech.a2018summerfinal.service.CommandBuilder
 import internship.asiantech.a2018summerfinal.service.MusicBinder
 import internship.asiantech.a2018summerfinal.service.MusicPlayer
 import internship.asiantech.a2018summerfinal.service.MusicPlayerEventListener
@@ -56,8 +57,7 @@ class PlayMusicActivity : AppCompatActivity() {
 
         override fun onServiceConnected(p0: ComponentName?, p1: IBinder?) {
             val binder = p1 as MusicBinder
-            musicPlayer = binder.musicPlayer
-            musicPlayer?.apply {
+            musicPlayer = binder.getMusicPlayer()?.apply {
                 setMusicList(songs)
                 transferPlayerState()
             }
@@ -71,12 +71,12 @@ class PlayMusicActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_play_music)
         initView()
-        initService()
 
         if (checkPermissions(this,
                         arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
                         READ_EXTERNAL_REQUEST_CODE)) {
             songs.addAll(querySongs(contentResolver))
+            initService()
         }
     }
 
@@ -97,8 +97,10 @@ class PlayMusicActivity : AppCompatActivity() {
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        Log.e(TAG, "$requestCode,${permissions[0]},${grantResults[0]}")
         if (requestCode == READ_EXTERNAL_REQUEST_CODE && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             songs.addAll(querySongs(contentResolver))
+            initService()
         } else {
             super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         }
@@ -135,12 +137,13 @@ class PlayMusicActivity : AppCompatActivity() {
     }
 
     private fun initService() {
-        val command: Intent = Command(this, Command.START_SERVICE).build()
+        val command: Intent = CommandBuilder(this, CommandBuilder.START_SERVICE).build()
         startService(command)
         bindService(command, serviceConnection, BIND_AUTO_CREATE)
     }
 
     companion object {
         const val READ_EXTERNAL_REQUEST_CODE = 231
+        val TAG: String = this::class.java.simpleName
     }
 }

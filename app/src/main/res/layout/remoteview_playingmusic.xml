@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal">
+    android:layout_height="100dp">
 
     <ImageView
         android:id="@+id/imgHomeQuickplayer"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="80dp"
+        android:layout_height="match_parent"
         android:contentDescription="@string/play_list"
+        android:scaleType="centerCrop"
         android:src="@drawable/ic_quickplayer_blue" />
 
-    <LinearLayout
+    <RelativeLayout
+        android:id="@+id/llInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="5dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="5dp"
         android:layout_marginTop="5dp"
-        android:orientation="vertical">
+        android:layout_toEndOf="@id/imgHomeQuickplayer">
 
         <TextView
             android:id="@+id/tvNameSongMiniBar"
@@ -29,68 +29,75 @@
             android:singleLine="true"
             android:text="@string/home_minibar_test_name_song"
             android:textColor="@color/colorMineShaft"
-            android:textSize="12sp" />
+            android:textSize="14sp" />
 
-        <TextView
-            android:id="@+id/tvNameSingerMiniBar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:maxLines="1"
-            android:singleLine="true"
-            android:text="@string/home_minibar_test_name_author"
-            android:textColor="@color/colorDarkGray"
-            android:textSize="12sp" />
+        <Button
+            android:id="@+id/btnExitMinibar"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentEnd="true"
+            android:background="@drawable/ic_exit_remote_view" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/llTime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/llInfo"
+        android:layout_toEndOf="@id/imgHomeQuickplayer">
 
         <ProgressBar
             android:id="@+id/progressBarMiniBar"
             style="@style/Base.Widget.AppCompat.ProgressBar.Horizontal"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="5dp"
-            android:progress="25" />
+            android:layout_marginEnd="5dp" />
 
         <TextView
             android:id="@+id/tvRunningTimeMiniBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
+            android:layout_below="@id/progressBarMiniBar"
+            android:layout_marginStart="10dp"
             android:text="@string/minibar_time_default"
+            android:textColor="@color/colorBlack"
             android:textSize="12sp" />
-        <!--Use the following code to get the spinner in various expected color.Here we use
-         the hexcode to display spinner in blue color.-->
-    </LinearLayout>
 
-    <Button
-        android:id="@+id/btnPlayingListMiniBar"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:background="@drawable/ic_favourite_default" />
+        <TextView
+            android:id="@+id/tvTotalTimeMiniBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@id/progressBarMiniBar"
+            android:layout_marginStart="10dp"
+            android:text="@string/minibar_time_default"
+            android:textColor="@color/colorBlack"
+            android:textSize="12sp" />
+    </RelativeLayout>
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
+        android:layout_alignStart="@id/llTime"
+        android:layout_below="@id/llTime"
+        android:layout_centerHorizontal="true"
         android:layout_gravity="center"
+        android:gravity="center"
         android:orientation="horizontal">
 
         <Button
             android:id="@+id/btnPreviousPlayMiniBar"
             style="@style/ButtonStateSong"
-            android:background="@drawable/ic_btn_previous_song" />
+            android:background="@drawable/ic_previous" />
 
         <Button
             android:id="@+id/btnPlayMiniBar"
             style="@style/ButtonStateSong"
-            android:background="@drawable/ic_btn_play_song" />
+            android:background="@drawable/ic_play" />
 
         <Button
             android:id="@+id/btnNextMiniBar"
             style="@style/ButtonStateSong"
-            android:background="@drawable/ic_btn_next_song" />
-
+            android:background="@drawable/ic_next" />
     </LinearLayout>
-    <Button
-        android:id="@+id/btnExitMinibar"
-        style="@style/ButtonStateSong"
-        android:background="@drawable/ic_exit_remote_view" />
-</LinearLayout>
+</RelativeLayout>

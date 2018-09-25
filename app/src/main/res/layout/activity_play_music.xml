@@ -45,7 +45,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="30dp"
             android:textAlignment="center"
-            android:textSize="40dp" />
+            android:textSize="40sp" />
 
         <TextView
             android:id="@+id/tvSongArtist"
@@ -55,7 +55,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
             android:textAlignment="center"
-            android:textSize="20dp" />
+            android:textSize="20sp" />
     </RelativeLayout>
 
     <RelativeLayout
