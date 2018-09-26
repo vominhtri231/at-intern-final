@@ -1,6 +1,7 @@
 package internship.asiantech.a2018summerfinal.ui
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -30,7 +31,7 @@ import java.io.IOException
 import java.util.*
 import java.util.regex.Pattern
 
-
+@SuppressLint("Registered")
 @Suppress("DEPRECATED_IDENTITY_EQUALS", "UNUSED_EXPRESSION")
 class SignUpActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapClickListener {
     private lateinit var map: GoogleMap

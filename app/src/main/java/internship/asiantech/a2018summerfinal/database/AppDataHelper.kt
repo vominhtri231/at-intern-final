@@ -51,7 +51,7 @@ class AppDataHelper private constructor(val database: AppDatabase) {
      *
      * @param id the song's id
      */
-    fun deleteSongWithId(id: String) = DeleteSongAsyncTask(database.songDAO()).execute(id)
+    fun deleteSongWithId(id: Long) = DeleteSongAsyncTask(database.songDAO()).execute(id)
 
     /**
      * add playlist to the database
@@ -68,25 +68,25 @@ class AppDataHelper private constructor(val database: AppDatabase) {
     fun getAllPlaylist(updater: PlaylistUpdater) = GetAllPlaylistAsyncTask(database.playlistDAO(), updater).execute()
 
     /**
-     * delete playlist with name
+     * delete playlist with title
      *
-     * @param name the playlist's name
+     * @param name the playlist's title
      */
     fun deletePlaylist(name: String) = DeletePlaylistAsyncTask(database.playlistDAO()).execute(name)
 
     /**
      * insert a song to a playlist
      *
-     * @param playlistName the playlist's name
+     * @param playlistName the playlist's title
      * @param songId the song's id
      */
-    fun addSongToPlaylist(playlistName: String, songId: String) =
+    fun addSongToPlaylist(playlistName: String, songId: Long) =
             InsertSongToPlaylistAsyncTask(database.playlistSongDAO()).execute(PlaylistSong(playlistName, songId))
 
     /**
      * get all songs in the playlist
      *
-     * @param name the playlist's name
+     * @param name the playlist's title
      */
     fun getSongInPlaylist(name: String, updater: SongUpdater) =
             GetSongInPlaylist(database.playlistSongDAO(), updater).execute(name)
@@ -94,10 +94,10 @@ class AppDataHelper private constructor(val database: AppDatabase) {
     /**
      * delete a song in a playlist
      *
-     * @param playlistName the playlist's name
+     * @param playlistName the playlist's title
      * @param songId the song's id
      */
-    fun deleteSongInPlaylist(playlistName: String, songId: String) =
+    fun deleteSongInPlaylist(playlistName: String, songId: Long) =
             DeleteSongInPlaylistAsyncTask(database.playlistSongDAO()).execute(PlaylistSong(playlistName, songId))
 
 }
@@ -128,9 +128,12 @@ private class GetAllSongAsyncTask(private val songDAO: SongDAO, private val upda
     }
 }
 
-private class DeleteSongAsyncTask(private val songDAO: SongDAO) : AsyncTask<String, Unit, Unit>() {
-    override fun doInBackground(vararg p: String) {
-        songDAO.deleteSongWithId(p[0])
+private class DeleteSongAsyncTask(private val songDAO: SongDAO) : AsyncTask<Long, Unit, Unit>() {
+    override fun doInBackground(vararg p0: Long?) {
+        p0[0]?.let {
+            songDAO.deleteSongWithId(it)
+        }
+
     }
 }
 

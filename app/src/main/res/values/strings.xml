@@ -31,8 +31,9 @@
     <string name="add_album">Add album</string>
     <string name="avatar_article">Avatar article</string>
     <string name="play_list">playlist</string>
-    <string name="create_new">create new</string>
-    <string name="change_playlist">Change Playlist</string>
+    <string name="create_new">Create new</string>
+    <string name="create_new_song">Create new Song</string>
+    <string name="change_playlist">Change</string>
     <string name="error_password">Password is 6 or more character and only contains letter and number </string>
     <string name="error_old_password">Old password is incorrect</string>
     <string name="error_name">Name is fail format</string>
@@ -45,7 +46,19 @@
     <string name="error_login">Login fail</string>
     <string name="error_reset_password">Reset password error</string>
     <string name="error_load_gallery">Error load gallery</string>
-    <string name="song">song</string>
+    <string name="song"> song </string>
+    <string name="toolbar_text_choice">action</string>
+    <string name="choiceAllSOng">choice all songs</string>
+    <string name="playlist_choice_text_add">Add songs</string>
+    <string name="title_dialog">New Create</string>
+    <string name="input_playlist">input playlist</string>
+    <string name="ok">OK</string>
+    <string name="exit">EXIT</string>
+    <string name="no">NO</string>
+    <string name="message_delete_song">You want delete this song</string>
+    <string name="exit_choice_all">clear choice all</string>
     <string name="your_location">Your location</string>
     <string name="favourite">Favourite</string>
+    <string name="delete_song">Delete Song</string>
+    <string name="history">History</string>
 </resources>

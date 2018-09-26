@@ -8,7 +8,7 @@ import android.arch.persistence.room.ForeignKey
         foreignKeys = [
             ForeignKey(
                     entity = Playlist::class,
-                    parentColumns = arrayOf("name"),
+                    parentColumns = arrayOf("title"),
                     childColumns = arrayOf("playlist_name"),
                     onDelete = ForeignKey.CASCADE,
                     onUpdate = ForeignKey.CASCADE),
@@ -25,5 +25,5 @@ data class PlaylistSong(
         var playlistName: String = "",
 
         @ColumnInfo(name = "song_id")
-        var songId: String = ""
+        var songId: Long = 0
 )

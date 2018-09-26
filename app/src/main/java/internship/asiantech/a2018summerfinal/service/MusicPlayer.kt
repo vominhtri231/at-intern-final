@@ -4,7 +4,8 @@ import android.content.ContentUris
 import android.content.Context
 import android.media.MediaPlayer
 import android.provider.MediaStore
-import internship.asiantech.a2018summerfinal.model.Music
+import android.support.annotation.IntDef
+import internship.asiantech.a2018summerfinal.database.model.Song
 import java.lang.ref.WeakReference
 import java.util.*
 
@@ -15,41 +16,44 @@ import java.util.*
  * @param listener how context handle ui according to music player
  */
 class MusicPlayer(private val context: Context, private val listener: MusicPlayerEventListener) {
-    private var musics: MutableList<Music> = mutableListOf()
+    private var songs: MutableList<Song> = mutableListOf()
     private var isPaused = false
+    @Mode
+    private var mode: Int = MODE_NEXT
     private var currentPosition = 0
     private var mediaPlayer: MediaPlayer = MediaPlayer()
+
+    init {
+        mediaPlayer.setOnCompletionListener { _ ->
+            mediaPlayer.stop()
+            mediaPlayer.reset()
+            @Mode
+            when (mode) {
+                MODE_NEXT -> nextSong()
+                MODE_SHUFFLE -> playAt(Random().nextInt(songs.size))
+                MODE_REPEAT -> playAt(currentPosition)
+            }
+        }
+    }
+
     private var timeUpdater: TimeUpdater? = null
 
     /**
      * set list music
      *
-     * @param musics input songs
+     * @param songs input songs
      */
-    fun setMusicList(musics: MutableList<Music>) {
-        this.musics = musics
+    fun setMusicList(songs: List<Song>) {
+        this.songs.clear()
+        this.songs.addAll(songs)
     }
 
-    /**
-     * set play next song mode
-     */
-    fun setPlayNextMode() {
-        mediaPlayer.setOnCompletionListener { _ ->
-            mediaPlayer.stop()
-            mediaPlayer.reset()
-            nextSong()
-        }
-    }
 
     /**
-     * set play random song mode
+     * set play song mode
      */
-    fun setPlayRandomMode() {
-        mediaPlayer.setOnCompletionListener { _ ->
-            mediaPlayer.stop()
-            mediaPlayer.reset()
-            playAt(Random().nextInt(musics.size))
-        }
+    fun setPlayMode(@Mode mode: Int) {
+        this.mode = mode
     }
 
     /**
@@ -68,28 +72,28 @@ class MusicPlayer(private val context: Context, private val listener: MusicPlaye
             mediaPlayer.pause()
             isPaused = true
         }
-        timeUpdater?.stopUpdate()
+        stopUpdateTime()
         listener.onPlayerPause()
     }
 
     private fun play() {
         if (!isPaused && !mediaPlayer.isPlaying) {
-            if (musics.size > 0) {
-                val song = musics[currentPosition]
-                val id = song.songId
-                val trackUri = ContentUris.withAppendedId(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, id)
+            if (songs.size > 0) {
+                val song = songs[currentPosition]
+                val id = song.id
+                val trackUri = ContentUris.withAppendedId(
+                        MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, id)
                 mediaPlayer.setDataSource(context, trackUri)
                 mediaPlayer.prepare()
                 mediaPlayer.start()
-                listener.onPlayerStart(song.songTitle, mediaPlayer.duration)
+                listener.onPlayerStart(song.title, mediaPlayer.duration)
             }
         } else {
             mediaPlayer.start()
             listener.onPlayerUnPause()
         }
         isPaused = false
-        timeUpdater = TimeUpdater(this)
-        timeUpdater?.start()
+        startUpdateTime()
     }
 
     /**
@@ -97,9 +101,9 @@ class MusicPlayer(private val context: Context, private val listener: MusicPlaye
      *
      * @param position position of song in list song
      */
-    fun playAt(position: Int) {
-        if (position >= 0 && position < musics.size) {
-            timeUpdater?.stopUpdate()
+    private fun playAt(position: Int) {
+        if (position >= 0 && position < songs.size) {
+            stopUpdateTime()
             if (isPaused) {
                 isPaused = false
             }
@@ -116,7 +120,10 @@ class MusicPlayer(private val context: Context, private val listener: MusicPlaye
      * play next song in list song
      */
     fun nextSong() {
-        timeUpdater?.stopUpdate()
+        stopUpdateTime()
+        if (songs.size == 0) {
+            return
+        }
         if (isPaused) {
             isPaused = false
         }
@@ -124,7 +131,7 @@ class MusicPlayer(private val context: Context, private val listener: MusicPlaye
             mediaPlayer.stop()
         }
         mediaPlayer.reset()
-        currentPosition = (currentPosition + 1) % musics.size
+        currentPosition = (currentPosition + 1) % songs.size
         play()
     }
 
@@ -132,7 +139,7 @@ class MusicPlayer(private val context: Context, private val listener: MusicPlaye
      * play previous song in list song
      */
     fun previousSong() {
-        timeUpdater?.stopUpdate()
+        stopUpdateTime()
         if (isPaused) {
             isPaused = false
         }
@@ -142,10 +149,9 @@ class MusicPlayer(private val context: Context, private val listener: MusicPlaye
         mediaPlayer.reset()
         currentPosition--
         if (currentPosition < 0) {
-            currentPosition += musics.size
+            currentPosition += songs.size
         }
         play()
-
     }
 
     /**
@@ -155,22 +161,48 @@ class MusicPlayer(private val context: Context, private val listener: MusicPlaye
      */
     fun setSeekPosition(millisecond: Int) {
         mediaPlayer.seekTo(millisecond)
+        startUpdateTime()
+    }
+
+    private fun getSeekPosition(): Int = mediaPlayer.currentPosition
+
+    /**
+     * notify song's information including title and duration
+     */
+    fun transferPlayerState() {
+        if (isPaused || mediaPlayer.isPlaying) {
+            listener.onPlayerPlaying(mediaPlayer.currentPosition)
+            listener.onPlayerStart(songs[currentPosition].title,
+                    mediaPlayer.duration)
+        }
+        if (isPaused || !mediaPlayer.isPlaying) {
+            listener.onPlayerPause()
+        } else {
+            listener.onPlayerUnPause()
+        }
+    }
+
+    /**
+     * stop the timer
+     */
+    fun stopUpdateTime() {
+        timeUpdater?.stopUpdate()
+    }
+
+    private fun startUpdateTime() {
+        timeUpdater?.stopUpdate()
         timeUpdater = TimeUpdater(this)
         timeUpdater?.start()
     }
 
-    /**
-     * @return playing song's time in millisecond
-     */
-    private fun getSeekPosition(): Int = mediaPlayer.currentPosition
+    companion object {
+        @IntDef(MODE_REPEAT, MODE_SHUFFLE, MODE_NEXT)
+        @Retention(AnnotationRetention.SOURCE)
+        annotation class Mode
 
-    /**
-     * notify song's information including name and duration
-     */
-    fun transferPlayingSongInfo() {
-        listener.onPlayerStart(musics[currentPosition].songTitle,
-                mediaPlayer.duration)
-
+        const val MODE_REPEAT = 0
+        const val MODE_SHUFFLE = 1
+        const val MODE_NEXT = 2
     }
 
     private class TimeUpdater(musicPlayer: MusicPlayer) : Thread() {
@@ -182,7 +214,7 @@ class MusicPlayer(private val context: Context, private val listener: MusicPlaye
                 musicPlayerReference.get()?.let {
                     it.listener.onPlayerPlaying(it.getSeekPosition())
                 }
-                Thread.sleep(50)
+                Thread.sleep(100)
             }
         }
 

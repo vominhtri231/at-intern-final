@@ -4,8 +4,6 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentStatePagerAdapter
 import internship.asiantech.a2018summerfinal.fragment.PlaylistFragment
-import internship.asiantech.a2018summerfinal.fragment.FavouriteFragment
-import internship.asiantech.a2018summerfinal.fragment.HistoryFragment
 import internship.asiantech.a2018summerfinal.fragment.ListSongsFragment
 
 
