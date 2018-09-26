@@ -101,7 +101,7 @@ class MusicPlayer(private val context: Context, private val listener: MusicPlaye
      *
      * @param position position of song in list song
      */
-    fun playAt(position: Int) {
+    private fun playAt(position: Int) {
         if (position >= 0 && position < songs.size) {
             stopUpdateTime()
             if (isPaused) {

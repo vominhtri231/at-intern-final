@@ -25,7 +25,7 @@ import internship.asiantech.a2018summerfinal.utils.trimStringToLength
  *
  *
  * There are 2 way to interact with music service:(after you create one)
- *  1.Using CommandBuilder :
+ *  1.Using command :
  *    startService(CommandBuilder(context, CommandBuilder.PLAY_OR_PAUSE).build())
  *  2.Using binder :
  *
@@ -40,8 +40,8 @@ import internship.asiantech.a2018summerfinal.utils.trimStringToLength
  *      }
  *    }
  *
- *    musicPlayer.init(songs)
- *    musicPlayer.playAt(...)
+ *    bindService(command, serviceConnection, BIND_AUTO_CREATE)
+ *    we use musicPlayer here...
  *
  */
 class MusicService : Service() {

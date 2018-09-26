@@ -6,9 +6,9 @@ import android.support.annotation.StringDef
 
 /**
  *
- * CommandBuilder is a handmade Intent for MusicService
+ * CommandBuilder is used to make Intent for MusicService
  *
- * how to control music player via command:
+ * How to control music player via command:
  *      startService(CommandBuilder(context,CommandBuilder.PLAY_OR_PAUSE).build())
  */
 
