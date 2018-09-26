@@ -37,6 +37,11 @@
         <activity android:name=".ui.ProfileUserActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".ui.SignUpActivity" />
+
+        <receiver
+            android:name=".broadcast.HeadphoneStateReceiver"
+            android:enabled="true"
+            android:exported="true"/>
         <activity android:name=".ui.ListAlbumActivity" />
 
         <service
