@@ -47,18 +47,18 @@
                         android:layout_marginEnd="30dp"
                         android:background="@drawable/ic_search" />
 
-                    <EditText
-                        android:id="@+id/edtToolBarSearch"
+                    <AutoCompleteTextView
+                        android:id="@+id/edtSearch"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginBottom="5dp"
-                        android:layout_marginTop="5dp"
-                        android:backgroundTint="@color/colorNepal"
-                        android:hint="@string/toolbar_text_hint_search"
-                        android:inputType="text"
-                        android:maxLines="1"
-                        android:visibility="gone"
-                        tools:ignore="UnusedAttribute" />
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:layout_marginEnd="20dp"
+                        android:layout_marginStart="20dp"
+                        android:background="@drawable/border_edit_text_search"
+                        android:hint="@string/prompt_music"
+                        android:padding="5dp"
+                        android:textSize="20sp"
+                        android:visibility="gone" />
                 </android.support.v7.widget.Toolbar>
             </android.support.design.widget.AppBarLayout>
 
@@ -88,10 +88,10 @@
         </LinearLayout>
 
         <LinearLayout
-            android:background="@color/colorWhite"
             android:layout_width="300dp"
             android:layout_height="match_parent"
-            android:layout_gravity="start">
+            android:layout_gravity="start"
+            android:background="@color/colorWhite">
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recyclerViewMenu"

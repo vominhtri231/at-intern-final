@@ -32,6 +32,13 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/map_api_key" />
 
+        <activity android:name=".librarysong.ListMusicActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".librarysong.ListMusicActivity"/>
         <activity android:name=".ui.LoginActivity" />
         <activity android:name=".ui.ProfileUserActivity" />
@@ -46,7 +53,9 @@
         <activity android:name=".ui.ListSongInPlaylistActivity"/>
         <service
             android:name=".service.MusicService"
-            android:enabled="true" />
+            android:enabled="true"
+            android:exported="true" />
+        <activity android:name=".ui.SearchedActivity"/>
 
         <activity android:name=".ui.PlayMusicActivity">
             <intent-filter>

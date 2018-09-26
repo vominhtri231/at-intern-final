@@ -26,7 +26,6 @@ class LibraryPagerAdapter(fm: FragmentManager?) : FragmentStatePagerAdapter(fm) 
     }
 
     override fun getItem(position: Int): Fragment {
-
         return mListFragment[position]
     }
 
