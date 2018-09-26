@@ -16,5 +16,5 @@ interface SongDAO {
     fun addSong(song: Song)
 
     @Query("Delete from song where id= :id")
-    fun deleteSongWithId(id: String)
+    fun deleteSongWithId(id: Long)
 }

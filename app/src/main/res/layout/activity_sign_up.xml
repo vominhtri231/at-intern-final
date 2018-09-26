@@ -10,6 +10,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".ui.LoginActivity">
     tools:context=".ui.SignUpActivity">
 
     <ProgressBar
@@ -44,6 +45,11 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/prompt_mail"
                 android:inputType="textEmailAddress" />
+            android:id="@+id/edtMail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/prompt_mail"
+            android:inputType="textEmailAddress" />
 
             <EditText
                 android:id="@+id/edtPassword"
@@ -75,10 +81,14 @@
 
             <fragment
                 android:id="@+id/fragmentMap"
-                android:name="com.google.android.gms.maps.SupportMapFragment"
+                android:name="com.google.android.gms.maps.MapFragment"
                 android:layout_width="match_parent"
-                android:layout_height="800dp"
+                android:layout_height="250dp"
                 android:layout_marginBottom="20dp" />
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="800dp"
+            android:layout_marginBottom="20dp" />
 
             <TextView
                 android:id="@+id/tvError"

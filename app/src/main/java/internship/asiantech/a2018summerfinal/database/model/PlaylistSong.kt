@@ -25,5 +25,5 @@ data class PlaylistSong(
         var playlistName: String = "",
 
         @ColumnInfo(name = "song_id")
-        var songId: String = ""
+        var songId: Long = 0
 )

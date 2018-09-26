@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="300dp"
+    android:layout_height="300dp"
+    android:layout_gravity="center">
+
+    <TextView
+        android:id="@+id/tvDialogCreateNewPlaylist"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/title_dialog"
+        android:textSize="15sp" />
+
+    <EditText
+        android:id="@+id/edtNamePlaylist"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvDialogCreateNewPlaylist"
+        android:layout_marginTop="30dp"
+        android:hint="@string/input_playlist"
+        android:inputType="text"
+        android:maxLines="1"
+        android:textSize="20sp" />
+</RelativeLayout>

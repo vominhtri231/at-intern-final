@@ -10,9 +10,9 @@ import android.widget.TextView
 import android.widget.Toast
 import internship.asiantech.a2018summerfinal.R
 import internship.asiantech.a2018summerfinal.adapter.MusicAdapter.MusicHolder
-import internship.asiantech.a2018summerfinal.model.Music
+import internship.asiantech.a2018summerfinal.database.model.Song
 
-class MusicAdapter(private val musics: List<Music>, private val context: Context, private val onFavouriteListener: (position: Int) -> Unit, private val onPlayMusic: (position: Int) -> Unit) : RecyclerView.Adapter<MusicHolder>() {
+class MusicAdapter(private val musics: List<Song>, private val context: Context, private val onFavouriteListener: (position: Int) -> Unit) : RecyclerView.Adapter<MusicHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MusicHolder {
         val view = LayoutInflater.from(context)
                 .inflate(R.layout.list_item_music, parent, false)
@@ -24,7 +24,7 @@ class MusicAdapter(private val musics: List<Music>, private val context: Context
     }
 
     override fun onBindViewHolder(holder: MusicHolder, position: Int) {
-        holder.tvTitleSong?.text = musics[position].songTitle
+        holder.tvTitleSong?.text = musics[position].title
         holder.tvSinger?.text = musics[position].artist
         if (musics[position].isFavourite) {
             holder.imgFavourite?.setImageResource(R.drawable.ic_like)

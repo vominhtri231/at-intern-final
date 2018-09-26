@@ -19,7 +19,7 @@ import kotlinx.android.synthetic.main.fragment_list_songs.*
 
 class ListSongsFragment : Fragment() {
     private lateinit var musicAdapter: MusicAdapter
-    private lateinit var musics: MutableList<Music>
+    private lateinit var musics: MutableList<Song>
 
     companion object {
         private const val KEY_POSITION = "position"

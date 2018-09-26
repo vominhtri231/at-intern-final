@@ -38,6 +38,7 @@ class LoginActivity : AppCompatActivity() {
         userSharedPreferences = UserSharePreference(this)
         tvSignUp.setOnClickListener {
             val intent = Intent(this, SignUpActivity::class.java)
+            startActivity(intent)
             startActivityForResult(intent, REQUEST_CODE)
         }
         btnLogin.setOnClickListener {

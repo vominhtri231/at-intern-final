@@ -24,7 +24,7 @@ internal class DrawerLayoutAdapter(private val menuItemList: List<MenuItem>, pri
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val view: View
         return if (viewType == 0) {
-            view = LayoutInflater.from(context)
+            view = LayoutInflater.from(parent.context)
                     .inflate(R.layout.header_item, parent, false)
             HeaderItemHolder(view)
         } else {
