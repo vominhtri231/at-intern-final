@@ -6,25 +6,25 @@ import android.app.Activity
 import android.content.Context
 import android.content.pm.PackageManager
 import android.database.Cursor
+import android.provider.MediaStore
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
-import internship.asiantech.a2018summerfinal.model.Music
-import android.provider.MediaStore
 import internship.asiantech.a2018summerfinal.database.model.Song
 
 
 class ListMusic(private val context: Context) {
-    private var listMusics: ArrayList<Song>? = null
+    private var listMusics: MutableList<Song>? = null
+
     companion object {
         private const val REQUEST_PERMISSION = 1
     }
 
     @SuppressLint("Recycle")
-    fun getListMusics(): ArrayList<Song> {
+    fun getListMusics(): List<Song> {
         if (listMusics == null) {
-            listMusics = ArrayList()
+            listMusics = mutableListOf()
             if (ContextCompat.checkSelfPermission(context as Activity, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(context , arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), REQUEST_PERMISSION)
+                ActivityCompat.requestPermissions(context, arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), REQUEST_PERMISSION)
             } else {
                 val selection = MediaStore.Audio.Media.IS_MUSIC + " !=0"
                 val project = arrayOf(MediaStore.Audio.Media._ID,
@@ -51,6 +51,6 @@ class ListMusic(private val context: Context) {
                 musicCursor.close()
             }
         }
-        return listMusics as ArrayList<Song>
+        return listMusics as List<Song>
     }
 }

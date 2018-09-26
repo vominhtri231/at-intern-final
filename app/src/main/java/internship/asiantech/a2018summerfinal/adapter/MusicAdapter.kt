@@ -46,7 +46,6 @@ class MusicAdapter(private val musics: List<Song>, private val context: Context,
 
             itemView?.setOnClickListener {
                 val position = layoutPosition
-                onPlayMusic(position)
             }
         }
     }

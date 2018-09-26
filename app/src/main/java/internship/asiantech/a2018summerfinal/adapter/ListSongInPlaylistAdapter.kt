@@ -27,8 +27,8 @@ class ListSongInPlaylistAdapter(private val listSongInPlaylist: MutableList<Song
     }
 
     override fun onBindViewHolder(holder: ListSongInPlayListViewHolder, position: Int) {
-        holder.tvTitleSong?.text = listSongInPlaylist[position].name
-        holder.tvSinger?.text = listSongInPlaylist[position].author
+        holder.tvTitleSong?.text = listSongInPlaylist[position].title
+        holder.tvSinger?.text = listSongInPlaylist[position].artist
     }
 
     inner class ListSongInPlayListViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
