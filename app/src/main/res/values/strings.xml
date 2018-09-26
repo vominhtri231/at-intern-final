@@ -59,4 +59,5 @@
     <string name="your_location">Your location</string>
     <string name="favourite">Favourite</string>
     <string name="delete_song">Delete Song</string>
+    <string name="history">History</string>
 </resources>

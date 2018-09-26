@@ -7,6 +7,6 @@ import android.arch.persistence.room.PrimaryKey
 @Entity(tableName = "playlist")
 data class Playlist(
         @PrimaryKey
-        @ColumnInfo(name = "name")
+        @ColumnInfo(name = "title")
         var name: String = ""
 )

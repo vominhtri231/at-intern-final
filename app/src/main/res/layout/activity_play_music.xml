@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.PlayerFragment">
+    tools:context=".ui.PlayMusicActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -12,11 +12,13 @@
         android:layout_marginTop="30dp">
 
         <ImageView
+            android:id="@+id/imgModeRepeat"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:src="@drawable/ic_repeat" />
 
         <ImageView
+            android:id="@+id/imgModeShuffle"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_alignParentEnd="true"
@@ -28,7 +30,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center">
 
-        <ImageView
+        <internship.asiantech.a2018summerfinal.ui.CircleImage
             android:id="@+id/imgSong"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -43,7 +45,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="30dp"
             android:textAlignment="center"
-            android:textSize="40dp" />
+            android:textSize="40sp" />
 
         <TextView
             android:id="@+id/tvSongArtist"
@@ -53,7 +55,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
             android:textAlignment="center"
-            android:textSize="20dp" />
+            android:textSize="20sp" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -70,7 +72,8 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/seekBar">
+            android:layout_below="@id/seekBar"
+            android:layout_marginTop="10dp">
 
             <TextView
                 android:id="@+id/tvRunningTime"

@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import internship.asiantech.a2018summerfinal.R
 import internship.asiantech.a2018summerfinal.adapter.MusicAdapter.MusicHolder
 import internship.asiantech.a2018summerfinal.database.model.Song
@@ -23,8 +24,8 @@ class MusicAdapter(private val musics: List<Song>, private val context: Context,
     }
 
     override fun onBindViewHolder(holder: MusicHolder, position: Int) {
-        holder.tvTitleSong?.text = musics[position].name
-        holder.tvSinger?.text = musics[position].author
+        holder.tvTitleSong?.text = musics[position].title
+        holder.tvSinger?.text = musics[position].artist
         if (musics[position].isFavourite) {
             holder.imgFavourite?.setImageResource(R.drawable.ic_like)
         } else {
@@ -41,6 +42,11 @@ class MusicAdapter(private val musics: List<Song>, private val context: Context,
             imgFavourite?.setOnClickListener {
                 val position = layoutPosition
                 onFavouriteListener(position)
+            }
+
+            itemView?.setOnClickListener {
+                val position = layoutPosition
+                onPlayMusic(position)
             }
         }
     }

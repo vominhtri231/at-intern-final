@@ -68,16 +68,16 @@ class AppDataHelper private constructor(val database: AppDatabase) {
     fun getAllPlaylist(updater: PlaylistUpdater) = GetAllPlaylistAsyncTask(database.playlistDAO(), updater).execute()
 
     /**
-     * delete playlist with name
+     * delete playlist with title
      *
-     * @param name the playlist's name
+     * @param name the playlist's title
      */
     fun deletePlaylist(name: String) = DeletePlaylistAsyncTask(database.playlistDAO()).execute(name)
 
     /**
      * insert a song to a playlist
      *
-     * @param playlistName the playlist's name
+     * @param playlistName the playlist's title
      * @param songId the song's id
      */
     fun addSongToPlaylist(playlistName: String, songId: Long) =
@@ -86,7 +86,7 @@ class AppDataHelper private constructor(val database: AppDatabase) {
     /**
      * get all songs in the playlist
      *
-     * @param name the playlist's name
+     * @param name the playlist's title
      */
     fun getSongInPlaylist(name: String, updater: SongUpdater) =
             GetSongInPlaylist(database.playlistSongDAO(), updater).execute(name)
@@ -94,7 +94,7 @@ class AppDataHelper private constructor(val database: AppDatabase) {
     /**
      * delete a song in a playlist
      *
-     * @param playlistName the playlist's name
+     * @param playlistName the playlist's title
      * @param songId the song's id
      */
     fun deleteSongInPlaylist(playlistName: String, songId: Long) =
