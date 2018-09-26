@@ -9,6 +9,7 @@ import android.net.Uri
 import android.os.Handler
 import android.support.annotation.DrawableRes
 import android.util.AttributeSet
+import android.util.Log
 import android.widget.ImageView
 import internship.asiantech.a2018summerfinal.R
 import java.lang.ref.WeakReference
@@ -31,14 +32,18 @@ class CircleImage : ImageView {
     private var angle = 0
     private var angleStep = 2
     private var rotateMaker: RotateMaker? = null
-    var isRunning by Delegates.observable(false) { _, _, newState: Boolean ->
-        if (!newState) {
-            rotateMaker?.endRotate()
-        } else {
-            rotateMaker = RotateMaker(this)
-            rotateMaker?.start()
+    var isRunning by Delegates.observable(false) { _, oldState: Boolean, newState: Boolean ->
+        if (oldState != newState) {
+            if (!newState) {
+                rotateMaker?.endRotate()
+            } else {
+                rotateMaker = RotateMaker(this)
+                rotateMaker?.start()
+            }
         }
+
     }
+
     private val customHandler: Handler = Handler()
 
     private var isReady: Boolean = false

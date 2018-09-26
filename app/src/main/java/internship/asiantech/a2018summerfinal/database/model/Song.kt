@@ -8,12 +8,12 @@ import android.arch.persistence.room.PrimaryKey
 data class Song(
         @PrimaryKey
         @ColumnInfo(name = "id")
-        var id: String = "",
+        var id: Long = 0,
 
-        @ColumnInfo(name = "name")
-        var name: String = "",
+        @ColumnInfo(name = "title")
+        var title: String = "",
 
-        @ColumnInfo(name = "author")
+        @ColumnInfo(name = "artist")
         var author: String = "",
 
         @ColumnInfo(name = "duration")
