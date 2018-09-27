@@ -1,7 +1,7 @@
 package internship.asiantech.a2018summerfinal
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.widget.Button
@@ -21,14 +21,14 @@ class ChoiceSongActivity : AppCompatActivity() {
     private lateinit var mTvStateChoiceAll: TextView
     private lateinit var mRecyclerviewPlaylistChoiceSong: RecyclerView
     private lateinit var mLinearLayoutManager: LinearLayoutManager
-    private var listSongInDevices: MutableList<Song> = mutableListOf()
+    private val listSongInDevices: MutableList<Song> = mutableListOf()
     private var mListBoolChoice = mutableListOf<Boolean>()
     private var listSongInPlaylist = mutableListOf<Song>()
     private var mIsCheck = false
 
     companion object {
-       const val KEY_POSITION = "key_position"
-       const val RESULT_KEY = "RESULT_KEY"
+        const val KEY_POSITION = "key_position"
+        const val RESULT_KEY = "RESULT_KEY"
     }
 
     private var mIsCheckAll = false
@@ -42,7 +42,7 @@ class ChoiceSongActivity : AppCompatActivity() {
     }
 
     private fun initViews() {
-        listSongInDevices = ListMusic(this).getListMusics()
+        listSongInDevices.addAll(ListMusic(this).getListMusics())
         for (index in listSongInDevices.indices) {
             mListBoolChoice.add(false)
         }

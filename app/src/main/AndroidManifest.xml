@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     package="internship.asiantech.a2018summerfinal">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -15,8 +14,6 @@
     <uses-feature
         android:name="android.hardware.camera"
         android:required="true" />
-        android:required="true"
-        tools:targetApi="eclair" />
 
     <application
         android:allowBackup="true"
@@ -26,37 +23,28 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        android:theme="@style/AppTheme"
-        tools:targetApi="donut">
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/map_api_key" />
 
         <activity android:name=".librarysong.ListMusicActivity">
+
+        </activity>
+        <activity android:name=".ui.LoginActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".librarysong.ListMusicActivity"/>
-        <activity android:name=".ui.LoginActivity" />
         <activity android:name=".ui.ProfileUserActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".ui.SignUpActivity" />
         <activity android:name=".ChoiceSongActivity" />
-        <receiver
-            android:name=".broadcast.HeadphoneStateReceiver"
-            android:enabled="true"
-            android:exported="true"/>
         <activity android:name=".ui.ListAlbumActivity" />
-        <activity android:name=".ui.ListSongInPlaylistActivity"/>
-        <service
-            android:name=".service.MusicService"
-            android:enabled="true"
-            android:exported="true" />
-        <activity android:name=".ui.SearchedActivity"/>
-
+        <activity android:name=".ui.ListSongInPlaylistActivity" />
+        <activity android:name=".ui.SearchedActivity" />
         <activity android:name=".ui.PlayMusicActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -64,5 +52,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <service
+            android:name=".service.MusicService"
+            android:enabled="true" />
     </application>
 </manifest>

@@ -27,8 +27,8 @@ class PlaylistChoiceAdapter(var listChoice: MutableList<Boolean>, var listSongs:
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val song = listSongs[position]
         holder as ListSongsChoiceViewHolder
-        holder.tvNameSongListChoice.text = song.name
-        holder.tvAristListChoice.text = song.author
+        holder.tvNameSongListChoice.text = song.title
+        holder.tvAristListChoice.text = song.artist
         holder.rbSonglistChoice.isChecked = listChoice[position]
     }
 
