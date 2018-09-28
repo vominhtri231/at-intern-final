@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.text.Editable
+import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import internship.asiantech.a2018summerfinal.R
@@ -16,6 +17,7 @@ import kotlinx.android.synthetic.main.activity_login.*
 class LoginActivity : AppCompatActivity() {
     companion object {
         const val REQUEST_CODE = 100
+        val TAG = LoginActivity::class.java.simpleName
     }
 
     private lateinit var userSharedPreferences: UserSharePreference
@@ -79,6 +81,7 @@ class LoginActivity : AppCompatActivity() {
                         val intent = Intent(this, ProfileUserActivity::class.java)
                         startActivity(intent)
                     } else {
+                        Log.e(TAG, "Fail login : ${task.exception}")
                         if (tvError != null) {
                             tvError.text = resources.getString(R.string.error_password)
                             tvError.setBackgroundResource(R.drawable.border_text_view_error)
