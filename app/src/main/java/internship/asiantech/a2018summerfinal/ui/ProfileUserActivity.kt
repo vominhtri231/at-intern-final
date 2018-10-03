@@ -28,6 +28,7 @@ import com.google.firebase.storage.FirebaseStorage
 import internship.asiantech.a2018summerfinal.R
 import internship.asiantech.a2018summerfinal.model.User
 import internship.asiantech.a2018summerfinal.sharepreference.UserSharePreference
+import internship.asiantech.a2018summerfinal.utils.checkUserUpdate
 import kotlinx.android.synthetic.main.activity_profile_user.*
 import java.io.ByteArrayOutputStream
 import java.io.IOException
@@ -83,10 +84,15 @@ class ProfileUserActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.O
         val newPassword = edtNewPassword.text.toString()
         val repeatPassword = edtRepeatPassword.text.toString()
         val ageString = edtAge.text.toString()
-        if (checkUser(name, oldPassword, newPassword, repeatPassword, ageString)) {
+
+        val result = checkUserUpdate(name, oldPassword, newPassword, repeatPassword, ageString)
+
+        if (result.isSuccess()) {
             resetPassword(newPassword)
             uploadImage()
-            val userUpdate = User(user.idUser, user.mail, name, newPassword, age, avatar, location.latitude, location.longitude)
+            val userUpdate = User(idUser = user.idUser, mail = user.mail, name = name,
+                    password = newPassword, age = age, avatar = avatar,
+                    latitude = location.latitude, longitude = location.longitude)
             database.child("Users").child(user.idUser).setValue(userUpdate)
             userSharedPreferences.removeUserCurrent()
             userSharedPreferences.saveUserLogin(user)
@@ -110,43 +116,6 @@ class ProfileUserActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.O
                         toastError(resources.getString(R.string.error_reset_password))
                     }
                 }
-    }
-
-    private fun checkUser(name: String, oldPassword: String, newPassword: String, repeatPassword: String, ageString: String): Boolean {
-        if (ageString == "" || oldPassword == "" || name == "" || newPassword == "" || repeatPassword == "") {
-            toastError(resources.getString(R.string.error_not_enough_information))
-            return false
-        }
-        if (newPassword != repeatPassword) {
-            toastError(resources.getString(R.string.error_password_not_match_repeat_password))
-            return false
-        }
-        try {
-            age = ageString.toInt()
-        } catch (e: Exception) {
-            toastError(resources.getString(R.string.error_age))
-            return false
-        }
-        if (!SignUpActivity.UserValidate.ageValidate(age)) {
-            toastError(resources.getString(R.string.error_age))
-            return false
-        }
-
-        if (!SignUpActivity.UserValidate.nameValidate(name)) {
-            toastError(resources.getString(R.string.error_name))
-            return false
-        }
-
-        if (!SignUpActivity.UserValidate.passwordValidate(newPassword)) {
-            toastError(resources.getString(R.string.error_password))
-            return false
-        }
-
-        if (!SignUpActivity.UserValidate.passwordValidate(oldPassword) || edtPassword.text.toString() != user.password) {
-            toastError(resources.getString(R.string.error_password))
-            return false
-        }
-        return true
     }
 
     private fun initMap() {
@@ -189,13 +158,16 @@ class ProfileUserActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.O
     }
 
     private fun initUser() {
-        user = userSharedPreferences.getCurrentUser()
-        avatar = user.avatar
-        location = LatLng(user.latitude, user.longitude)
-        edtMail.text = Editable.Factory.getInstance().newEditable(user.mail)
-        edtName.text = Editable.Factory.getInstance().newEditable(user.name)
-        edtAge.text = Editable.Factory.getInstance().newEditable(user.age.toString())
-        edtPassword.text = Editable.Factory.getInstance().newEditable(user.password)
+        val tempUser = userSharedPreferences.getCurrentUser()
+        tempUser?.let {
+            user = it
+            avatar = it.avatar
+            location = LatLng(it.latitude, it.longitude)
+            edtMail.text = Editable.Factory.getInstance().newEditable(it.mail)
+            edtName.text = Editable.Factory.getInstance().newEditable(it.name)
+            edtAge.text = Editable.Factory.getInstance().newEditable(it.age.toString())
+            edtPassword.text = Editable.Factory.getInstance().newEditable(it.password)
+        }
     }
 
     override fun onMapReady(p0: GoogleMap?) {
