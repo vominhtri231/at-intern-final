@@ -13,7 +13,7 @@ import internship.asiantech.a2018summerfinal.adapter.LibraryPagerAdapter
 import internship.asiantech.a2018summerfinal.model.MenuItem
 import internship.asiantech.a2018summerfinal.model.User
 import internship.asiantech.a2018summerfinal.sharepreference.UserSharePreference
-import internship.asiantech.a2018summerfinal.ui.SearchedActivity
+import internship.asiantech.a2018summerfinal.ui.activities.SearchedActivity
 import kotlinx.android.synthetic.main.activity_list_music.*
 
 class ListMusicActivity : AppCompatActivity() {

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.ListAlbumActivity">
+    tools:context=".ui.activities.ListAlbumActivity">
 
     <android.support.v7.widget.Toolbar
         android:layout_width="match_parent"

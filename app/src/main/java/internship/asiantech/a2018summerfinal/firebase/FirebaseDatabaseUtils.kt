@@ -10,6 +10,7 @@ import internship.asiantech.a2018summerfinal.model.User
 
 object FirebaseDatabaseUtils {
     private const val TABLE_NAME = "Users"
+    private const val AVATAR_COLUMN = "avatar"
     private val database = FirebaseDatabase.getInstance().reference
 
     fun getCurrentUser(mail: String, updater: DatabaseUpdater) {
@@ -45,5 +46,13 @@ object FirebaseDatabaseUtils {
             user.idUser = it
             database.child(TABLE_NAME).child(it).setValue(user)
         }
+    }
+
+    fun updateImageReference(userId: String, url: String) {
+        database.child(TABLE_NAME).child(userId).child(AVATAR_COLUMN).setValue(url)
+    }
+
+    fun updateUserInfo(userId: String, user: User) {
+        database.child(TABLE_NAME).child(userId).setValue(user)
     }
 }

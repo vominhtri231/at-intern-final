@@ -1,4 +1,4 @@
-package internship.asiantech.a2018summerfinal.ui
+package internship.asiantech.a2018summerfinal.ui.activities
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -20,7 +20,7 @@ class SearchedActivity : AppCompatActivity() {
         setContentView(R.layout.activity_searched)
         keySearch = intent.getStringExtra(ListMusicActivity.KEY_SEARCH)
         val listMusic = ListMusic(this)
-        musics=getListSearch(listMusic.getListMusics(), keySearch) as MutableList<Song>
+        musics = getListSearch(listMusic.getListMusics(), keySearch) as MutableList<Song>
         initRecyclerView()
     }
 

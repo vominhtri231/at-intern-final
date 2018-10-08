@@ -11,7 +11,7 @@ import android.view.View
 import android.widget.RemoteViews
 import internship.asiantech.a2018summerfinal.R
 import internship.asiantech.a2018summerfinal.receiver.Letter
-import internship.asiantech.a2018summerfinal.ui.PlayMusicActivity
+import internship.asiantech.a2018summerfinal.ui.activities.PlayMusicActivity
 import internship.asiantech.a2018summerfinal.utils.timeToString
 import internship.asiantech.a2018summerfinal.utils.trimStringToLength
 

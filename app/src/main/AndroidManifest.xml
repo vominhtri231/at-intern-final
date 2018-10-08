@@ -31,7 +31,7 @@
         <activity android:name=".librarysong.ListMusicActivity">
 
         </activity>
-        <activity android:name=".ui.LoginActivity">
+        <activity android:name=".ui.activities.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
@@ -39,14 +39,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.ProfileUserActivity" />
+        <activity android:name=".ui.activities.ProfileUserActivity" />
         <activity android:name=".MainActivity" />
-        <activity android:name=".ui.SignUpActivity" />
+        <activity android:name=".ui.activities.SignUpActivity" />
         <activity android:name=".ChoiceSongActivity" />
-        <activity android:name=".ui.ListAlbumActivity" />
-        <activity android:name=".ui.ListSongInPlaylistActivity" />
-        <activity android:name=".ui.SearchedActivity" />
-        <activity android:name=".ui.PlayMusicActivity">
+        <activity android:name=".ui.activities.ListAlbumActivity" />
+        <activity android:name=".ui.activities.ListSongInPlaylistActivity" />
+        <activity android:name=".ui.activities.SearchedActivity" />
+        <activity android:name=".ui.activities.PlayMusicActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

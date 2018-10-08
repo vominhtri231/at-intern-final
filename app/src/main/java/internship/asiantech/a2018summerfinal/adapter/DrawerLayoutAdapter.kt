@@ -14,7 +14,7 @@ import de.hdodenhof.circleimageview.CircleImageView
 import internship.asiantech.a2018summerfinal.R
 import internship.asiantech.a2018summerfinal.model.MenuItem
 import internship.asiantech.a2018summerfinal.model.User
-import internship.asiantech.a2018summerfinal.ui.ProfileUserActivity
+import internship.asiantech.a2018summerfinal.ui.activities.ProfileUserActivity
 
 internal class DrawerLayoutAdapter(private val menuItemList: List<MenuItem>, private val user: List<User>, private val context: Context, val logoutListener: () -> Unit) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun getItemCount(): Int {
