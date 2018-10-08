@@ -1,10 +1,9 @@
-package internship.asiantech.a2018summerfinal.ui
+package internship.asiantech.a2018summerfinal.ui.activities
 
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.text.Editable
 import internship.asiantech.a2018summerfinal.R
 import internship.asiantech.a2018summerfinal.firebase.AuthUpdater
 import internship.asiantech.a2018summerfinal.firebase.DatabaseUpdater

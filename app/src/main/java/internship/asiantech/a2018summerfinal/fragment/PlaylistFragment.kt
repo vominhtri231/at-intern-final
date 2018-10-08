@@ -21,8 +21,7 @@ import internship.asiantech.a2018summerfinal.ChoiceSongActivity.Companion.RESULT
 import internship.asiantech.a2018summerfinal.database.PlaylistUpdater
 import internship.asiantech.a2018summerfinal.database.model.Playlist
 import internship.asiantech.a2018summerfinal.fragment.dialog.EventAddPlaylistListener
-import internship.asiantech.a2018summerfinal.ui.ListSongInPlaylistActivity
-import kotlinx.android.synthetic.main.fragment_playlist.*
+import internship.asiantech.a2018summerfinal.ui.activities.ListSongInPlaylistActivity
 
 @Suppress("DEPRECATION")
 class PlaylistFragment : Fragment(), EventAddPlaylistListener, EventClickItemOpenListSong {

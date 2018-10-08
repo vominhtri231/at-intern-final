@@ -1,4 +1,4 @@
-package internship.asiantech.a2018summerfinal.ui
+package internship.asiantech.a2018summerfinal.ui.custom_view
 
 import android.content.Context
 import android.graphics.*
@@ -9,7 +9,6 @@ import android.net.Uri
 import android.os.Handler
 import android.support.annotation.DrawableRes
 import android.util.AttributeSet
-import android.util.Log
 import android.widget.ImageView
 import internship.asiantech.a2018summerfinal.R
 import java.lang.ref.WeakReference

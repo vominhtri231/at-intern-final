@@ -1,4 +1,4 @@
-package internship.asiantech.a2018summerfinal.ui
+package internship.asiantech.a2018summerfinal.ui.activities
 
 import android.Manifest
 import android.content.ComponentName
@@ -17,7 +17,7 @@ import internship.asiantech.a2018summerfinal.service.CommandBuilder
 import internship.asiantech.a2018summerfinal.service.MusicBinder
 import internship.asiantech.a2018summerfinal.service.MusicPlayer
 import internship.asiantech.a2018summerfinal.service.MusicPlayerEventListener
-import internship.asiantech.a2018summerfinal.utils.checkPermissions
+import internship.asiantech.a2018summerfinal.utils.askForPermissions
 import internship.asiantech.a2018summerfinal.utils.querySongs
 import internship.asiantech.a2018summerfinal.utils.timeToString
 import kotlinx.android.synthetic.main.activity_play_music.*
@@ -71,7 +71,7 @@ class PlayMusicActivity : AppCompatActivity() {
         setContentView(R.layout.activity_play_music)
         initView()
 
-        if (checkPermissions(this,
+        if (askForPermissions(this,
                         arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
                         READ_EXTERNAL_REQUEST_CODE)) {
             songs.addAll(querySongs(contentResolver))

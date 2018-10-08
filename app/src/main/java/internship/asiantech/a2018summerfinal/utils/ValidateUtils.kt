@@ -1,6 +1,5 @@
 package internship.asiantech.a2018summerfinal.utils
 
-import android.nfc.FormatException
 import internship.asiantech.a2018summerfinal.R
 import internship.asiantech.a2018summerfinal.model.User
 import java.util.regex.Pattern
@@ -18,25 +17,15 @@ fun checkUserLogin(email: String, password: String): ValidateResult {
     return ValidateResult(null)
 }
 
-fun checkUserUpdate(name: String, oldPassword: String, newPassword: String,
-                    repeatPassword: String, ageString: String): ValidateResult {
-    if (ageString == "" || oldPassword == "" || name == "" || newPassword == "" || repeatPassword == "") {
+fun checkUserUpdate(name: String, ageString: String): ValidateResult {
+    if (ageString == "" || name == "") {
         return ValidateResult(R.string.error_not_enough_information)
-    }
-    if (newPassword != repeatPassword) {
-        return ValidateResult(R.string.error_password_not_match_repeat_password)
     }
     if (!isValidAge(ageString)) {
         return ValidateResult(R.string.error_age)
     }
     if (!isValidName(name)) {
         return ValidateResult(R.string.error_name)
-    }
-    if (!isValidPassword(newPassword)) {
-        return ValidateResult(R.string.error_password)
-    }
-    if (newPassword != oldPassword) {
-        return ValidateResult(R.string.error_password)
     }
     return ValidateResult(null)
 }

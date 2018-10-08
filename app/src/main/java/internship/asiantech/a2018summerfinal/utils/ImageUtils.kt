@@ -5,9 +5,9 @@ import android.graphics.drawable.BitmapDrawable
 import android.widget.ImageView
 import java.io.ByteArrayOutputStream
 
-fun bitmapToByteArray(uploadImage: Bitmap): ByteArray {
+fun bitmapToByteArray(image: Bitmap): ByteArray {
     val outputStream = ByteArrayOutputStream()
-    uploadImage.compress(Bitmap.CompressFormat.PNG, 100, outputStream)
+    image.compress(Bitmap.CompressFormat.PNG, 100, outputStream)
     return outputStream.toByteArray()
 }
 
