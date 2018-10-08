@@ -56,7 +56,9 @@ class ListMusicActivity : AppCompatActivity() {
         recyclerViewMenu.layoutManager = layoutManager
         val userSharedPreferences = UserSharePreference(this)
         val user = userSharedPreferences.getCurrentUser()
-        users.add(user)
+        user?.let {
+            users.add(user)
+        }
         drawerLayoutAdapter = DrawerLayoutAdapter(menuItems, users, this) {
             userSharedPreferences.removeUserCurrent()
         }

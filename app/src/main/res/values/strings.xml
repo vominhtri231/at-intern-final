@@ -46,6 +46,7 @@
     <string name="error_login">Login fail</string>
     <string name="error_reset_password">Reset password error</string>
     <string name="error_load_gallery">Error load gallery</string>
+    <string name="success">Success</string>
     <string name="song"> song </string>
     <string name="toolbar_text_choice">action</string>
     <string name="choiceAllSOng">choice all songs</string>
