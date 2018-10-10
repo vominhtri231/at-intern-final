@@ -3,8 +3,8 @@ package internship.asiantech.a2018summerfinal.adapter
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentStatePagerAdapter
-import internship.asiantech.a2018summerfinal.fragment.PlaylistFragment
-import internship.asiantech.a2018summerfinal.fragment.ListSongsFragment
+import internship.asiantech.a2018summerfinal.ui.fragment.PlaylistFragment
+import internship.asiantech.a2018summerfinal.ui.fragment.ListSongsFragment
 
 
 class LibraryPagerAdapter(fm: FragmentManager?) : FragmentStatePagerAdapter(fm) {

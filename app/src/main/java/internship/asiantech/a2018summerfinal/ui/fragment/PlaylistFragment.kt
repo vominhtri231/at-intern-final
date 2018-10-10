@@ -1,4 +1,4 @@
-package internship.asiantech.a2018summerfinal.fragment
+package internship.asiantech.a2018summerfinal.ui.fragment
 
 import android.app.Activity.RESULT_OK
 import android.content.Intent
@@ -13,15 +13,15 @@ import internship.asiantech.a2018summerfinal.R
 import internship.asiantech.a2018summerfinal.adapter.PlaylistAdapter
 import internship.asiantech.a2018summerfinal.database.AppDataHelper
 import internship.asiantech.a2018summerfinal.database.model.Song
-import internship.asiantech.a2018summerfinal.fragment.dialog.DialogCreatePlaylist
+import internship.asiantech.a2018summerfinal.ui.dialog.DialogCreatePlaylist
 import android.support.v7.app.AppCompatActivity
 import android.widget.TextView
-import internship.asiantech.a2018summerfinal.ChoiceSongActivity
-import internship.asiantech.a2018summerfinal.ChoiceSongActivity.Companion.RESULT_KEY
+import internship.asiantech.a2018summerfinal.ui.activity.ChoiceSongActivity
+import internship.asiantech.a2018summerfinal.ui.activity.ChoiceSongActivity.Companion.RESULT_KEY
 import internship.asiantech.a2018summerfinal.database.PlaylistUpdater
 import internship.asiantech.a2018summerfinal.database.model.Playlist
-import internship.asiantech.a2018summerfinal.fragment.dialog.EventAddPlaylistListener
-import internship.asiantech.a2018summerfinal.ui.activities.ListSongInPlaylistActivity
+import internship.asiantech.a2018summerfinal.ui.dialog.EventAddPlaylistListener
+import internship.asiantech.a2018summerfinal.ui.activity.ListSongInPlaylistActivity
 
 @Suppress("DEPRECATION")
 class PlaylistFragment : Fragment(), EventAddPlaylistListener, EventClickItemOpenListSong {

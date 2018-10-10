@@ -1,9 +1,10 @@
-package internship.asiantech.a2018summerfinal.ui.activities
+package internship.asiantech.a2018summerfinal.ui.activity
 
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import internship.asiantech.a2018summerfinal.R
 import internship.asiantech.a2018summerfinal.firebase.AuthUpdater
 import internship.asiantech.a2018summerfinal.firebase.DatabaseUpdater
@@ -16,6 +17,7 @@ import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : AppCompatActivity() {
     companion object {
+        private val TAG = LoginActivity::class.qualifiedName
         const val REQUEST_CODE = 100
     }
 
@@ -63,20 +65,20 @@ class LoginActivity : AppCompatActivity() {
         } else {
             FirebaseAuthUtils.login(mail, password, this, object : AuthUpdater {
                 override fun onSuccess() {
-                    getCurrentUser(mail)
+                    saveCurrentUser(mail)
                 }
 
                 override fun onFail() {
-                    tvError.text = resources.getString(R.string.error_password)
-                    tvError.setBackgroundResource(R.drawable.border_text_view_error)
+                    displayErrorMessage(R.string.error_login)
                 }
             })
         }
     }
 
-    private fun getCurrentUser(mail: String) {
+    private fun saveCurrentUser(mail: String) {
         FirebaseDatabaseUtils.getCurrentUser(mail, object : DatabaseUpdater {
             override fun onComplete(user: User) {
+                Log.e(TAG, user.toString())
                 userSharedPreferences.saveUserLogin(user)
                 openProfileActivity()
             }

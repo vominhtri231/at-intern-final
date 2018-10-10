@@ -1,4 +1,4 @@
-package internship.asiantech.a2018summerfinal.ui.activities
+package internship.asiantech.a2018summerfinal.ui.activity
 
 import android.Manifest
 import android.app.Activity
@@ -9,8 +9,8 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.support.v7.app.AppCompatActivity
-import android.text.Editable
 import android.util.Log
+import com.bumptech.glide.Glide
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -21,8 +21,9 @@ import internship.asiantech.a2018summerfinal.R
 import internship.asiantech.a2018summerfinal.firebase.FirebaseDatabaseUtils
 import internship.asiantech.a2018summerfinal.firebase.FirebaseStorageUtils
 import internship.asiantech.a2018summerfinal.firebase.StorageUpdater
+import internship.asiantech.a2018summerfinal.model.User
 import internship.asiantech.a2018summerfinal.sharepreference.UserSharePreference
-import internship.asiantech.a2018summerfinal.ui.dialogs.ChooseImageDialog
+import internship.asiantech.a2018summerfinal.ui.dialog.ChooseImageDialog
 import internship.asiantech.a2018summerfinal.utils.askForPermissions
 import internship.asiantech.a2018summerfinal.utils.checkUserUpdate
 import internship.asiantech.a2018summerfinal.utils.getBitmapFromImageView
@@ -30,7 +31,9 @@ import kotlinx.android.synthetic.main.activity_profile_user.*
 import java.io.IOException
 
 @Suppress("DEPRECATION", "DEPRECATED_IDENTITY_EQUALS")
-class ProfileUserActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapClickListener, ChooseImageDialog.ChooseImageListerner {
+class ProfileUserActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapClickListener
+        , ChooseImageDialog.ChooseImageListener {
+
     private lateinit var map: GoogleMap
     private lateinit var location: LatLng
     private lateinit var userSharedPreferences: UserSharePreference
@@ -44,11 +47,18 @@ class ProfileUserActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.O
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_profile_user)
         userSharedPreferences = UserSharePreference(this)
-        initUser()
-        initMap()
-        initListeners()
+        val user = userSharedPreferences.getCurrentUser()
+        if (user != null) {
+            location = LatLng(user.latitude, user.longitude)
+            setContentView(R.layout.activity_profile_user)
+            initView(user)
+            initMap()
+            initListeners()
+        } else {
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun initListeners() {
@@ -71,14 +81,12 @@ class ProfileUserActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.O
         mapFragment?.getMapAsync(this)
     }
 
-
-    private fun initUser() {
-        val tempUser = userSharedPreferences.getCurrentUser()
-        tempUser?.let {
-            location = LatLng(it.latitude, it.longitude)
-            edtMail.text = Editable.Factory.getInstance().newEditable(it.mail)
-            edtName.text = Editable.Factory.getInstance().newEditable(it.name)
-            edtAge.text = Editable.Factory.getInstance().newEditable(it.age.toString())
+    private fun initView(currentUser: User) {
+        edtMail.setText(currentUser.mail)
+        edtName.setText(currentUser.name)
+        edtAge.setText(currentUser.age.toString())
+        if (currentUser.avatar.isNotEmpty()) {
+            Glide.with(this).load(currentUser.avatar).into(imgAvatar)
         }
     }
 
@@ -153,14 +161,14 @@ class ProfileUserActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.O
         return grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED
     }
 
-    override fun open(choosedype: ChooseImageDialog.ChoosedImageType) {
-        when (choosedype) {
-            ChooseImageDialog.ChoosedImageType.CameraType -> {
+    override fun open(type: ChooseImageDialog.ChosenImageType) {
+        when (type) {
+            ChooseImageDialog.ChosenImageType.CameraType -> {
                 if (askForPermissions(this, arrayOf(Manifest.permission.CAMERA), PICK_FROM_CAMERA_REQUEST_CODE)) {
                     openCamera()
                 }
             }
-            ChooseImageDialog.ChoosedImageType.GalleryType -> {
+            ChooseImageDialog.ChosenImageType.GalleryType -> {
                 if (askForPermissions(this, arrayOf(Manifest.permission.CAMERA), PICK_FROM_GALLERY_REQUEST_CODE)) {
                     openGallery()
                 }
@@ -233,7 +241,6 @@ class ProfileUserActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.O
         }
         map.moveCamera(CameraUpdateFactory.newLatLng(location))
     }
-
 
     enum class Mode {
         ViewMode,

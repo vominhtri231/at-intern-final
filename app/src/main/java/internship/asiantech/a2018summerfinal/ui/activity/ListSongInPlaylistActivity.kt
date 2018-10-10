@@ -1,18 +1,17 @@
-package internship.asiantech.a2018summerfinal.ui.activities
+package internship.asiantech.a2018summerfinal.ui.activity
 
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import internship.asiantech.a2018summerfinal.ChoiceSongActivity
 import internship.asiantech.a2018summerfinal.R
 import internship.asiantech.a2018summerfinal.adapter.ListSongInPlaylistAdapter
 import internship.asiantech.a2018summerfinal.database.AppDataHelper
 import internship.asiantech.a2018summerfinal.database.SongUpdater
 import internship.asiantech.a2018summerfinal.database.model.Song
-import internship.asiantech.a2018summerfinal.fragment.EventClickItemSongListener
-import internship.asiantech.a2018summerfinal.fragment.PlaylistFragment
+import internship.asiantech.a2018summerfinal.ui.fragment.EventClickItemSongListener
+import internship.asiantech.a2018summerfinal.ui.fragment.PlaylistFragment
 import kotlinx.android.synthetic.main.fragment_list_songs_in_playlist.*
 
 class ListSongInPlaylistActivity : AppCompatActivity(), EventClickItemSongListener {

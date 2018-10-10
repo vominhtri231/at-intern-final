@@ -10,7 +10,7 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 import internship.asiantech.a2018summerfinal.R
 import internship.asiantech.a2018summerfinal.database.model.Song
-import internship.asiantech.a2018summerfinal.fragment.EventClickItemSongListener
+import internship.asiantech.a2018summerfinal.ui.fragment.EventClickItemSongListener
 
 class ListSongInPlaylistAdapter(private val listSongInPlaylist: MutableList<Song>,
                                 private val context: Context,

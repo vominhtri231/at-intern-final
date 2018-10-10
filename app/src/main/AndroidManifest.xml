@@ -28,10 +28,10 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/map_api_key" />
 
-        <activity android:name=".librarysong.ListMusicActivity">
+        <activity android:name=".ui.activity.ListMusicActivity">
 
         </activity>
-        <activity android:name=".ui.activities.LoginActivity">
+        <activity android:name=".ui.activity.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
@@ -39,14 +39,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.activities.ProfileUserActivity" />
-        <activity android:name=".MainActivity" />
-        <activity android:name=".ui.activities.SignUpActivity" />
-        <activity android:name=".ChoiceSongActivity" />
-        <activity android:name=".ui.activities.ListAlbumActivity" />
-        <activity android:name=".ui.activities.ListSongInPlaylistActivity" />
-        <activity android:name=".ui.activities.SearchedActivity" />
-        <activity android:name=".ui.activities.PlayMusicActivity">
+        <activity android:name=".ui.activity.ProfileUserActivity" />
+        <activity android:name=".ui.activity.MainActivity" />
+        <activity android:name=".ui.activity.SignUpActivity" />
+        <activity android:name=".ui.activity.ChoiceSongActivity" />
+        <activity android:name=".ui.activity.ListAlbumActivity" />
+        <activity android:name=".ui.activity.ListSongInPlaylistActivity" />
+        <activity android:name=".ui.activity.SearchedActivity" />
+        <activity android:name=".ui.activity.PlayMusicActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

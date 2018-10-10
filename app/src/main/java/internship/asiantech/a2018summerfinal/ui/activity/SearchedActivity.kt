@@ -1,4 +1,4 @@
-package internship.asiantech.a2018summerfinal.ui.activities
+package internship.asiantech.a2018summerfinal.ui.activity
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -6,7 +6,6 @@ import android.support.v7.widget.LinearLayoutManager
 import internship.asiantech.a2018summerfinal.R
 import internship.asiantech.a2018summerfinal.adapter.MusicAdapter
 import internship.asiantech.a2018summerfinal.database.model.Song
-import internship.asiantech.a2018summerfinal.librarysong.ListMusicActivity
 import internship.asiantech.a2018summerfinal.listmusic.ListMusic
 import kotlinx.android.synthetic.main.fragment_list_songs.*
 

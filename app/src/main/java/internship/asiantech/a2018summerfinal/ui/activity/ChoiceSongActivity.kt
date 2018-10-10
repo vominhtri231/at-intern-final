@@ -1,4 +1,4 @@
-package internship.asiantech.a2018summerfinal
+package internship.asiantech.a2018summerfinal.ui.activity
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -7,10 +7,11 @@ import android.support.v7.widget.RecyclerView
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
+import internship.asiantech.a2018summerfinal.R
 import internship.asiantech.a2018summerfinal.adapter.PlaylistChoiceAdapter
 import internship.asiantech.a2018summerfinal.database.AppDataHelper
 import internship.asiantech.a2018summerfinal.database.model.Song
-import internship.asiantech.a2018summerfinal.fragment.PlaylistFragment
+import internship.asiantech.a2018summerfinal.ui.fragment.PlaylistFragment
 import internship.asiantech.a2018summerfinal.listmusic.ListMusic
 import internship.asiantech.a2018summerfinal.viewholder.RadioButtonEventChoice
 import kotlinx.android.synthetic.main.activity_choice_song.*

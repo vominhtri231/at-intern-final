@@ -1,6 +1,7 @@
-package internship.asiantech.a2018summerfinal.ui.activities
+package internship.asiantech.a2018summerfinal.ui.activity
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -88,7 +89,6 @@ class SignUpActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapC
         })
     }
 
-
     private fun addUserInfoToDatabase(user: User) {
         FirebaseDatabaseUtils.addUser(user)
     }
@@ -96,7 +96,7 @@ class SignUpActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapC
     private fun returnLoginActivityWithMail(mail: String) {
         val intent = Intent(this, LoginActivity::class.java)
         intent.putExtra(MAIL_KEY, mail)
-        setResult(LoginActivity.REQUEST_CODE, intent)
+        setResult(Activity.RESULT_OK, intent)
         finish()
     }
 

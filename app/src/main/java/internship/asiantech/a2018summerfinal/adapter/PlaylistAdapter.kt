@@ -7,10 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import internship.asiantech.a2018summerfinal.R
 import internship.asiantech.a2018summerfinal.database.AppDataHelper
-import internship.asiantech.a2018summerfinal.database.SongUpdater
 import internship.asiantech.a2018summerfinal.database.model.Playlist
 import internship.asiantech.a2018summerfinal.database.model.Song
-import internship.asiantech.a2018summerfinal.fragment.EventClickItemOpenListSong
+import internship.asiantech.a2018summerfinal.ui.fragment.EventClickItemOpenListSong
 import internship.asiantech.a2018summerfinal.viewholder.PlaylistViewHolder
 
 class PlaylistAdapter(var listPlaylist: MutableList<Playlist>, val context: Context, private val listener: EventClickItemOpenListSong, val getPosition: (Int) -> Unit) : RecyclerView.Adapter<PlaylistViewHolder>() {

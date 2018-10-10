@@ -1,4 +1,4 @@
-package internship.asiantech.a2018summerfinal.fragment.dialog
+package internship.asiantech.a2018summerfinal.ui.dialog
 
 import android.app.AlertDialog
 import android.app.Dialog
@@ -16,9 +16,7 @@ class DialogCreatePlaylist() : DialogFragment() {
     lateinit var mListener: EventAddPlaylistListener
     private val mDataListPlaylists = mutableListOf<Song>()
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val rootView: View
-        rootView = inflater.inflate(R.layout.dialog_create_new_playlist, container, false)
-        return rootView
+        return inflater.inflate(R.layout.dialog_create_new_playlist, container, false)
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {

@@ -1,4 +1,4 @@
-package internship.asiantech.a2018summerfinal.ui.activities
+package internship.asiantech.a2018summerfinal.ui.activity
 
 import android.Manifest
 import android.content.ComponentName

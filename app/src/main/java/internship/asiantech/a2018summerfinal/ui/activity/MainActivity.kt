@@ -1,7 +1,8 @@
-package internship.asiantech.a2018summerfinal
+package internship.asiantech.a2018summerfinal.ui.activity
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import internship.asiantech.a2018summerfinal.R
 
 class MainActivity : AppCompatActivity() {
 

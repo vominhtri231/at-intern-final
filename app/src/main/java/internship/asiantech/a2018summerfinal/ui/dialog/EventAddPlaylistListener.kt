@@ -1,4 +1,4 @@
-package internship.asiantech.a2018summerfinal.fragment.dialog
+package internship.asiantech.a2018summerfinal.ui.dialog
 
 import internship.asiantech.a2018summerfinal.database.model.Song
 
