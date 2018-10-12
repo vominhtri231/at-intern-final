@@ -5,9 +5,9 @@ import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.Gravity
 import internship.asiantech.a2018summerfinal.R
-import internship.asiantech.a2018summerfinal.adapter.LibraryPagerAdapter
-import internship.asiantech.a2018summerfinal.ui.fragment.LibrarySearchToolbarFragment
-import internship.asiantech.a2018summerfinal.ui.fragment.LibraryStandardToolbarFragment
+import internship.asiantech.a2018summerfinal.ui.adapter.LibraryPagerAdapter
+import internship.asiantech.a2018summerfinal.ui.fragment.SearchToolbarFragment
+import internship.asiantech.a2018summerfinal.ui.fragment.StandardToolbarFragment
 import internship.asiantech.a2018summerfinal.ui.fragment.SearchToolbarEventListener
 import internship.asiantech.a2018summerfinal.ui.fragment.StandardToolbarEventListener
 import kotlinx.android.synthetic.main.activity_list_music.*
@@ -27,7 +27,7 @@ class ListMusicActivity : AppCompatActivity()
         initViewPager()
         initRecyclerView()
         supportFragmentManager.beginTransaction()
-                .add(R.id.flToolbar, LibraryStandardToolbarFragment()).commit()
+                .add(R.id.flToolbar, StandardToolbarFragment()).commit()
     }
 
     private fun initRecyclerView() {
@@ -43,7 +43,7 @@ class ListMusicActivity : AppCompatActivity()
 
     override fun onStartSearch() {
         supportFragmentManager.beginTransaction()
-                .replace(R.id.flToolbar, LibrarySearchToolbarFragment()).commit()
+                .replace(R.id.flToolbar, SearchToolbarFragment()).commit()
     }
 
     override fun onViewUserInfo() {
@@ -51,11 +51,12 @@ class ListMusicActivity : AppCompatActivity()
     }
 
     override fun onSearch(input: String) {
+        // TODO : handle search here
         Log.e(TAG, input)
     }
 
     override fun onBack() {
         supportFragmentManager.beginTransaction()
-                .replace(R.id.flToolbar, LibraryStandardToolbarFragment()).commit()
+                .replace(R.id.flToolbar, StandardToolbarFragment()).commit()
     }
 }

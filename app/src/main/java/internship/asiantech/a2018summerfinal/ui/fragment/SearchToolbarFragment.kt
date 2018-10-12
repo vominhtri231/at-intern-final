@@ -14,7 +14,7 @@ import android.widget.EditText
 import internship.asiantech.a2018summerfinal.R
 import internship.asiantech.a2018summerfinal.utils.hideKeyboard
 
-class LibrarySearchToolbarFragment : Fragment() {
+class SearchToolbarFragment : Fragment() {
     private lateinit var listener: SearchToolbarEventListener
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {

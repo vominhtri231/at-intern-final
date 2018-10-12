@@ -1,4 +1,4 @@
-package internship.asiantech.a2018summerfinal.adapter
+package internship.asiantech.a2018summerfinal.ui.adapter
 
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager

@@ -6,7 +6,7 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import internship.asiantech.a2018summerfinal.R
-import internship.asiantech.a2018summerfinal.adapter.ListSongInPlaylistAdapter
+import internship.asiantech.a2018summerfinal.ui.adapter.ListSongInPlaylistAdapter
 import internship.asiantech.a2018summerfinal.database.AppDataHelper
 import internship.asiantech.a2018summerfinal.database.SongUpdater
 import internship.asiantech.a2018summerfinal.database.model.Song

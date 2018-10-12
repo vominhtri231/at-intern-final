@@ -8,12 +8,12 @@ import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
 import internship.asiantech.a2018summerfinal.R
-import internship.asiantech.a2018summerfinal.adapter.PlaylistChoiceAdapter
+import internship.asiantech.a2018summerfinal.ui.adapter.PlaylistChoiceAdapter
 import internship.asiantech.a2018summerfinal.database.AppDataHelper
 import internship.asiantech.a2018summerfinal.database.model.Song
 import internship.asiantech.a2018summerfinal.ui.fragment.PlaylistFragment
 import internship.asiantech.a2018summerfinal.listmusic.ListMusic
-import internship.asiantech.a2018summerfinal.viewholder.RadioButtonEventChoice
+import internship.asiantech.a2018summerfinal.ui.viewholder.RadioButtonEventChoice
 import kotlinx.android.synthetic.main.activity_choice_song.*
 
 class ChoiceSongActivity : AppCompatActivity() {

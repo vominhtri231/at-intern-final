@@ -10,7 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import internship.asiantech.a2018summerfinal.R
-import internship.asiantech.a2018summerfinal.adapter.PlaylistAdapter
+import internship.asiantech.a2018summerfinal.ui.adapter.PlaylistAdapter
 import internship.asiantech.a2018summerfinal.database.AppDataHelper
 import internship.asiantech.a2018summerfinal.database.model.Song
 import internship.asiantech.a2018summerfinal.ui.dialog.DialogCreatePlaylist

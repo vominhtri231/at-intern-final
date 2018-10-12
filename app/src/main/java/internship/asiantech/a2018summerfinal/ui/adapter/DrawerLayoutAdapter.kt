@@ -1,4 +1,4 @@
-package internship.asiantech.a2018summerfinal.adapter
+package internship.asiantech.a2018summerfinal.ui.adapter
 
 import android.content.Context
 import android.content.Intent

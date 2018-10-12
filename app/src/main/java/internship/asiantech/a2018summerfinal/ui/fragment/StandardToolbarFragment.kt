@@ -13,7 +13,7 @@ import android.widget.ImageView
 import internship.asiantech.a2018summerfinal.R
 import internship.asiantech.a2018summerfinal.utils.showKeyboard
 
-class LibraryStandardToolbarFragment : Fragment() {
+class StandardToolbarFragment : Fragment() {
     private lateinit var listener: StandardToolbarEventListener
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {

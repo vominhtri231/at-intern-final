@@ -4,13 +4,14 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import internship.asiantech.a2018summerfinal.R
-import internship.asiantech.a2018summerfinal.adapter.MusicAdapter
+import internship.asiantech.a2018summerfinal.ui.adapter.SongAdapter
 import internship.asiantech.a2018summerfinal.database.model.Song
 import internship.asiantech.a2018summerfinal.listmusic.ListMusic
+import internship.asiantech.a2018summerfinal.ui.viewholder.SongViewHolderListener
 import kotlinx.android.synthetic.main.fragment_list_songs.*
 
 class SearchedActivity : AppCompatActivity() {
-    private lateinit var musicAdapter: MusicAdapter
+    private lateinit var musicAdapter: SongAdapter
     private var musics: MutableList<Song> = ArrayList()
     private var keySearch = ""
 
@@ -49,10 +50,15 @@ class SearchedActivity : AppCompatActivity() {
     private fun initRecyclerView() {
         val layoutManager = LinearLayoutManager(this)
         recyclerViewMusic.layoutManager = layoutManager
-        musicAdapter = MusicAdapter(musics, this) { position ->
-            musics[position].isFavourite = !musics[position].isFavourite
-            musicAdapter.notifyDataSetChanged()
-        }
+        musicAdapter = SongAdapter(musics, this, object : SongViewHolderListener {
+            override fun onFavoriteChange(position: Int) {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+
+            override fun onStartListen(position: Int) {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+        })
         recyclerViewMusic.adapter = musicAdapter
     }
 }

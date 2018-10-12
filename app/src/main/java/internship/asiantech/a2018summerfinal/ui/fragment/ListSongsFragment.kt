@@ -7,17 +7,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import internship.asiantech.a2018summerfinal.R
-import internship.asiantech.a2018summerfinal.adapter.MusicAdapter
+import internship.asiantech.a2018summerfinal.ui.adapter.SongAdapter
 import internship.asiantech.a2018summerfinal.database.AppDataHelper
 import internship.asiantech.a2018summerfinal.database.PlaylistUpdater
 import internship.asiantech.a2018summerfinal.database.SongUpdater
 import internship.asiantech.a2018summerfinal.database.model.Playlist
 import internship.asiantech.a2018summerfinal.database.model.Song
 import internship.asiantech.a2018summerfinal.listmusic.ListMusic
+import internship.asiantech.a2018summerfinal.ui.viewholder.SongViewHolderListener
 import kotlinx.android.synthetic.main.fragment_list_songs.*
 
 class ListSongsFragment : Fragment() {
-    private lateinit var songAdapter: MusicAdapter
+    private lateinit var songAdapter: SongAdapter
     private val songs: MutableList<Song> = mutableListOf()
 
     companion object {
@@ -45,22 +46,25 @@ class ListSongsFragment : Fragment() {
         context?.let { context ->
             val layoutManager = LinearLayoutManager(context)
             recyclerViewMusic.layoutManager = layoutManager
-            songAdapter = MusicAdapter(songs, context) { position ->
-                songs[position].isFavourite = !songs[position].isFavourite
-
-                val song = Song(songs[position].id, songs[position].title,
-                        songs[position].artist, songs[position].duration, songs[position].isFavourite)
-                AppDataHelper.getInstance(context).addSong(song)
-                if (songs[position].isFavourite) {
-                    addPlayListToDataBase(resources.getString(R.string.favourite))
-                    AppDataHelper.getInstance(context).addSongToPlaylist(resources.getString(R.string.favourite), song.id)
-                } else {
-                    AppDataHelper.getInstance(context).deleteSongInPlaylist(resources.getString(R.string.favourite), song.id)
+            songAdapter = SongAdapter(songs, context, object : SongViewHolderListener {
+                override fun onFavoriteChange(position: Int) {
+                    songs[position].isFavourite = !songs[position].isFavourite
+                    val song = songs[position]
+                    AppDataHelper.getInstance(context).addSong(song)
+                    if (songs[position].isFavourite) {
+                        addPlayListToDataBase(resources.getString(R.string.favourite))
+                        AppDataHelper.getInstance(context).addSongToPlaylist(resources.getString(R.string.favourite), song.id)
+                    } else {
+                        AppDataHelper.getInstance(context).deleteSongInPlaylist(resources.getString(R.string.favourite), song.id)
+                    }
+                    songAdapter.notifyDataSetChanged()
+                    recyclerViewMusic.adapter = songAdapter
                 }
-                songAdapter.notifyDataSetChanged()
-            }
 
-            recyclerViewMusic.adapter = songAdapter
+                override fun onStartListen(position: Int) {
+                    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                }
+            })
         }
     }
 
