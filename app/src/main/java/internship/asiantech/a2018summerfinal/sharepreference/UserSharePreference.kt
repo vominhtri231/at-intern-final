@@ -29,6 +29,17 @@ class UserSharePreference(val context: Context) {
         editor.apply()
     }
 
+    fun changeAvatar(avatar: String) {
+        val user: User? = getCurrentUser()
+        user?.let {
+            user.avatarPath = avatar
+            val editor = sharedPreferences.edit()
+            val json: String = Gson().toJson(user)
+            editor.putString(USER, json)
+            editor.apply()
+        }
+    }
+
     fun getCurrentUser(): User? {
         val json = sharedPreferences.getString(USER, "")
         Log.e(TAG, "get json : $json")

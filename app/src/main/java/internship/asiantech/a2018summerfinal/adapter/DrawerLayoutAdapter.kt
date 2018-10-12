@@ -36,8 +36,8 @@ internal class DrawerLayoutAdapter(private val menuItemList: List<MenuItem>, pri
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (position == 0) {
-            if (user[0].avatar != "") {
-                Glide.with(context).load(user[0].avatar).into((holder as HeaderItemHolder).imgAvatar)
+            if (user[0].avatarPath != "") {
+                Glide.with(context).load(user[0].avatarPath).into((holder as HeaderItemHolder).imgAvatar)
             } else {
                 (holder as HeaderItemHolder).imgAvatar.setImageResource(R.drawable.img_avatar)
             }

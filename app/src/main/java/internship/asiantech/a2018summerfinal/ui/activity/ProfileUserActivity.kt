@@ -5,7 +5,6 @@ import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
-import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.support.v7.app.AppCompatActivity
@@ -20,6 +19,7 @@ import com.google.android.gms.maps.model.MarkerOptions
 import internship.asiantech.a2018summerfinal.R
 import internship.asiantech.a2018summerfinal.firebase.FirebaseDatabaseUtils
 import internship.asiantech.a2018summerfinal.firebase.FirebaseStorageUtils
+import internship.asiantech.a2018summerfinal.firebase.GetDownloadUpdater
 import internship.asiantech.a2018summerfinal.firebase.StorageUpdater
 import internship.asiantech.a2018summerfinal.model.User
 import internship.asiantech.a2018summerfinal.sharepreference.UserSharePreference
@@ -38,6 +38,7 @@ class ProfileUserActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.O
     private lateinit var location: LatLng
     private lateinit var userSharedPreferences: UserSharePreference
     private var mode: Mode = Mode.ViewMode
+    private var isChangeImage = false
 
     companion object {
         private const val PICK_FROM_CAMERA_REQUEST_CODE = 1
@@ -54,17 +55,13 @@ class ProfileUserActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.O
             setContentView(R.layout.activity_profile_user)
             initView(user)
             initMap()
-            initListeners()
+            initListener()
         } else {
-            val intent = Intent(this, LoginActivity::class.java)
-            startActivity(intent)
+            startActivity(Intent(this, LoginActivity::class.java))
         }
     }
 
-    private fun initListeners() {
-        imgAvatar.setOnClickListener {
-            createDialog()
-        }
+    private fun initListener() {
         btnEdit.setOnClickListener { _ ->
             if (mode == Mode.ViewMode) {
                 changeToEditMode()
@@ -85,8 +82,13 @@ class ProfileUserActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.O
         edtMail.setText(currentUser.mail)
         edtName.setText(currentUser.name)
         edtAge.setText(currentUser.age.toString())
-        if (currentUser.avatar.isNotEmpty()) {
-            Glide.with(this).load(currentUser.avatar).into(imgAvatar)
+        Log.e(TAG, currentUser.avatarPath)
+        if (currentUser.avatarPath.isNotEmpty()) {
+            FirebaseStorageUtils.getDownloadUrl(currentUser.avatarPath, object : GetDownloadUpdater {
+                override fun handle(downloadUrl: String) {
+                    Glide.with(this@ProfileUserActivity).load(downloadUrl).into(imgAvatar)
+                }
+            })
         }
     }
 
@@ -95,6 +97,9 @@ class ProfileUserActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.O
         edtName.isEnabled = true
         edtAge.isEnabled = true
         btnEdit.text = resources.getString(R.string.action_change)
+        imgAvatar.setOnClickListener {
+            createDialog()
+        }
     }
 
     private fun changeToViewMode() {
@@ -102,6 +107,7 @@ class ProfileUserActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.O
         edtName.isEnabled = false
         edtAge.isEnabled = false
         btnEdit.text = resources.getString(R.string.action_edit)
+        imgAvatar.setOnClickListener {}
     }
 
     private fun createDialog() {
@@ -112,6 +118,7 @@ class ProfileUserActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.O
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK && data != null) {
             setDataToImage(requestCode, data)
+            isChangeImage = true
         }
     }
 
@@ -164,12 +171,14 @@ class ProfileUserActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.O
     override fun open(type: ChooseImageDialog.ChosenImageType) {
         when (type) {
             ChooseImageDialog.ChosenImageType.CameraType -> {
-                if (askForPermissions(this, arrayOf(Manifest.permission.CAMERA), PICK_FROM_CAMERA_REQUEST_CODE)) {
+                if (askForPermissions(this, arrayOf(Manifest.permission.CAMERA),
+                                PICK_FROM_CAMERA_REQUEST_CODE)) {
                     openCamera()
                 }
             }
             ChooseImageDialog.ChosenImageType.GalleryType -> {
-                if (askForPermissions(this, arrayOf(Manifest.permission.CAMERA), PICK_FROM_GALLERY_REQUEST_CODE)) {
+                if (askForPermissions(this, arrayOf(Manifest.permission.CAMERA),
+                                PICK_FROM_GALLERY_REQUEST_CODE)) {
                     openGallery()
                 }
             }
@@ -184,39 +193,42 @@ class ProfileUserActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.O
     }
 
     private fun openGallery() {
-        val galleryIntent = Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+        val galleryIntent = Intent(Intent.ACTION_PICK,
+                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
         startActivityForResult(galleryIntent, PICK_FROM_GALLERY_REQUEST_CODE)
     }
 
     private fun updateUser() {
         val name = edtName.text.toString()
         val ageString = edtAge.text.toString()
-        val result = checkUserUpdate(name, ageString)
+        val validateResult = checkUserUpdate(name, ageString)
 
-        if (result.isSuccess()) {
+        if (validateResult.isSuccess()) {
             val user = userSharedPreferences.getCurrentUser()
             user?.let {
                 it.name = name
                 it.age = ageString.toInt()
                 updateUserImageToDatabase(it.idUser)
                 FirebaseDatabaseUtils.updateUserInfo(it.idUser, it)
-                userSharedPreferences.removeUserCurrent()
                 userSharedPreferences.saveUserLogin(it)
             }
         } else {
-            displayErrorMessage(result.getMessage())
+            displayErrorMessage(validateResult.getMessage())
         }
     }
 
     private fun updateUserImageToDatabase(idUser: String) {
-        FirebaseStorageUtils.uploadImage(getBitmapFromImageView(imgAvatar), object : StorageUpdater {
-            override fun onSuccess(uri: Uri) {
-                Log.e(TAG, uri.toString())
-                FirebaseDatabaseUtils.updateImageReference(idUser, uri.toString())
-            }
-
+        if (!isChangeImage) return
+        FirebaseStorageUtils.uploadImage(
+                getBitmapFromImageView(imgAvatar), object : StorageUpdater {
             override fun onFail() {
                 displayErrorMessage(R.string.error_upload_image)
+            }
+
+            override fun onSuccess(path: String) {
+                Log.e(TAG, "Path:$path")
+                userSharedPreferences.changeAvatar(path)
+                FirebaseDatabaseUtils.updateImageReference(idUser, path)
             }
         })
     }
