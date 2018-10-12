@@ -1,78 +1,61 @@
 package internship.asiantech.a2018summerfinal.ui.activity
 
-import android.content.Intent
 import android.os.Bundle
-import android.support.design.widget.TabLayout
-import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
-import android.view.View
+import android.util.Log
+import android.view.Gravity
 import internship.asiantech.a2018summerfinal.R
-import internship.asiantech.a2018summerfinal.adapter.DrawerLayoutAdapter
 import internship.asiantech.a2018summerfinal.adapter.LibraryPagerAdapter
-import internship.asiantech.a2018summerfinal.model.MenuItem
-import internship.asiantech.a2018summerfinal.model.User
-import internship.asiantech.a2018summerfinal.sharepreference.UserSharePreference
+import internship.asiantech.a2018summerfinal.ui.fragment.LibrarySearchToolbarFragment
+import internship.asiantech.a2018summerfinal.ui.fragment.LibraryStandardToolbarFragment
+import internship.asiantech.a2018summerfinal.ui.fragment.SearchToolbarEventListener
+import internship.asiantech.a2018summerfinal.ui.fragment.StandardToolbarEventListener
 import kotlinx.android.synthetic.main.activity_list_music.*
 
-class ListMusicActivity : AppCompatActivity() {
-    private lateinit var mViewPager: ViewPager
-    private lateinit var mTabLayout: TabLayout
-    private var mLibraryPagerAdapter: LibraryPagerAdapter = LibraryPagerAdapter(supportFragmentManager)
-    private lateinit var drawerLayoutAdapter: DrawerLayoutAdapter
-    private val menuItems: List<MenuItem> = ArrayList()
-    private val users: MutableList<User> = ArrayList()
-    private var isSearch: Boolean = false
+class ListMusicActivity : AppCompatActivity()
+        , StandardToolbarEventListener, SearchToolbarEventListener {
+    private lateinit var libraryPagerAdapter: LibraryPagerAdapter
 
     companion object {
+        private val TAG = ListMusicActivity::class.qualifiedName
         const val KEY_SEARCH = "search"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list_music)
-        initViews()
         initViewPager()
         initRecyclerView()
-        btnToolBarButtonSearch.setOnClickListener {
-            if (!isSearch) {
-                tvToolBarName.visibility = View.GONE
-                edtSearch.visibility = View.VISIBLE
-                isSearch = true
-            } else {
-                if (edtSearch.text.toString() != "") {
-                    val intent = Intent(this, SearchedActivity::class.java)
-                    intent.putExtra(KEY_SEARCH, edtSearch.text.toString())
-                    startActivity(intent)
-                    isSearch = false
-                }
-            }
-        }
+        supportFragmentManager.beginTransaction()
+                .add(R.id.flToolbar, LibraryStandardToolbarFragment()).commit()
     }
 
     private fun initRecyclerView() {
-        val layoutManager = LinearLayoutManager(this)
-        recyclerViewMenu.layoutManager = layoutManager
-        val userSharedPreferences = UserSharePreference(this)
-        val user = userSharedPreferences.getCurrentUser()
-        user?.let {
-            users.add(user)
-        }
-        drawerLayoutAdapter = DrawerLayoutAdapter(menuItems, users, this) {
-            userSharedPreferences.removeUserCurrent()
-        }
-        recyclerViewMenu.adapter = drawerLayoutAdapter
-    }
-
-    private fun initViews() {
-        mViewPager = findViewById(R.id.viewPager)
-        mTabLayout = findViewById(R.id.tabLayout)
+        //TODO : init recycler view that contain user's information
     }
 
     private fun initViewPager() {
-        mViewPager.adapter = mLibraryPagerAdapter
-        mViewPager.currentItem
-        mTabLayout.setupWithViewPager(mViewPager)
+        libraryPagerAdapter = LibraryPagerAdapter(supportFragmentManager)
+        viewPager.adapter = libraryPagerAdapter
+        viewPager.currentItem
+        tabLayout.setupWithViewPager(viewPager)
     }
 
+    override fun onStartSearch() {
+        supportFragmentManager.beginTransaction()
+                .replace(R.id.flToolbar, LibrarySearchToolbarFragment()).commit()
+    }
+
+    override fun onViewUserInfo() {
+        drawerLayout.openDrawer(Gravity.END)
+    }
+
+    override fun onSearch(input: String) {
+        Log.e(TAG, input)
+    }
+
+    override fun onBack() {
+        supportFragmentManager.beginTransaction()
+                .replace(R.id.flToolbar, LibraryStandardToolbarFragment()).commit()
+    }
 }

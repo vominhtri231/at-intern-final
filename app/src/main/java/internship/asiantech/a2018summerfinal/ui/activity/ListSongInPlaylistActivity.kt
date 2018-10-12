@@ -24,7 +24,6 @@ class ListSongInPlaylistActivity : AppCompatActivity(), EventClickItemSongListen
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.fragment_list_songs_in_playlist)
-        //get listsong listSongInPlaylist
         dataHelper = AppDataHelper.getInstance(this)
         initViews()
         setListener()
@@ -62,7 +61,6 @@ class ListSongInPlaylistActivity : AppCompatActivity(), EventClickItemSongListen
     }
 
     private fun initViews() {
-
         mRecyclerviewListSongInPlaylist = findViewById(R.id.recyclerviewListSongInPlaylist)
         mLayoutManager = LinearLayoutManager(this)
         mListSongInPlaylistAdapter = ListSongInPlaylistAdapter(listSongInPlaylist

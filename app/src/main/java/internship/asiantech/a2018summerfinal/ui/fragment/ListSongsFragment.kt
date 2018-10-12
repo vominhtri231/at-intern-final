@@ -17,8 +17,8 @@ import internship.asiantech.a2018summerfinal.listmusic.ListMusic
 import kotlinx.android.synthetic.main.fragment_list_songs.*
 
 class ListSongsFragment : Fragment() {
-    private lateinit var musicAdapter: MusicAdapter
-    private lateinit var musics: MutableList<Song>
+    private lateinit var songAdapter: MusicAdapter
+    private val songs: MutableList<Song> = mutableListOf()
 
     companion object {
         private const val KEY_POSITION = "position"
@@ -45,21 +45,22 @@ class ListSongsFragment : Fragment() {
         context?.let { context ->
             val layoutManager = LinearLayoutManager(context)
             recyclerViewMusic.layoutManager = layoutManager
-            musicAdapter = MusicAdapter(musics, context) { position ->
-                musics[position].isFavourite = !musics[position].isFavourite
+            songAdapter = MusicAdapter(songs, context) { position ->
+                songs[position].isFavourite = !songs[position].isFavourite
 
-                val song = Song(musics[position].id, musics[position].title, musics[position].artist, musics[position].duration, musics[position].isFavourite)
+                val song = Song(songs[position].id, songs[position].title,
+                        songs[position].artist, songs[position].duration, songs[position].isFavourite)
                 AppDataHelper.getInstance(context).addSong(song)
-                if (musics[position].isFavourite) {
+                if (songs[position].isFavourite) {
                     addPlayListToDataBase(resources.getString(R.string.favourite))
                     AppDataHelper.getInstance(context).addSongToPlaylist(resources.getString(R.string.favourite), song.id)
                 } else {
                     AppDataHelper.getInstance(context).deleteSongInPlaylist(resources.getString(R.string.favourite), song.id)
                 }
-                musicAdapter.notifyDataSetChanged()
+                songAdapter.notifyDataSetChanged()
             }
 
-            recyclerViewMusic.adapter = musicAdapter
+            recyclerViewMusic.adapter = songAdapter
         }
     }
 
@@ -96,14 +97,14 @@ class ListSongsFragment : Fragment() {
     }
 
     private fun getHistoryList() {
-        musics = ArrayList()
+        songs.clear()
         context?.let {
             AppDataHelper.getInstance(it).getSongInPlaylist(resources.getString(R.string.history), object : SongUpdater {
                 override fun getSongResult(result: List<Song>) {
                     for (song in result) {
-                        musics.add(0, Song(song.id, song.title, song.artist, song.duration, song.isFavourite))
+                        songs.add(0, Song(song.id, song.title, song.artist, song.duration, song.isFavourite))
                     }
-                    musicAdapter.notifyDataSetChanged()
+                    songAdapter.notifyDataSetChanged()
                 }
             })
         }
@@ -111,12 +112,12 @@ class ListSongsFragment : Fragment() {
     }
 
     private fun getFavouriteList() {
-        musics = ArrayList()
+        songs.clear()
         context?.let {
             AppDataHelper.getInstance(it).getSongInPlaylist(resources.getString(R.string.history), object : SongUpdater {
                 override fun getSongResult(result: List<Song>) {
                     for (song in result) {
-                        musics.add(Song(song.id, song.title, song.artist, song.duration, song.isFavourite))
+                        songs.add(Song(song.id, song.title, song.artist, song.duration, song.isFavourite))
                     }
                 }
             })
@@ -127,8 +128,8 @@ class ListSongsFragment : Fragment() {
     private fun getAllList() {
         context?.let {
             val listMusic = ListMusic(it)
-            musics.clear()
-            musics.addAll(listMusic.getListMusics())
+            songs.clear()
+            songs.addAll(listMusic.getListMusics())
         }
         checkIsFavourite()
     }
@@ -138,10 +139,10 @@ class ListSongsFragment : Fragment() {
             AppDataHelper.getInstance(it).getSongInPlaylist(resources.getString(R.string.favourite), object : SongUpdater {
                 override fun getSongResult(result: List<Song>) {
                     for (song in result) {
-                        for (i in 0 until musics.size) {
-                            if (song.id == musics[i].id) {
-                                musics[i].isFavourite = true
-                                musicAdapter.notifyDataSetChanged()
+                        for (i in 0 until songs.size) {
+                            if (song.id == songs[i].id) {
+                                songs[i].isFavourite = true
+                                songAdapter.notifyDataSetChanged()
                             }
                         }
                     }

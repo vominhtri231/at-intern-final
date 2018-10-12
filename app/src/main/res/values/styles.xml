@@ -13,4 +13,10 @@
         <item name="android:layout_height">30dp</item>
         <item name="android:layout_marginEnd">10dp</item>
     </style>
+
+    <style name="SmallIcon">
+        <item name="android:layout_width">20dp</item>
+        <item name="android:layout_height">20dp</item>\
+        <item name="android:layout_marginEnd">20dp</item>
+    </style>
 </resources>

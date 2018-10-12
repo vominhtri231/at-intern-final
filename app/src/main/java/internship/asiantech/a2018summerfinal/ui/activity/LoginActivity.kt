@@ -28,7 +28,7 @@ class LoginActivity : AppCompatActivity() {
 
         userSharedPreferences = UserSharePreference(this)
         if (userSharedPreferences.isLogin()) {
-            openProfileActivity()
+            openListMusicActivity()
             return
         }
 
@@ -80,7 +80,7 @@ class LoginActivity : AppCompatActivity() {
             override fun onComplete(user: User) {
                 Log.e(TAG, user.toString())
                 userSharedPreferences.saveUserLogin(user)
-                openProfileActivity()
+                openListMusicActivity()
             }
         })
     }
@@ -90,8 +90,8 @@ class LoginActivity : AppCompatActivity() {
         tvError.setBackgroundResource(R.drawable.border_text_view_error)
     }
 
-    private fun openProfileActivity() {
-        val profileIntent = Intent(this, ProfileUserActivity::class.java)
+    private fun openListMusicActivity() {
+        val profileIntent = Intent(this, ListMusicActivity::class.java)
         startActivity(profileIntent)
     }
 }
