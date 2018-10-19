@@ -1,4 +1,4 @@
-package internship.asiantech.a2018summerfinal.broadcast
+package internship.asiantech.a2018summerfinal.receiver
 
 interface HeadphoneChanger {
     fun onCommand(state: Int)

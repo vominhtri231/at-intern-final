@@ -91,7 +91,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun openListMusicActivity() {
-        val profileIntent = Intent(this, ListMusicActivity::class.java)
+        val profileIntent = Intent(this, MainActivity::class.java)
         startActivity(profileIntent)
     }
 }

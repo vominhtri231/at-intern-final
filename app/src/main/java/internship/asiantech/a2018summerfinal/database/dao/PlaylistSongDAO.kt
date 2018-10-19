@@ -13,6 +13,6 @@ interface PlaylistSongDAO {
     @Delete()
     fun deleteSongInPlaylist(playlistSong: PlaylistSong)
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertSongToPlaylist(playlistSong: PlaylistSong)
 }

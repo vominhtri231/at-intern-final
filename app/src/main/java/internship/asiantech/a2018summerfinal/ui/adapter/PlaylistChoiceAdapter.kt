@@ -11,9 +11,7 @@ import internship.asiantech.a2018summerfinal.R
 import internship.asiantech.a2018summerfinal.database.model.Song
 import internship.asiantech.a2018summerfinal.ui.viewholder.RadioButtonEventChoice
 
-class PlaylistChoiceAdapter(var listChoice: MutableList<Boolean>, var listSongs: MutableList<Song>, private val listener: RadioButtonEventChoice) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    private var mListChoiced = mutableListOf<Boolean>()
-    private var mIsCheck = false
+class PlaylistChoiceAdapter(private var listChoice: MutableList<Boolean>, private var listSongs: MutableList<Song>, private val listener: RadioButtonEventChoice) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_row_choice_song_add_playlist, parent, false)
         return ListSongsChoiceViewHolder(view)
@@ -38,11 +36,11 @@ class PlaylistChoiceAdapter(var listChoice: MutableList<Boolean>, var listSongs:
         val rbSonglistChoice: RadioButton = itemView.findViewById(R.id.rbSonglistChoice)
         val llPlaylistChoice: LinearLayout = itemView.findViewById(R.id.llPlaylistChoice)
         init {
-            llPlaylistChoice.setOnClickListener(View.OnClickListener {
+            llPlaylistChoice.setOnClickListener {
                 val isCheck = rbSonglistChoice.isChecked.not()
                 rbSonglistChoice.isChecked = isCheck
                 listener.onRadioButtonClickListener(adapterPosition, isCheck)
-            })
+            }
         }
     }
 }

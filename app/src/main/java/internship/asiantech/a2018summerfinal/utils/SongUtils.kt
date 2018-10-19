@@ -5,30 +5,52 @@ import android.database.Cursor
 import android.provider.MediaStore
 import internship.asiantech.a2018summerfinal.database.model.Song
 
-/**
- * query all songs in the device
- *
- * @param contentResolver
- * @return list of song
- */
-fun querySongs(contentResolver: ContentResolver): List<Song> {
-    val cursor: Cursor = contentResolver.query(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
-            null, null, null, null)
 
-    val idColumn = cursor.getColumnIndex(MediaStore.Audio.Media._ID)
-    val titleColumn = cursor.getColumnIndex(MediaStore.Audio.Media.TITLE)
-    val artistColumn = cursor.getColumnIndex(MediaStore.Audio.Media.ARTIST)
-
+fun searchSong(songs: List<Song>, strSearch: String): List<Song> {
     val result = mutableListOf<Song>()
-    cursor.moveToFirst()
-    do {
-        val song = Song(
-                id = cursor.getLong(idColumn),
-                title = cursor.getString(titleColumn),
-                artist = cursor.getString(artistColumn))
-        result.add(song)
-    } while (cursor.moveToNext())
+    for (song in songs) {
+        if (isWordInString(strSearch, song.title) || isWordInString(strSearch, song.artist)) {
+            result.add(song)
+        }
+    }
+    return result
+}
 
-    cursor.close()
+fun querySongs(contentResolver: ContentResolver): List<Song> {
+    val musicCursor = getCursorQuery(contentResolver)
+    val result = fetchDataFromCursor(musicCursor)
+    musicCursor.close()
+    return result
+}
+
+private fun getCursorQuery(contentResolver: ContentResolver): Cursor {
+    val selection = MediaStore.Audio.Media.IS_MUSIC + " !=0"
+    val project = arrayOf(MediaStore.Audio.Media._ID,
+            MediaStore.Audio.Media.ARTIST,
+            MediaStore.Audio.Media.TITLE,
+            MediaStore.Audio.Media.DATA,
+            MediaStore.Audio.Media.DISPLAY_NAME,
+            MediaStore.Audio.Media.DURATION,
+            MediaStore.Audio.Media.ALBUM)
+    return contentResolver.query(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
+            project, selection, null, null)
+}
+
+private fun fetchDataFromCursor(cursor: Cursor): List<Song> {
+    val result = mutableListOf<Song>()
+    if (cursor.moveToFirst()) {
+        val titleColumn = cursor.getColumnIndex(android.provider.MediaStore.Audio.Media.TITLE)
+        val idColumn = cursor.getColumnIndex(android.provider.MediaStore.Audio.Media._ID)
+        val artistColumn = cursor.getColumnIndex(android.provider.MediaStore.Audio.Media.ARTIST)
+        val albumColumn = cursor.getColumnIndex(android.provider.MediaStore.Audio.Media.ALBUM)
+        do {
+            val song = Song(
+                    id = cursor.getLong(idColumn),
+                    title = cursor.getString(titleColumn),
+                    artist = cursor.getString(artistColumn),
+                    album = cursor.getString(albumColumn))
+            result.add(song)
+        } while (cursor.moveToNext())
+    }
     return result
 }

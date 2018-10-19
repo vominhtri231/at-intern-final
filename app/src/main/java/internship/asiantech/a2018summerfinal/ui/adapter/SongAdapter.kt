@@ -9,7 +9,7 @@ import internship.asiantech.a2018summerfinal.database.model.Song
 import internship.asiantech.a2018summerfinal.ui.viewholder.SongViewHolder
 import internship.asiantech.a2018summerfinal.ui.viewholder.SongViewHolderListener
 
-class SongAdapter(private val musics: List<Song>, private val context: Context,
+class SongAdapter(private val musics: List<Song>, private val context: Context?,
                   private val listener: SongViewHolderListener)
     : RecyclerView.Adapter<SongViewHolder>() {
 

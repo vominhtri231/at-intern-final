@@ -24,6 +24,7 @@ import internship.asiantech.a2018summerfinal.firebase.StorageUpdater
 import internship.asiantech.a2018summerfinal.model.User
 import internship.asiantech.a2018summerfinal.sharepreference.UserSharePreference
 import internship.asiantech.a2018summerfinal.ui.dialog.ChooseImageDialog
+import internship.asiantech.a2018summerfinal.ui.dialog.ChooseImageEventListener
 import internship.asiantech.a2018summerfinal.utils.askForPermissions
 import internship.asiantech.a2018summerfinal.utils.checkUserUpdate
 import internship.asiantech.a2018summerfinal.utils.getBitmapFromImageView
@@ -31,8 +32,8 @@ import kotlinx.android.synthetic.main.activity_profile_user.*
 import java.io.IOException
 
 @Suppress("DEPRECATION", "DEPRECATED_IDENTITY_EQUALS")
-class ProfileUserActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapClickListener
-        , ChooseImageDialog.ChooseImageListener {
+class ProfileUserActivity : AppCompatActivity(),
+        OnMapReadyCallback, GoogleMap.OnMapClickListener, ChooseImageEventListener {
 
     private lateinit var map: GoogleMap
     private lateinit var location: LatLng
@@ -40,11 +41,6 @@ class ProfileUserActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.O
     private var mode: Mode = Mode.ViewMode
     private var isChangeImage = false
 
-    companion object {
-        private const val PICK_FROM_CAMERA_REQUEST_CODE = 1
-        private const val PICK_FROM_GALLERY_REQUEST_CODE = 2
-        private val TAG = ProfileUserActivity::class.qualifiedName
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -111,18 +107,18 @@ class ProfileUserActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.O
     }
 
     private fun createDialog() {
-        ChooseImageDialog().show(supportFragmentManager, "choose image")
+        ChooseImageDialog().show(supportFragmentManager, ChooseImageDialog.NAME)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK && data != null) {
-            setDataToImage(requestCode, data)
+            setDataToImageView(requestCode, data)
             isChangeImage = true
         }
     }
 
-    private fun setDataToImage(requestCode: Int, data: Intent) {
+    private fun setDataToImageView(requestCode: Int, data: Intent) {
         when (requestCode) {
             PICK_FROM_CAMERA_REQUEST_CODE -> {
                 if (data.extras != null) {
@@ -257,5 +253,11 @@ class ProfileUserActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.O
     enum class Mode {
         ViewMode,
         EditMode;
+    }
+
+    companion object {
+        private const val PICK_FROM_CAMERA_REQUEST_CODE = 1
+        private const val PICK_FROM_GALLERY_REQUEST_CODE = 2
+        private val TAG = ProfileUserActivity::class.qualifiedName
     }
 }

@@ -1,4 +1,4 @@
-package internship.asiantech.a2018summerfinal.broadcast
+package internship.asiantech.a2018summerfinal.receiver
 
 import android.content.BroadcastReceiver
 import android.content.Context

@@ -1,6 +1,6 @@
 package internship.asiantech.a2018summerfinal.ui.fragment
 
-interface StandardToolbarEventListener {
+interface StandardEventListener {
     fun onStartSearch()
     fun onViewUserInfo()
 }

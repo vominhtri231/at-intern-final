@@ -1,5 +1,6 @@
 package internship.asiantech.a2018summerfinal.ui.dialog
 
+import android.app.Activity
 import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
@@ -9,45 +10,40 @@ import android.util.Log
 import android.widget.ArrayAdapter
 
 class ChooseImageDialog : DialogFragment() {
-    companion object {
-        private val TAG = ChooseImageDialog::class.qualifiedName
-    }
-
-    private lateinit var listener: ChooseImageListener
+    private lateinit var listener: ChooseImageEventListener
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val items = arrayOf("Camera", "Gallery")
         val adapter = ArrayAdapter(activity, android.R.layout.select_dialog_item, items)
-        activity?.let {
-            val builder = AlertDialog.Builder(it)
-            builder.setTitle("Add Photo")
-            builder.setAdapter(adapter) { _, which ->
-                Log.e(TAG, which.toString())
-                when (which) {
-                    0 -> listener.open(ChosenImageType.CameraType)
-                    1 -> listener.open(ChosenImageType.GalleryType)
-                }
+        val builder = AlertDialog.Builder(activity as Activity)
+        builder.setTitle("Add Photo")
+        builder.setAdapter(adapter) { _, which ->
+            Log.e(TAG, which.toString())
+            when (which) {
+                0 -> listener.open(ChosenImageType.CameraType)
+                1 -> listener.open(ChosenImageType.GalleryType)
             }
-            return builder.create()
-        } ?: throw IllegalStateException("Activity cannot be null")
+        }
+        return builder.create()
     }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
         try {
-            listener = context as ChooseImageListener
+            listener = context as ChooseImageEventListener
         } catch (e: ClassCastException) {
             throw ClassCastException((context.toString() +
-                    " must implement ChooseImageListener"))
+                    " must implement ChooseImageEventListener"))
         }
-    }
-
-    interface ChooseImageListener {
-        fun open(type: ChosenImageType)
     }
 
     enum class ChosenImageType {
         CameraType,
         GalleryType
+    }
+
+    companion object {
+        private val TAG = ChooseImageDialog::class.qualifiedName
+        const val NAME = "choose image"
     }
 }

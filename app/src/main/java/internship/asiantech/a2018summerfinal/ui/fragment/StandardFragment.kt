@@ -1,0 +1,63 @@
+package internship.asiantech.a2018summerfinal.ui.fragment
+
+import android.app.Activity
+import android.content.Context
+import android.os.Bundle
+import android.support.v4.app.Fragment
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import internship.asiantech.a2018summerfinal.R
+import internship.asiantech.a2018summerfinal.ui.adapter.LibraryPagerAdapter
+import internship.asiantech.a2018summerfinal.utils.showKeyboard
+import kotlinx.android.synthetic.main.fragment_standard.*
+
+class StandardFragment : Fragment() {
+    private lateinit var listener: StandardEventListener
+    private lateinit var libraryPagerAdapter: LibraryPagerAdapter
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                              savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.fragment_standard, container, false)
+    }
+
+    override fun onAttach(context: Context?) {
+        super.onAttach(context)
+        if (context is StandardEventListener) {
+            listener = context
+        } else {
+            throw RuntimeException(context.toString() + " must implement StandardEventListener")
+        }
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setListeners()
+        initViewPager()
+        showKeyboard(activity as Activity)
+    }
+
+    fun updatePlaylistFragment(){
+        val fragment=libraryPagerAdapter.getItem(1)
+        if(fragment is PlaylistFragment){
+            fragment.getPlayList()
+        }
+    }
+
+    private fun setListeners() {
+        btnToolBarButtonSearch.setOnClickListener {
+            listener.onStartSearch()
+            showKeyboard(activity as Activity)
+        }
+        imgAvatar.setOnClickListener {
+            listener.onViewUserInfo()
+        }
+    }
+
+    private fun initViewPager() {
+        libraryPagerAdapter = LibraryPagerAdapter(fragmentManager)
+        viewPager.adapter = libraryPagerAdapter
+        viewPager.currentItem
+        tabLayout.setupWithViewPager(viewPager)
+    }
+}

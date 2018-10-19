@@ -4,7 +4,7 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentStatePagerAdapter
 import internship.asiantech.a2018summerfinal.ui.fragment.PlaylistFragment
-import internship.asiantech.a2018summerfinal.ui.fragment.ListSongsFragment
+import internship.asiantech.a2018summerfinal.ui.fragment.ListSongFragment
 
 class LibraryPagerAdapter(manager: FragmentManager?) : FragmentStatePagerAdapter(manager) {
     private val tabTitles = arrayOf("SONG", "ALBUM", "FAVOURITE", "HISTORY")
@@ -15,10 +15,10 @@ class LibraryPagerAdapter(manager: FragmentManager?) : FragmentStatePagerAdapter
     }
 
     private fun addFragment() {
-        listFragment.add(ListSongsFragment.instance(0))
+        listFragment.add(ListSongFragment.instance(0))
         listFragment.add(PlaylistFragment())
-        listFragment.add(ListSongsFragment.instance(1))
-        listFragment.add(ListSongsFragment.instance(2))
+        listFragment.add(ListSongFragment.instance(1))
+        listFragment.add(ListSongFragment.instance(2))
     }
 
     override fun getItem(position: Int): Fragment {

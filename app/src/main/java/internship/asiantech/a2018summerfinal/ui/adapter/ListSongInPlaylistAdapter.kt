@@ -35,6 +35,7 @@ class ListSongInPlaylistAdapter(private val listSongInPlaylist: MutableList<Song
         val tvTitleSong = itemView?.findViewById<TextView>(R.id.tvTitleSong)
         val tvSinger = itemView?.findViewById<TextView>(R.id.tvSinger)
         val rlItemSongInPlaylist = itemView?.findViewById<RelativeLayout>(R.id.rlItemSongInPlaylist)
+
         init {
             rlItemSongInPlaylist?.setOnClickListener {
                 val position = layoutPosition
