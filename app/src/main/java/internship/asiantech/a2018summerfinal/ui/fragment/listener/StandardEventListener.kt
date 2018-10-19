@@ -1,4 +1,4 @@
-package internship.asiantech.a2018summerfinal.ui.fragment
+package internship.asiantech.a2018summerfinal.ui.fragment.listener
 
 interface StandardEventListener {
     fun onStartSearch()

@@ -24,7 +24,7 @@ import internship.asiantech.a2018summerfinal.firebase.StorageUpdater
 import internship.asiantech.a2018summerfinal.model.User
 import internship.asiantech.a2018summerfinal.sharepreference.UserSharePreference
 import internship.asiantech.a2018summerfinal.ui.dialog.ChooseImageDialog
-import internship.asiantech.a2018summerfinal.ui.dialog.ChooseImageEventListener
+import internship.asiantech.a2018summerfinal.ui.dialog.listener.ChooseImageEventListener
 import internship.asiantech.a2018summerfinal.utils.askForPermissions
 import internship.asiantech.a2018summerfinal.utils.checkUserUpdate
 import internship.asiantech.a2018summerfinal.utils.getBitmapFromImageView

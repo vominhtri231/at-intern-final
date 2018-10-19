@@ -8,13 +8,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import internship.asiantech.a2018summerfinal.R
-import internship.asiantech.a2018summerfinal.ui.adapter.LibraryPagerAdapter
+import internship.asiantech.a2018summerfinal.ui.view_pager_adapter.MainPagerAdapter
+import internship.asiantech.a2018summerfinal.ui.fragment.listener.StandardEventListener
 import internship.asiantech.a2018summerfinal.utils.showKeyboard
 import kotlinx.android.synthetic.main.fragment_standard.*
 
 class StandardFragment : Fragment() {
     private lateinit var listener: StandardEventListener
-    private lateinit var libraryPagerAdapter: LibraryPagerAdapter
+    private lateinit var libraryPagerAdapter: MainPagerAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -55,7 +56,7 @@ class StandardFragment : Fragment() {
     }
 
     private fun initViewPager() {
-        libraryPagerAdapter = LibraryPagerAdapter(fragmentManager)
+        libraryPagerAdapter = MainPagerAdapter(fragmentManager)
         viewPager.adapter = libraryPagerAdapter
         viewPager.currentItem
         tabLayout.setupWithViewPager(viewPager)

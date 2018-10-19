@@ -10,18 +10,20 @@ import internship.asiantech.a2018summerfinal.database.model.Playlist
 import internship.asiantech.a2018summerfinal.database.model.Song
 import internship.asiantech.a2018summerfinal.database.updater.CommonUpdater
 import internship.asiantech.a2018summerfinal.model.Album
-import internship.asiantech.a2018summerfinal.ui.dialog.AddPlaylistEventListener
-import internship.asiantech.a2018summerfinal.ui.fragment.BackEventListener
+import internship.asiantech.a2018summerfinal.ui.dialog.listener.AddPlaylistEventListener
+import internship.asiantech.a2018summerfinal.ui.fragment.ListSongFragment
 import internship.asiantech.a2018summerfinal.ui.fragment.SearchSongFragment
-import internship.asiantech.a2018summerfinal.ui.fragment.StandardEventListener
 import internship.asiantech.a2018summerfinal.ui.fragment.StandardFragment
+import internship.asiantech.a2018summerfinal.ui.fragment.listener.BackEventListener
+import internship.asiantech.a2018summerfinal.ui.fragment.listener.LibraryEventListener
+import internship.asiantech.a2018summerfinal.ui.fragment.listener.StandardEventListener
 import internship.asiantech.a2018summerfinal.utils.askForPermissions
 import internship.asiantech.a2018summerfinal.utils.queryAlbum
 import internship.asiantech.a2018summerfinal.utils.querySongs
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity()
-        , StandardEventListener, BackEventListener, AddPlaylistEventListener {
+        , StandardEventListener, BackEventListener, AddPlaylistEventListener, LibraryEventListener {
     val songs = mutableListOf<Song>()
     val albums = mutableListOf<Album>()
 
@@ -78,14 +80,25 @@ class MainActivity : AppCompatActivity()
     }
 
     override fun addPlaylist(name: String) {
-        AppDataHelper.getInstance(this).addPlaylist(Playlist(name = name), object : CommonUpdater {
+        AppDataHelper.getInstance(this)
+                .addPlaylist(Playlist(name = name), object : CommonUpdater {
             override fun onFinish() {
-                val fragment=supportFragmentManager.findFragmentById(R.id.flMain)
-                if(fragment is StandardFragment){
+                val fragment = supportFragmentManager.findFragmentById(R.id.flMain)
+                if (fragment is StandardFragment) {
                     fragment.updatePlaylistFragment()
                 }
             }
         })
+    }
+
+    override fun openHistorySong() {
+        supportFragmentManager.beginTransaction()
+                .replace(R.id.flMain, ListSongFragment.instance(ListSongFragment.TYPE_HISTORY)).commit()
+    }
+
+    override fun openFavoriteSong() {
+        supportFragmentManager.beginTransaction()
+                .replace(R.id.flMain, ListSongFragment.instance(ListSongFragment.TYPE_FAVORITE)).commit()
     }
 
     companion object {

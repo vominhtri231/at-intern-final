@@ -13,9 +13,9 @@ import internship.asiantech.a2018summerfinal.database.AppDataHelper
 import internship.asiantech.a2018summerfinal.database.model.Playlist
 import internship.asiantech.a2018summerfinal.database.updater.PlaylistUpdater
 import internship.asiantech.a2018summerfinal.ui.activity.ListSongInPlaylistActivity
-import internship.asiantech.a2018summerfinal.ui.adapter.PlaylistAdapter
+import internship.asiantech.a2018summerfinal.ui.recyclerview.adapter.PlaylistAdapter
 import internship.asiantech.a2018summerfinal.ui.dialog.AddPlaylistDialog
-import internship.asiantech.a2018summerfinal.ui.viewholder.PlaylistViewHolderListener
+import internship.asiantech.a2018summerfinal.ui.recyclerview.listener.PlaylistViewHolderListener
 import kotlinx.android.synthetic.main.fragment_playlist.*
 
 @Suppress("DEPRECATION")

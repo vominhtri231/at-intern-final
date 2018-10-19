@@ -1,4 +1,4 @@
-package internship.asiantech.a2018summerfinal.ui.adapter
+package internship.asiantech.a2018summerfinal.ui.recyclerview.adapter
 
 import android.app.AlertDialog
 import android.content.Context
@@ -10,7 +10,7 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 import internship.asiantech.a2018summerfinal.R
 import internship.asiantech.a2018summerfinal.database.model.Song
-import internship.asiantech.a2018summerfinal.ui.fragment.EventClickItemSongListener
+import internship.asiantech.a2018summerfinal.ui.fragment.listener.EventClickItemSongListener
 
 class ListSongInPlaylistAdapter(private val listSongInPlaylist: MutableList<Song>,
                                 private val context: Context,

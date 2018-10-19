@@ -8,6 +8,7 @@ import android.support.v4.app.DialogFragment
 import android.view.View
 import android.widget.EditText
 import internship.asiantech.a2018summerfinal.R
+import internship.asiantech.a2018summerfinal.ui.dialog.listener.AddPlaylistEventListener
 
 class AddPlaylistDialog : DialogFragment() {
     lateinit var listener: AddPlaylistEventListener

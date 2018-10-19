@@ -1,4 +1,4 @@
-package internship.asiantech.a2018summerfinal.ui.adapter
+package internship.asiantech.a2018summerfinal.ui.recyclerview.adapter
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
@@ -6,8 +6,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import internship.asiantech.a2018summerfinal.R
 import internship.asiantech.a2018summerfinal.database.model.Playlist
-import internship.asiantech.a2018summerfinal.ui.viewholder.PlaylistViewHolder
-import internship.asiantech.a2018summerfinal.ui.viewholder.PlaylistViewHolderListener
+import internship.asiantech.a2018summerfinal.ui.recyclerview.viewholder.PlaylistViewHolder
+import internship.asiantech.a2018summerfinal.ui.recyclerview.listener.PlaylistViewHolderListener
 
 class PlaylistAdapter(private var playlists: MutableList<Playlist>,
                       val context: Context?,

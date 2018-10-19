@@ -1,4 +1,4 @@
-package internship.asiantech.a2018summerfinal.ui.viewholder
+package internship.asiantech.a2018summerfinal.ui.recyclerview.listener
 
 interface SongViewHolderListener {
     fun onFavoriteChange(position: Int)

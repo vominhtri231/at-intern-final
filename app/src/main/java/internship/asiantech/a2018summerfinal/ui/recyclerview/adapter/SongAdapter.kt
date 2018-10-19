@@ -1,4 +1,4 @@
-package internship.asiantech.a2018summerfinal.ui.adapter
+package internship.asiantech.a2018summerfinal.ui.recyclerview.adapter
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
@@ -6,8 +6,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import internship.asiantech.a2018summerfinal.R
 import internship.asiantech.a2018summerfinal.database.model.Song
-import internship.asiantech.a2018summerfinal.ui.viewholder.SongViewHolder
-import internship.asiantech.a2018summerfinal.ui.viewholder.SongViewHolderListener
+import internship.asiantech.a2018summerfinal.ui.recyclerview.viewholder.SongViewHolder
+import internship.asiantech.a2018summerfinal.ui.recyclerview.listener.SongViewHolderListener
 
 class SongAdapter(private val musics: List<Song>, private val context: Context?,
                   private val listener: SongViewHolderListener)

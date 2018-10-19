@@ -1,4 +1,4 @@
-package internship.asiantech.a2018summerfinal.ui.adapter
+package internship.asiantech.a2018summerfinal.ui.recyclerview.adapter
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -9,9 +9,12 @@ import android.widget.RadioButton
 import android.widget.TextView
 import internship.asiantech.a2018summerfinal.R
 import internship.asiantech.a2018summerfinal.database.model.Song
-import internship.asiantech.a2018summerfinal.ui.viewholder.RadioButtonEventChoice
+import internship.asiantech.a2018summerfinal.ui.recyclerview.listener.RadioButtonEventChoice
 
-class PlaylistChoiceAdapter(private var listChoice: MutableList<Boolean>, private var listSongs: MutableList<Song>, private val listener: RadioButtonEventChoice) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class PlaylistChoiceAdapter(private var listChoice: MutableList<Boolean>,
+                            private var listSongs: MutableList<Song>,
+                            private val listener: RadioButtonEventChoice)
+    : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_row_choice_song_add_playlist, parent, false)
         return ListSongsChoiceViewHolder(view)

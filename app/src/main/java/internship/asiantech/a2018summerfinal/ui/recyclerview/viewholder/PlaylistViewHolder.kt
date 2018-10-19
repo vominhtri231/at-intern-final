@@ -1,11 +1,11 @@
-package internship.asiantech.a2018summerfinal.ui.viewholder
+package internship.asiantech.a2018summerfinal.ui.recyclerview.viewholder
 
 import android.support.v7.widget.CardView
 import android.support.v7.widget.RecyclerView
 import android.view.View
-import android.widget.LinearLayout
 import android.widget.TextView
 import internship.asiantech.a2018summerfinal.R
+import internship.asiantech.a2018summerfinal.ui.recyclerview.listener.PlaylistViewHolderListener
 
 class PlaylistViewHolder(itemView: View?,val listener: PlaylistViewHolderListener) : RecyclerView.ViewHolder(itemView) {
     var index = 0

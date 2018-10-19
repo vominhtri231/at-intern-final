@@ -13,17 +13,18 @@ import android.view.ViewGroup
 import internship.asiantech.a2018summerfinal.R
 import internship.asiantech.a2018summerfinal.database.model.Song
 import internship.asiantech.a2018summerfinal.ui.activity.MainActivity
-import internship.asiantech.a2018summerfinal.ui.adapter.SongAdapter
-import internship.asiantech.a2018summerfinal.ui.viewholder.SongViewHolderListener
+import internship.asiantech.a2018summerfinal.ui.recyclerview.adapter.SongAdapter
+import internship.asiantech.a2018summerfinal.ui.fragment.listener.BackEventListener
+import internship.asiantech.a2018summerfinal.ui.recyclerview.listener.SongViewHolderListener
 import internship.asiantech.a2018summerfinal.utils.hideKeyboard
 import internship.asiantech.a2018summerfinal.utils.searchSong
 import kotlinx.android.synthetic.main.fragment_search_song.*
 
 class SearchSongFragment : Fragment() {
     private lateinit var songAdapter: SongAdapter
+    private lateinit var listener: BackEventListener
     private var searchedSongs: MutableList<Song> = ArrayList()
 
-    private lateinit var listener: BackEventListener
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_search_song, container, false)

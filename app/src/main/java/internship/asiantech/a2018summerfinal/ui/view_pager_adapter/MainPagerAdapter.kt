@@ -1,13 +1,14 @@
-package internship.asiantech.a2018summerfinal.ui.adapter
+package internship.asiantech.a2018summerfinal.ui.view_pager_adapter
 
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentStatePagerAdapter
-import internship.asiantech.a2018summerfinal.ui.fragment.PlaylistFragment
+import internship.asiantech.a2018summerfinal.ui.fragment.LibraryFragment
 import internship.asiantech.a2018summerfinal.ui.fragment.ListSongFragment
+import internship.asiantech.a2018summerfinal.ui.fragment.PlaylistFragment
 
-class LibraryPagerAdapter(manager: FragmentManager?) : FragmentStatePagerAdapter(manager) {
-    private val tabTitles = arrayOf("SONG", "ALBUM", "FAVOURITE", "HISTORY")
+class MainPagerAdapter(manager: FragmentManager?) : FragmentStatePagerAdapter(manager) {
+    private val tabTitles = arrayOf("SONG", "PLAYLIST", "LIBRARY")
     private val listFragment: MutableList<Fragment> = mutableListOf()
 
     init {
@@ -15,10 +16,9 @@ class LibraryPagerAdapter(manager: FragmentManager?) : FragmentStatePagerAdapter
     }
 
     private fun addFragment() {
-        listFragment.add(ListSongFragment.instance(0))
+        listFragment.add(ListSongFragment.instance(ListSongFragment.TYPE_ALL))
         listFragment.add(PlaylistFragment())
-        listFragment.add(ListSongFragment.instance(1))
-        listFragment.add(ListSongFragment.instance(2))
+        listFragment.add(LibraryFragment())
     }
 
     override fun getItem(position: Int): Fragment {

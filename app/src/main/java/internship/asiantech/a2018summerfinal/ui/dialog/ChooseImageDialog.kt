@@ -8,6 +8,7 @@ import android.support.v4.app.DialogFragment
 import android.support.v7.app.AlertDialog
 import android.util.Log
 import android.widget.ArrayAdapter
+import internship.asiantech.a2018summerfinal.ui.dialog.listener.ChooseImageEventListener
 
 class ChooseImageDialog : DialogFragment() {
     private lateinit var listener: ChooseImageEventListener

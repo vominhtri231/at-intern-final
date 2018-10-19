@@ -1,4 +1,4 @@
-package internship.asiantech.a2018summerfinal.ui.adapter
+package internship.asiantech.a2018summerfinal.ui.recyclerview.adapter
 
 import android.content.Context
 import android.content.Intent
@@ -16,7 +16,11 @@ import internship.asiantech.a2018summerfinal.model.MenuItem
 import internship.asiantech.a2018summerfinal.model.User
 import internship.asiantech.a2018summerfinal.ui.activity.ProfileUserActivity
 
-internal class DrawerLayoutAdapter(private val menuItemList: List<MenuItem>, private val user: List<User>, private val context: Context, val logoutListener: () -> Unit) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+internal class DrawerLayoutAdapter(private val menuItemList: List<MenuItem>,
+                                   private val user: List<User>,
+                                   private val context: Context,
+                                   val logoutListener: () -> Unit)
+    : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun getItemCount(): Int {
         return menuItemList.size + user.size
     }

@@ -147,8 +147,8 @@ class MusicService : Service() {
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         intent?.let {
-            @CommandBuilder.Companion.Command val command: String = CommandBuilder.getCommand(intent)
-            @CommandBuilder.Companion.Command
+            @CommandBuilder.CommandType val command: String = CommandBuilder.getCommand(intent)
+            @CommandBuilder.CommandType
             when (command) {
                 CommandBuilder.START_SERVICE -> createForegroundService()
                 CommandBuilder.STOP_SERVICE -> endService()

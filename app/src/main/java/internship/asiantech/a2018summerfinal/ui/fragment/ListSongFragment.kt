@@ -1,6 +1,8 @@
 package internship.asiantech.a2018summerfinal.ui.fragment
 
+import android.content.Context
 import android.os.Bundle
+import android.support.annotation.IntDef
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
@@ -8,38 +10,54 @@ import android.view.View
 import android.view.ViewGroup
 import internship.asiantech.a2018summerfinal.R
 import internship.asiantech.a2018summerfinal.database.AppDataHelper
-import internship.asiantech.a2018summerfinal.database.model.Playlist
 import internship.asiantech.a2018summerfinal.database.model.Song
-import internship.asiantech.a2018summerfinal.database.updater.PlaylistUpdater
 import internship.asiantech.a2018summerfinal.database.updater.SongUpdater
 import internship.asiantech.a2018summerfinal.ui.activity.MainActivity
-import internship.asiantech.a2018summerfinal.ui.adapter.SongAdapter
-import internship.asiantech.a2018summerfinal.ui.viewholder.SongViewHolderListener
-import kotlinx.android.synthetic.main.fragment_list_songs.*
+import internship.asiantech.a2018summerfinal.ui.fragment.listener.BackEventListener
+import internship.asiantech.a2018summerfinal.ui.recyclerview.adapter.SongAdapter
+import internship.asiantech.a2018summerfinal.ui.recyclerview.listener.SongViewHolderListener
+import kotlinx.android.synthetic.main.fragment_list_song.*
 
 class ListSongFragment : Fragment() {
     private lateinit var songAdapter: SongAdapter
+    private lateinit var listener: BackEventListener
     private val songs: MutableList<Song> = mutableListOf()
 
-    companion object {
-        private const val KEY_POSITION = "position"
-        fun instance(position: Int): ListSongFragment {
-            val timelineFragment = ListSongFragment()
-            val bundle = Bundle()
-            bundle.putInt(KEY_POSITION, position)
-            timelineFragment.arguments = bundle
-            return timelineFragment
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.fragment_list_song, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setListener()
+        initRecyclerView()
+
+        val listSongName = getFragmentName(arguments)
+        initSongs(listSongName)
+        initView(listSongName)
+    }
+
+    override fun onAttach(context: Context?) {
+        super.onAttach(context)
+        if (context is BackEventListener) {
+            listener = context
+        } else {
+            throw RuntimeException(context.toString() + " must implement BackEventListener")
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_list_songs, container, false)
+    private fun setListener(){
+        btnToolBarButtonBack.setOnClickListener {
+            listener.onBackToStandard()
+        }
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        initListMusic()
-        initRecyclerView()
+    private fun initView(listSongName: String?) {
+        if (listSongName != null) {
+            tvName.text = listSongName
+        } else {
+
+        }
     }
 
     private fun initRecyclerView() {
@@ -48,7 +66,6 @@ class ListSongFragment : Fragment() {
             override fun onFavoriteChange(position: Int) {
                 val targetSong = songs[position]
                 targetSong.changeFavouriteState()
-                updateInDatabase(targetSong)
                 songAdapter.notifyDataSetChanged()
             }
 
@@ -59,103 +76,55 @@ class ListSongFragment : Fragment() {
         recyclerViewSong.adapter = songAdapter
     }
 
-    private fun updateInDatabase(targetSong: Song) {
-        context?.let {
-            AppDataHelper.getInstance(it).addSong(targetSong)
-            if (targetSong.isFavourite) {
-                addPlayListToDataBase(resources.getString(R.string.favourite))
-                AppDataHelper.getInstance(it)
-                        .addSongToPlaylist(resources.getString(R.string.favourite), targetSong.id)
-            } else {
-                AppDataHelper.getInstance(it)
-                        .deleteSongInPlaylist(resources.getString(R.string.favourite), targetSong.id)
-            }
+    private fun getFragmentName(bundle: Bundle?): String? {
+        val type = bundle?.getInt(KEY_TYPE, 0)
+        return when (type) {
+            TYPE_HISTORY -> resources.getString(R.string.history)
+            TYPE_FAVORITE -> resources.getString(R.string.favourite)
+            else -> null
         }
     }
 
-    private fun addPlayListToDataBase(name: String) {
-        context?.let {
-            AppDataHelper.getInstance(it).getAllPlaylist(object : PlaylistUpdater {
-                override fun getPlaylistResult(result: List<Playlist>) {
-                    if (!result.contains(Playlist(name))) {
-                        AppDataHelper.getInstance(it).addPlaylist(Playlist(name))
-                    }
-                }
-
-            })
+    private fun initSongs(playlistName: String?) {
+        if (playlistName != null) {
+            initSongFromPlayList(playlistName)
+        } else {
+            initAllSong()
         }
     }
 
-    private fun initListMusic() {
-        val bundle = arguments
-        var position = 0
-        if (bundle != null) {
-            position = bundle.getInt(KEY_POSITION)
-        }
-        when (position) {
-            0 -> {
-                getAllList()
-            }
-            1 -> {
-                getFavouriteList()
-            }
-            2 -> {
-                getHistoryList()
-            }
-        }
-    }
-
-    private fun getHistoryList() {
+    private fun initSongFromPlayList(playlistName: String) {
         songs.clear()
         context?.let {
-            AppDataHelper.getInstance(it).getSongInPlaylist(resources.getString(R.string.history), object : SongUpdater {
+            AppDataHelper.getInstance(it).getSongInPlaylist(playlistName, object : SongUpdater {
                 override fun getSongResult(result: List<Song>) {
-                    for (song in result) {
-                        songs.add(song)
-                    }
-                    songAdapter.notifyDataSetChanged()
+                    songs.addAll(result)
                 }
             })
         }
-        checkIsFavourite()
     }
 
-    private fun getFavouriteList() {
+    private fun initAllSong() {
         songs.clear()
-        context?.let {
-            AppDataHelper.getInstance(it).getSongInPlaylist(resources.getString(R.string.history), object : SongUpdater {
-                override fun getSongResult(result: List<Song>) {
-                    for (song in result) {
-                        songs.add(song)
-                    }
-                }
-            })
-        }
-        checkIsFavourite()
+        songs.addAll((activity as MainActivity).songs)
     }
 
-    private fun getAllList() {
-        context?.let {
-            songs.clear()
-            songs.addAll((activity as MainActivity).songs)
+    companion object {
+        private const val KEY_TYPE = "KEY_TYPE"
+        const val TYPE_ALL = 0
+        const val TYPE_HISTORY = 1
+        const val TYPE_FAVORITE = 2
+
+        fun instance(@ListSongFragmentType type: Int): ListSongFragment {
+            val timelineFragment = ListSongFragment()
+            val bundle = Bundle()
+            bundle.putInt(KEY_TYPE, type)
+            timelineFragment.arguments = bundle
+            return timelineFragment
         }
-        checkIsFavourite()
     }
 
-    private fun checkIsFavourite() {
-        context?.let {
-            AppDataHelper.getInstance(it).getSongInPlaylist(resources.getString(R.string.favourite), object : SongUpdater {
-                override fun getSongResult(result: List<Song>) {
-                    for (song in result) {
-                        for (i in 0 until songs.size) {
-                            if (song.id == songs[i].id) {
-                                songs[i].isFavourite = true
-                                songAdapter.notifyDataSetChanged()
-                            }
-                        }
-                    }
-                }
-            })
-        }
-    }
+    @IntDef(TYPE_HISTORY, TYPE_FAVORITE)
+    @Retention(AnnotationRetention.SOURCE)
+    annotation class ListSongFragmentType
 }

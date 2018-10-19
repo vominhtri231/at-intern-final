@@ -1,10 +1,11 @@
-package internship.asiantech.a2018summerfinal.ui.viewholder
+package internship.asiantech.a2018summerfinal.ui.recyclerview.viewholder
 
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import internship.asiantech.a2018summerfinal.R
+import internship.asiantech.a2018summerfinal.ui.recyclerview.listener.SongViewHolderListener
 
 class SongViewHolder(itemView: View?,
                      private val listener: SongViewHolderListener)

@@ -12,8 +12,8 @@ import android.view.ViewGroup
 import internship.asiantech.a2018summerfinal.R
 import internship.asiantech.a2018summerfinal.database.model.Song
 import internship.asiantech.a2018summerfinal.ui.activity.MainActivity
-import internship.asiantech.a2018summerfinal.ui.adapter.PlaylistChoiceAdapter
-import internship.asiantech.a2018summerfinal.ui.viewholder.RadioButtonEventChoice
+import internship.asiantech.a2018summerfinal.ui.recyclerview.adapter.PlaylistChoiceAdapter
+import internship.asiantech.a2018summerfinal.ui.recyclerview.listener.RadioButtonEventChoice
 import kotlinx.android.synthetic.main.fragment_choice_song.*
 
 
