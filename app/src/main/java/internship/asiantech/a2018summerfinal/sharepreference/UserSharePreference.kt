@@ -23,17 +23,28 @@ class UserSharePreference(val context: Context) {
     fun saveUserLogin(user: User) {
         val editor = sharedPreferences.edit()
         editor.putBoolean(LOGIN_KEY, true)
-        val gson = Gson()
-        val json: String = gson.toJson(user)
+        val json: String = Gson().toJson(user)
+        editor.putString(USER, json)
         Log.e(TAG, "save json : $json")
         editor.apply()
     }
 
+    fun changeAvatar(avatar: String) {
+        val user: User? = getCurrentUser()
+        user?.let {
+            user.avatarPath = avatar
+            val editor = sharedPreferences.edit()
+            val json: String = Gson().toJson(user)
+            editor.putString(USER, json)
+            editor.apply()
+        }
+    }
+
     fun getCurrentUser(): User? {
-        val gson = Gson()
         val json = sharedPreferences.getString(USER, "")
+        Log.e(TAG, "get json : $json")
         try {
-            return gson.fromJson<User>(json, User::class.java)
+            return Gson().fromJson<User>(json, User::class.java)
         } catch (e: JsonSyntaxException) {
             Log.e(TAG, e.localizedMessage)
             return null

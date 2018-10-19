@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbarPlaylistChoice"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorCerulean"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+        <Button
+            android:id="@+id/btnToolBarButtonDown"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/ic_down" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/toolbar_text_choice"
+            android:textColor="@color/colorWhite"
+            android:textSize="20sp" />
+    </android.support.v7.widget.Toolbar>
+
+    <LinearLayout
+        android:id="@+id/llChoiceAllSong"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/rbItemPlaylistChoiceAll"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:buttonTint="@color/colorCerulean"
+            android:clickable="false"
+            android:focusable="false" />
+
+        <TextView
+            android:id="@+id/tvStateChoiceAll"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/choiceAllSOng" />
+
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycleViewPlaylistChoice"
+        android:layout_width="match_parent"
+        android:layout_height="350dp"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageButton
+            android:id="@+id/imgbPlaylistChoiceComplete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/colorSirocco"
+            android:contentDescription="@string/imagebutton"
+            android:focusable="false"
+            android:src="@drawable/ic_create_playlist_new"
+            android:tint="@color/colorBlack" />
+
+        <TextView
+            android:id="@+id/tvPlaylistChoiceAdd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/imgbPlaylistChoiceComplete"
+            android:layout_marginBottom="10dp"
+            android:text="@string/playlist_choice_text_add"
+            android:textColor="@color/colorBlack"
+            android:textSize="20sp" />
+    </RelativeLayout>
+</LinearLayout>

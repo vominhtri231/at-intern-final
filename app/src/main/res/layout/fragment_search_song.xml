@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/drawerLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/toolbarPlayMusicOffline"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@color/colorAzureRadiance">
+
+        <Button
+            android:id="@+id/btnToolBarButtonBack"
+            style="@style/SmallIcon"
+            android:layout_marginEnd="30dp"
+            android:background="@drawable/ic_back" />
+
+        <EditText
+            android:id="@+id/edtSearchInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/toolbar_text_hint_search"
+            android:textSize="16sp" />
+    </android.support.v7.widget.Toolbar>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerViewSong"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</LinearLayout>

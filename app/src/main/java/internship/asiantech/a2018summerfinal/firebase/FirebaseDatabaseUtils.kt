@@ -10,7 +10,7 @@ import internship.asiantech.a2018summerfinal.model.User
 
 object FirebaseDatabaseUtils {
     private const val TABLE_NAME = "Users"
-    private const val AVATAR_COLUMN = "avatar"
+    private const val AVATAR_COLUMN = "avatarPath"
     private val database = FirebaseDatabase.getInstance().reference
 
     fun getCurrentUser(mail: String, updater: DatabaseUpdater) {
@@ -24,7 +24,7 @@ object FirebaseDatabaseUtils {
                         SingletonUser.instance.name = user.name
                         SingletonUser.instance.password = user.password
                         SingletonUser.instance.age = user.age
-                        SingletonUser.instance.avatar = user.avatar
+                        SingletonUser.instance.avatar = user.avatarPath
                         SingletonUser.instance.latitude = user.latitude
                         SingletonUser.instance.longitude = user.longitude
                         updater.onComplete(user)
