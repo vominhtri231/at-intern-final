@@ -35,7 +35,7 @@ class LibraryFragment : Fragment() {
         }
     }
 
-    fun initView() {
+    private fun initView() {
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.setHasFixedSize(true)
         recyclerView.adapter = LibraryAdapter(context, listener)

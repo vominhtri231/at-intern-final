@@ -63,6 +63,7 @@
     <string name="favourite">Favourite</string>
     <string name="delete_song">Delete Song</string>
     <string name="history">History</string>
+    <string name="all_song">All song</string>
 
     <string name="error_open_camera">Can\'t open camera</string>
     <string name="error_open_galery">Can\'t open galery</string>

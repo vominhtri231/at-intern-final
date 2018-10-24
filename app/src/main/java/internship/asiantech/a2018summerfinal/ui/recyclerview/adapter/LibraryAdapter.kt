@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import internship.asiantech.a2018summerfinal.R
 import internship.asiantech.a2018summerfinal.ui.fragment.listener.LibraryEventListener
 import internship.asiantech.a2018summerfinal.ui.recyclerview.LibraryItem
+import internship.asiantech.a2018summerfinal.ui.recyclerview.LibraryItem.Companion.ALL_SONG_TYPE
 import internship.asiantech.a2018summerfinal.ui.recyclerview.LibraryItem.Companion.FAVORITE_TYPE
 import internship.asiantech.a2018summerfinal.ui.recyclerview.LibraryItem.Companion.HISTORY_TYPE
 import internship.asiantech.a2018summerfinal.ui.recyclerview.viewholder.LibraryItemViewHolder
@@ -18,6 +19,7 @@ class LibraryAdapter(val context: Context?,
     private val libraryItems: MutableList<LibraryItem> = mutableListOf()
 
     init {
+        libraryItems.add(LibraryItem(ALL_SONG_TYPE, R.drawable.ic_illuminati))
         libraryItems.add(LibraryItem(HISTORY_TYPE, R.drawable.ic_history))
         libraryItems.add(LibraryItem(FAVORITE_TYPE, R.drawable.ic_heart))
     }

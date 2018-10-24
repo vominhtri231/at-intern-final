@@ -8,7 +8,7 @@ import internship.asiantech.a2018summerfinal.ui.fragment.ListSongFragment
 import internship.asiantech.a2018summerfinal.ui.fragment.PlaylistFragment
 
 class MainPagerAdapter(manager: FragmentManager?) : FragmentStatePagerAdapter(manager) {
-    private val tabTitles = arrayOf("SONG", "PLAYLIST", "LIBRARY")
+    private val tabTitles = arrayOf("PLAYLIST", "LIBRARY")
     private val listFragment: MutableList<Fragment> = mutableListOf()
 
     init {
@@ -16,7 +16,6 @@ class MainPagerAdapter(manager: FragmentManager?) : FragmentStatePagerAdapter(ma
     }
 
     private fun addFragment() {
-        listFragment.add(ListSongFragment.instance(ListSongFragment.TYPE_ALL))
         listFragment.add(PlaylistFragment())
         listFragment.add(LibraryFragment())
     }

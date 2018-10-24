@@ -33,15 +33,16 @@ class ListSongInPlaylistActivity : AppCompatActivity(), EventClickItemSongListen
         val intent = intent
         nameIdPlayList = intent.getStringExtra(PlaylistFragment.KEY_ID_PLAYLIST_BUNDLE)
         applicationContext?.let {
-            AppDataHelper.getInstance(applicationContext).getSongInPlaylist(nameIdPlayList, object : SongUpdater {
-                override fun getSongResult(result: List<Song>) {
-                    listSongInPlaylist.clear()
-                    for (song in result) {
-                        listSongInPlaylist.add(song)
-                    }
-                    mListSongInPlaylistAdapter.notifyDataSetChanged()
-                }
-            })
+            AppDataHelper.getInstance(applicationContext).getSongInPlaylist(nameIdPlayList,
+                    object : SongUpdater {
+                        override fun getSongResult(result: List<Song>) {
+                            listSongInPlaylist.clear()
+                            for (song in result) {
+                                listSongInPlaylist.add(song)
+                            }
+                            mListSongInPlaylistAdapter.notifyDataSetChanged()
+                        }
+                    })
         }
     }
 

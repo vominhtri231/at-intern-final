@@ -23,7 +23,8 @@ class ListSongFragment : Fragment() {
     private lateinit var listener: BackEventListener
     private val songs: MutableList<Song> = mutableListOf()
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                              savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_list_song, container, false)
     }
 
@@ -32,9 +33,10 @@ class ListSongFragment : Fragment() {
         setListener()
         initRecyclerView()
 
-        val listSongName = getFragmentName(arguments)
-        initSongs(listSongName)
-        initView(listSongName)
+        getFragmentName(arguments).let {
+            initSongs(it)
+            initView(it)
+        }
     }
 
     override fun onAttach(context: Context?) {
@@ -42,21 +44,13 @@ class ListSongFragment : Fragment() {
         if (context is BackEventListener) {
             listener = context
         } else {
-            throw RuntimeException(context.toString() + " must implement BackEventListener")
+            throw RuntimeException(context.toString() + " must implement ListSongFragment")
         }
     }
 
-    private fun setListener(){
+    private fun setListener() {
         btnToolBarButtonBack.setOnClickListener {
             listener.onBackToStandard()
-        }
-    }
-
-    private fun initView(listSongName: String?) {
-        if (listSongName != null) {
-            tvName.text = listSongName
-        } else {
-
         }
     }
 
@@ -70,26 +64,25 @@ class ListSongFragment : Fragment() {
             }
 
             override fun onStartListen(position: Int) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
             }
         })
         recyclerViewSong.adapter = songAdapter
     }
 
-    private fun getFragmentName(bundle: Bundle?): String? {
+    private fun getFragmentName(bundle: Bundle?): String {
         val type = bundle?.getInt(KEY_TYPE, 0)
         return when (type) {
             TYPE_HISTORY -> resources.getString(R.string.history)
             TYPE_FAVORITE -> resources.getString(R.string.favourite)
-            else -> null
+            else -> resources.getString(R.string.all_song)
         }
     }
 
-    private fun initSongs(playlistName: String?) {
-        if (playlistName != null) {
-            initSongFromPlayList(playlistName)
-        } else {
+    private fun initSongs(playlistName: String) {
+        if (playlistName == resources.getString(R.string.all_song)) {
             initAllSong()
+        } else {
+            initSongFromPlayList(playlistName)
         }
     }
 
@@ -107,6 +100,10 @@ class ListSongFragment : Fragment() {
     private fun initAllSong() {
         songs.clear()
         songs.addAll((activity as MainActivity).songs)
+    }
+
+    private fun initView(listSongName: String?) {
+        tvName.text = listSongName
     }
 
     companion object {

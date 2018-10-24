@@ -101,7 +101,12 @@ class MainActivity : AppCompatActivity()
                 .replace(R.id.flMain, ListSongFragment.instance(ListSongFragment.TYPE_FAVORITE)).commit()
     }
 
+    override fun openAllSong() {
+        supportFragmentManager.beginTransaction()
+                .replace(R.id.flMain, ListSongFragment.instance(ListSongFragment.TYPE_ALL)).commit()
+    }
+
     companion object {
-        private val REQUEST_CODE = 1583
+        private const val REQUEST_CODE = 1583
     }
 }

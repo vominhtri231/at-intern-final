@@ -16,6 +16,7 @@ class LibraryItemViewHolder(view: View?, listener: LibraryEventListener) : Recyc
             when (tvType?.text.toString()) {
                 LibraryItem.HISTORY_TYPE -> listener.openHistorySong()
                 LibraryItem.FAVORITE_TYPE -> listener.openFavoriteSong()
+                LibraryItem.ALL_SONG_TYPE -> listener.openAllSong()
             }
         }
     }
