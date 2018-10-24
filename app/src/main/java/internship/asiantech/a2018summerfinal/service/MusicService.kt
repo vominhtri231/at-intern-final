@@ -10,7 +10,7 @@ import android.support.v4.app.NotificationCompat
 import android.view.View
 import android.widget.RemoteViews
 import internship.asiantech.a2018summerfinal.R
-import internship.asiantech.a2018summerfinal.receiver.Letter
+import internship.asiantech.a2018summerfinal.receiver.IntentBuilderForReceiver
 import internship.asiantech.a2018summerfinal.ui.activity.PlayMusicActivity
 import internship.asiantech.a2018summerfinal.utils.timeToString
 import internship.asiantech.a2018summerfinal.utils.trimStringToLength
@@ -105,7 +105,7 @@ class MusicService : Service() {
                 remoteView.setProgressBar(R.id.progressBarMiniBar, duration, 0, false)
                 remoteView.setTextViewText(R.id.tvTotalTimeMiniBar, timeToString(duration))
                 updatePlay()
-                Letter(applicationContext, Letter.START_PLAY_SONG)
+                IntentBuilderForReceiver(applicationContext, IntentBuilderForReceiver.START_PLAY_SONG)
                         .title(title).duration(duration).send()
             }
 
@@ -113,18 +113,18 @@ class MusicService : Service() {
                 remoteView.setTextViewText(R.id.tvRunningTimeMiniBar, timeToString(time))
                 remoteView.setInt(R.id.progressBarMiniBar, "setProgress", time)
                 changeNotification()
-                Letter(applicationContext, Letter.UPDATE_TIME)
+                IntentBuilderForReceiver(applicationContext, IntentBuilderForReceiver.UPDATE_TIME)
                         .currentTime(time).send()
             }
 
             override fun onPlayerPause() {
                 updatePause()
-                Letter(applicationContext, Letter.PAUSE).send()
+                IntentBuilderForReceiver(applicationContext, IntentBuilderForReceiver.PAUSE).send()
             }
 
             override fun onPlayerUnPause() {
                 updatePlay()
-                Letter(applicationContext, Letter.UN_PAUSE).send()
+                IntentBuilderForReceiver(applicationContext, IntentBuilderForReceiver.UN_PAUSE).send()
             }
 
             private fun updatePlay() {

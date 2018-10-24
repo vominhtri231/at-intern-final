@@ -3,10 +3,10 @@ package internship.asiantech.a2018summerfinal
 import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnit4
 import internship.asiantech.a2018summerfinal.database.AppDataHelper
-import internship.asiantech.a2018summerfinal.database.PlaylistUpdater
-import internship.asiantech.a2018summerfinal.database.SongUpdater
 import internship.asiantech.a2018summerfinal.database.model.Playlist
 import internship.asiantech.a2018summerfinal.database.model.Song
+import internship.asiantech.a2018summerfinal.database.updater.PlaylistUpdater
+import internship.asiantech.a2018summerfinal.database.updater.SongUpdater
 import org.junit.Test
 import org.junit.runner.RunWith
 
@@ -39,7 +39,7 @@ class DatabaseTest {
         dataHelper.addSong(song1)
         dataHelper.addSong(song2)
         dataHelper.addSong(song3)
-        dataHelper.deleteSongWithId("1")
+        dataHelper.deleteSongWithId(1)
         dataHelper.getAllSong(object : SongUpdater {
             override fun getSongResult(result: List<Song>) {
                 assert(result.size == 2)
@@ -90,8 +90,8 @@ class DatabaseTest {
         val playlist2 = Playlist(name = "p2")
         dataHelper.addPlaylist(playlist1)
         dataHelper.addPlaylist(playlist2)
-        dataHelper.addSongToPlaylist("p1", "2")
-        dataHelper.addSongToPlaylist("p1", "3")
+        dataHelper.addSongToPlaylist("p1", 2)
+        dataHelper.addSongToPlaylist("p1", 3)
         dataHelper.getSongInPlaylist("p1", object : SongUpdater {
             override fun getSongResult(result: List<Song>) {
                 assert(result.size == 2)
@@ -117,9 +117,9 @@ class DatabaseTest {
         val playlist2 = Playlist(name = "p2")
         dataHelper.addPlaylist(playlist1)
         dataHelper.addPlaylist(playlist2)
-        dataHelper.addSongToPlaylist("p1", "2")
-        dataHelper.addSongToPlaylist("p1", "3")
-        dataHelper.deleteSongInPlaylist("p1", "2")
+        dataHelper.addSongToPlaylist("p1", 2)
+        dataHelper.addSongToPlaylist("p1", 3)
+        dataHelper.deleteSongInPlaylist("p1", 2)
         dataHelper.getSongInPlaylist("p1", object : SongUpdater {
             override fun getSongResult(result: List<Song>) {
                 assert(result.size == 1)
@@ -140,8 +140,8 @@ class DatabaseTest {
         val playlist2 = Playlist(name = "p2")
         dataHelper.addPlaylist(playlist1)
         dataHelper.addPlaylist(playlist2)
-        dataHelper.addSongToPlaylist("p1", "2")
-        dataHelper.addSongToPlaylist("p1", "3")
+        dataHelper.addSongToPlaylist("p1", 2)
+        dataHelper.addSongToPlaylist("p1", 3)
         dataHelper.deletePlaylist("p1")
         dataHelper.getSongInPlaylist("p1", object : SongUpdater {
             override fun getSongResult(result: List<Song>) {

@@ -6,11 +6,11 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import internship.asiantech.a2018summerfinal.R
 import internship.asiantech.a2018summerfinal.database.model.Song
+import internship.asiantech.a2018summerfinal.ui.fragment.listener.ListSongFragmentActionListener
 import internship.asiantech.a2018summerfinal.ui.recyclerview.viewholder.SongViewHolder
-import internship.asiantech.a2018summerfinal.ui.recyclerview.listener.SongViewHolderListener
 
 class SongAdapter(private val musics: List<Song>, private val context: Context?,
-                  private val listener: SongViewHolderListener)
+                  private val listener: ListSongFragmentActionListener)
     : RecyclerView.Adapter<SongViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SongViewHolder {
@@ -26,7 +26,7 @@ class SongAdapter(private val musics: List<Song>, private val context: Context?,
     override fun onBindViewHolder(holder: SongViewHolder, position: Int) {
         holder.tvTitleSong?.text = musics[position].title
         holder.tvSinger?.text = musics[position].artist
-        holder.index = position
+        holder.songId = musics[position].id
         if (musics[position].isFavourite) {
             holder.imgFavourite?.setImageResource(R.drawable.ic_like)
         } else {

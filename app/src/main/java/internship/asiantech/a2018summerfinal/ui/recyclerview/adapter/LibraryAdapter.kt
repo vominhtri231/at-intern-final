@@ -6,7 +6,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import internship.asiantech.a2018summerfinal.R
-import internship.asiantech.a2018summerfinal.ui.fragment.listener.LibraryEventListener
+import internship.asiantech.a2018summerfinal.ui.fragment.listener.LibraryFragmentActionListener
 import internship.asiantech.a2018summerfinal.ui.recyclerview.LibraryItem
 import internship.asiantech.a2018summerfinal.ui.recyclerview.LibraryItem.Companion.ALL_SONG_TYPE
 import internship.asiantech.a2018summerfinal.ui.recyclerview.LibraryItem.Companion.FAVORITE_TYPE
@@ -14,7 +14,7 @@ import internship.asiantech.a2018summerfinal.ui.recyclerview.LibraryItem.Compani
 import internship.asiantech.a2018summerfinal.ui.recyclerview.viewholder.LibraryItemViewHolder
 
 class LibraryAdapter(val context: Context?,
-                     val listener: LibraryEventListener)
+                     val listener: LibraryFragmentActionListener)
     : RecyclerView.Adapter<LibraryItemViewHolder>() {
     private val libraryItems: MutableList<LibraryItem> = mutableListOf()
 

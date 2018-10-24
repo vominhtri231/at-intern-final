@@ -6,14 +6,14 @@ import android.support.annotation.IntDef
 import internship.asiantech.a2018summerfinal.receiver.MusicReceiver.Companion.ACTION_UPDATE_RECEIVER
 
 /**
- * letter is a handmade intent for broadcast receiver
+ * a handmade intent for broadcast receiver
  *
- * To send a letter to broadcast receiver:
+ * To send a intent to music broadcast receiver:
  *
- * Letter(context,Letter.START_PLAY_SONG)
+ * IntentBuilderForReceiver(context,IntentBuilderForReceiver.START_PLAY_SONG)
  *      .title("a").send()
  */
-class Letter(private val context: Context, private val letterType: Int) {
+class IntentBuilderForReceiver(private val context: Context, private val intentType: Int) {
     private var title: String? = null
     private var duration: Int = -1
     private var currentTime: Int = -1
@@ -31,7 +31,7 @@ class Letter(private val context: Context, private val letterType: Int) {
     }
 
     fun send() = context.sendBroadcast(Intent(ACTION_UPDATE_RECEIVER).apply {
-        putExtra(LETTER_TYPE_KEY, letterType)
+        putExtra(LETTER_TYPE_KEY, intentType)
         title?.let { putExtra(TITLE_KEY, title) }
         if (duration >= 0) {
             putExtra(DURATION_KEY, duration)
@@ -42,11 +42,6 @@ class Letter(private val context: Context, private val letterType: Int) {
     })
 
     companion object {
-        @Target(AnnotationTarget.EXPRESSION, AnnotationTarget.VALUE_PARAMETER, AnnotationTarget.PROPERTY)
-        @IntDef(START_PLAY_SONG, UPDATE_TIME, PAUSE, UN_PAUSE, INVALID)
-        @Retention(AnnotationRetention.SOURCE)
-        annotation class LetterType
-
         const val START_PLAY_SONG = 0
         const val UPDATE_TIME = 1
         const val PAUSE = 2
@@ -62,7 +57,7 @@ class Letter(private val context: Context, private val letterType: Int) {
          * to get letter's information when you receive a letter intent
          */
         internal fun getLetterInfo(intent: Intent): LetterInfo {
-            val letterInfo = LetterInfo(@LetterType intent.getIntExtra(LETTER_TYPE_KEY, INVALID))
+            val letterInfo = LetterInfo(@IntentType intent.getIntExtra(LETTER_TYPE_KEY, INVALID))
             intent.extras?.apply {
                 if (this.containsKey(TITLE_KEY)) {
                     letterInfo.title = this.getString(TITLE_KEY)
@@ -78,9 +73,14 @@ class Letter(private val context: Context, private val letterType: Int) {
         }
     }
 
+    @Target(AnnotationTarget.EXPRESSION, AnnotationTarget.VALUE_PARAMETER, AnnotationTarget.PROPERTY)
+    @IntDef(START_PLAY_SONG, UPDATE_TIME, PAUSE, UN_PAUSE, INVALID)
+    @Retention(AnnotationRetention.SOURCE)
+    annotation class IntentType
+
     /**
      * the letter's information that broadcast receiver will receive
      */
-    class LetterInfo(@LetterType val letterType: Int, var title: String = "",
+    class LetterInfo(@IntentType val intentType: Int, var title: String = "",
                      var duration: Int = -1, var currentTime: Int = -1)
 }

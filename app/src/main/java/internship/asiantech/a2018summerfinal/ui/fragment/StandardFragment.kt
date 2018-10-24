@@ -9,12 +9,12 @@ import android.view.View
 import android.view.ViewGroup
 import internship.asiantech.a2018summerfinal.R
 import internship.asiantech.a2018summerfinal.ui.view_pager_adapter.MainPagerAdapter
-import internship.asiantech.a2018summerfinal.ui.fragment.listener.StandardEventListener
+import internship.asiantech.a2018summerfinal.ui.fragment.listener.StandardFragmentActionListener
 import internship.asiantech.a2018summerfinal.utils.showKeyboard
 import kotlinx.android.synthetic.main.fragment_standard.*
 
 class StandardFragment : Fragment() {
-    private lateinit var listener: StandardEventListener
+    private lateinit var listener: StandardFragmentActionListener
     private lateinit var libraryPagerAdapter: MainPagerAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -24,10 +24,10 @@ class StandardFragment : Fragment() {
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
-        if (context is StandardEventListener) {
+        if (context is StandardFragmentActionListener) {
             listener = context
         } else {
-            throw RuntimeException(context.toString() + " must implement StandardEventListener")
+            throw RuntimeException(context.toString() + " must implement StandardFragmentActionListener")
         }
     }
 

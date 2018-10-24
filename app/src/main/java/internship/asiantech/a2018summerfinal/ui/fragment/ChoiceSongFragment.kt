@@ -53,7 +53,7 @@ class ChoiceSongFragment : Fragment() {
     }
 
     private fun initViews() {
-        listSongInDevices.addAll((activity as MainActivity).songs)
+        listSongInDevices.addAll((activity as MainActivity).getSongs())
         for (index in listSongInDevices.indices) {
             mListBoolChoice.add(false)
         }
