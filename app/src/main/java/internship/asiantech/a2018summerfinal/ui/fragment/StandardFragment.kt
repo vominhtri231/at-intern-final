@@ -8,7 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import internship.asiantech.a2018summerfinal.R
-import internship.asiantech.a2018summerfinal.ui.view_pager_adapter.MainPagerAdapter
+import internship.asiantech.a2018summerfinal.ui.viewpageradapter.MainPagerAdapter
 import internship.asiantech.a2018summerfinal.ui.fragment.listener.StandardFragmentActionListener
 import internship.asiantech.a2018summerfinal.utils.showKeyboard
 import kotlinx.android.synthetic.main.fragment_standard.*
@@ -35,11 +35,10 @@ class StandardFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setListeners()
         initViewPager()
-        showKeyboard(activity as Activity)
     }
 
     fun updatePlaylistFragment(){
-        val fragment=libraryPagerAdapter.getItem(1)
+        val fragment=libraryPagerAdapter.getItem(0)
         if(fragment is PlaylistFragment){
             fragment.getPlayList()
         }
@@ -55,10 +54,15 @@ class StandardFragment : Fragment() {
         }
     }
 
+    /**
+     * We use childFragmentManager here to manage view pager
+     *      because the view pager is inside another fragment
+     * DO NOT USE activity's fragment manager or support fragment manager
+     *      because they can cause problems when standard fragment is putted in stack
+     */
     private fun initViewPager() {
-        libraryPagerAdapter = MainPagerAdapter(fragmentManager)
+        libraryPagerAdapter = MainPagerAdapter(childFragmentManager)
         viewPager.adapter = libraryPagerAdapter
-        viewPager.currentItem
         tabLayout.setupWithViewPager(viewPager)
     }
 }

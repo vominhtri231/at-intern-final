@@ -48,7 +48,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center">
 
-        <internship.asiantech.a2018summerfinal.ui.custom_view.CircleImage
+        <internship.asiantech.a2018summerfinal.ui.customview.CircleImage
             android:id="@+id/imgSong"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

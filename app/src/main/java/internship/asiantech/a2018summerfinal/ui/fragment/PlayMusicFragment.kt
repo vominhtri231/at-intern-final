@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.os.IBinder
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -52,7 +53,6 @@ class PlayMusicFragment : Fragment() {
 
     private val serviceConnection: ServiceConnection = object : ServiceConnection {
         override fun onServiceDisconnected(p0: ComponentName) {
-
         }
 
         override fun onServiceConnected(p0: ComponentName?, p1: IBinder?) {
@@ -60,6 +60,9 @@ class PlayMusicFragment : Fragment() {
             musicPlayer = binder.getMusicPlayer()?.apply {
                 setMusicList(songs)
                 transferPlayerState()
+            }
+            arguments?.getLong(SONG_ID_KEY)?.let {
+                musicPlayer?.playWithSongId(it)
             }
         }
     }
@@ -154,11 +157,12 @@ class PlayMusicFragment : Fragment() {
     }
 
     companion object {
+        private const val SONG_ID_KEY = "SONG_ID_KEY"
         @JvmStatic
-        fun newInstance(param1: String, param2: String) =
+        fun newInstance(songId: Long) =
                 PlayMusicFragment().apply {
                     arguments = Bundle().apply {
-
+                        this.putLong(SONG_ID_KEY, songId)
                     }
                 }
     }

@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.support.annotation.IntDef
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -76,6 +77,7 @@ class ListSongFragment : Fragment() {
     }
 
     private fun initSongs(playlistName: String) {
+        songs.clear()
         if (playlistName == resources.getString(R.string.all_song)) {
             initAllSong()
         } else {
@@ -84,18 +86,18 @@ class ListSongFragment : Fragment() {
     }
 
     private fun initSongFromPlayList(playlistName: String) {
-        songs.clear()
         context?.let {
             AppDataHelper.getInstance(it).getSongInPlaylist(playlistName, object : SongUpdater {
                 override fun getSongResult(result: List<Song>) {
+                    Log.e("TAG",result.size.toString())
                     songs.addAll(result)
+                    songAdapter.notifyDataSetChanged()
                 }
             })
         }
     }
 
     private fun initAllSong() {
-        songs.clear()
         songs.addAll((activity as MainActivity).getSongs())
     }
 
@@ -103,7 +105,7 @@ class ListSongFragment : Fragment() {
         tvName.text = listSongName
     }
 
-    fun changeListSongView(){
+    fun changeListSongView() {
         songAdapter.notifyDataSetChanged()
     }
 
@@ -113,16 +115,18 @@ class ListSongFragment : Fragment() {
         const val TYPE_HISTORY = 1
         const val TYPE_FAVORITE = 2
 
-        fun instance(@ListSongFragmentType type: Int): ListSongFragment {
-            val timelineFragment = ListSongFragment()
-            val bundle = Bundle()
-            bundle.putInt(KEY_TYPE, type)
-            timelineFragment.arguments = bundle
-            return timelineFragment
-        }
+        fun instance(@ListSongFragmentType type: Int) =
+                ListSongFragment().apply {
+                    arguments = Bundle().apply {
+                        this.putInt(KEY_TYPE, type)
+                    }
+                }
     }
 
     @IntDef(TYPE_HISTORY, TYPE_FAVORITE)
     @Retention(AnnotationRetention.SOURCE)
     annotation class ListSongFragmentType
 }
+
+
+

@@ -2,6 +2,7 @@ package internship.asiantech.a2018summerfinal.ui.activity
 
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.view.Gravity
 import internship.asiantech.a2018summerfinal.R
@@ -25,9 +26,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : AppCompatActivity()
         , StandardFragmentActionListener, ListSongFragmentActionListener, AddPlaylistEventListener,
         LibraryFragmentActionListener, AdditionFragmentActionListener {
-
-
-    var dataController:DataController? = null
+    private var dataController: DataController? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,6 +34,7 @@ class MainActivity : AppCompatActivity()
         initData()
         initDrawerLayout()
         setFirstFragment()
+        checkAdditionFragment()
     }
 
     private fun initDrawerLayout() {
@@ -48,8 +48,8 @@ class MainActivity : AppCompatActivity()
         }
     }
 
-    fun getSongs():List<Song>{
-        dataController?.let{
+    fun getSongs(): List<Song> {
+        dataController?.let {
             return it.songs
         }
         return listOf()
@@ -57,11 +57,24 @@ class MainActivity : AppCompatActivity()
 
     private fun setFirstFragment() {
         supportFragmentManager.beginTransaction()
-                .add(R.id.flMain, StandardFragment()).commit()
+                .add(R.id.flMain, StandardFragment())
+                .commit()
+    }
+
+    private fun checkAdditionFragment() {
+        intent.getStringExtra(FRAGMENT_NAME_KEY).let {
+            if (it == PlayMusicFragment::class.qualifiedName) {
+                val fragment = supportFragmentManager.findFragmentById(R.id.flMain)
+                if (fragment !is PlayMusicFragment) {
+                    replaceMainFragment(PlayMusicFragment())
+                }
+            }
+        }
     }
 
     override fun onRequestPermissionsResult(requestCode: Int,
-                                            permissions: Array<String>, grantResults: IntArray) {
+                                            permissions: Array<String>,
+                                            grantResults: IntArray) {
         if (requestCode == REQUEST_CODE) {
             if (isResultGranted(grantResults)) {
                 dataController = DataController(this)
@@ -70,21 +83,18 @@ class MainActivity : AppCompatActivity()
     }
 
     private fun isResultGranted(grantResults: IntArray): Boolean {
-        return grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED
+        return grantResults.isNotEmpty() &&
+                grantResults[0] == PackageManager.PERMISSION_GRANTED
     }
 
-    override fun onStartSearch() {
-        supportFragmentManager.beginTransaction()
-                .replace(R.id.flMain, SearchSongFragment()).commit()
-    }
+    override fun onStartSearch() = replaceMainFragment(SearchSongFragment())
 
     override fun onViewUserInfo() {
         drawerLayout.openDrawer(Gravity.END)
     }
 
     override fun onBackToStandard() {
-        supportFragmentManager.beginTransaction()
-                .replace(R.id.flMain, StandardFragment()).commit()
+        supportFragmentManager.popBackStackImmediate()
     }
 
     override fun addPlaylist(name: String) {
@@ -99,26 +109,22 @@ class MainActivity : AppCompatActivity()
                 })
     }
 
-    override fun openHistorySong() {
-        supportFragmentManager.beginTransaction()
-                .add(R.id.flMain, ListSongFragment.instance(ListSongFragment.TYPE_HISTORY)).commit()
-    }
+    override fun openHistorySong() =
+            replaceMainFragment(ListSongFragment.instance(ListSongFragment.TYPE_HISTORY))
 
-    override fun openFavoriteSong() {
-        supportFragmentManager.beginTransaction()
-                .add(R.id.flMain, ListSongFragment.instance(ListSongFragment.TYPE_FAVORITE))
-                .commit()
-    }
+    override fun openFavoriteSong() =
+            replaceMainFragment(ListSongFragment.instance(ListSongFragment.TYPE_FAVORITE))
 
-    override fun openAllSong() {
-        supportFragmentManager.beginTransaction()
-                .add(R.id.flMain, ListSongFragment.instance(ListSongFragment.TYPE_ALL))
-                .commit()
-    }
+    override fun openAllSong() =
+            replaceMainFragment(ListSongFragment.instance(ListSongFragment.TYPE_ALL))
 
-    override fun onStartPlay(songId: Long) {
+    override fun onStartPlay(songId: Long) =
+            replaceMainFragment(PlayMusicFragment.newInstance(songId))
+
+    private fun replaceMainFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction()
-                .add(R.id.flMain, PlayMusicFragment())
+                .replace(R.id.flMain, fragment)
+                .addToBackStack(null)
                 .commit()
     }
 
@@ -132,5 +138,6 @@ class MainActivity : AppCompatActivity()
 
     companion object {
         private const val REQUEST_CODE = 1583
+        const val FRAGMENT_NAME_KEY = "FRAGMENT_NAME_KEY"
     }
 }

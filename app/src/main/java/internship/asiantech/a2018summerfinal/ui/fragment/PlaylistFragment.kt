@@ -47,7 +47,6 @@ class PlaylistFragment : Fragment(), PlaylistViewHolderListener {
 
     private fun initViews() {
         recyclerViewPlaylist.layoutManager = LinearLayoutManager(activity)
-        recyclerViewPlaylist.setHasFixedSize(true)
         recyclerViewPlaylist.adapter = PlaylistAdapter(playlists, context, this)
     }
 
