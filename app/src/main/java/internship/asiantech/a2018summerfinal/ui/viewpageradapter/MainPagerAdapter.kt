@@ -1,10 +1,10 @@
-package internship.asiantech.a2018summerfinal.ui.view_pager_adapter
+package internship.asiantech.a2018summerfinal.ui.viewpageradapter
 
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentStatePagerAdapter
+import android.view.ViewGroup
 import internship.asiantech.a2018summerfinal.ui.fragment.LibraryFragment
-import internship.asiantech.a2018summerfinal.ui.fragment.ListSongFragment
 import internship.asiantech.a2018summerfinal.ui.fragment.PlaylistFragment
 
 class MainPagerAdapter(manager: FragmentManager?) : FragmentStatePagerAdapter(manager) {

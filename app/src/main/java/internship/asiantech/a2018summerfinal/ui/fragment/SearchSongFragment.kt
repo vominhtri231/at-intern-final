@@ -13,16 +13,17 @@ import android.view.ViewGroup
 import internship.asiantech.a2018summerfinal.R
 import internship.asiantech.a2018summerfinal.database.model.Song
 import internship.asiantech.a2018summerfinal.ui.activity.MainActivity
+import internship.asiantech.a2018summerfinal.ui.fragment.listener.AdditionFragmentActionListener
+import internship.asiantech.a2018summerfinal.ui.fragment.listener.ListSongFragmentActionListener
 import internship.asiantech.a2018summerfinal.ui.recyclerview.adapter.SongAdapter
-import internship.asiantech.a2018summerfinal.ui.fragment.listener.BackEventListener
-import internship.asiantech.a2018summerfinal.ui.recyclerview.listener.SongViewHolderListener
 import internship.asiantech.a2018summerfinal.utils.hideKeyboard
 import internship.asiantech.a2018summerfinal.utils.searchSong
 import kotlinx.android.synthetic.main.fragment_search_song.*
 
 class SearchSongFragment : Fragment() {
     private lateinit var songAdapter: SongAdapter
-    private lateinit var listener: BackEventListener
+    private lateinit var listener: AdditionFragmentActionListener
+    private lateinit var listSongFragmentActionListener: ListSongFragmentActionListener
     private var searchedSongs: MutableList<Song> = ArrayList()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -38,10 +39,16 @@ class SearchSongFragment : Fragment() {
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
-        if (context is BackEventListener) {
+        if (context is AdditionFragmentActionListener) {
             listener = context
         } else {
-            throw RuntimeException(context.toString() + " must implement BackEventListener")
+            throw RuntimeException(context.toString() + " must implement ListSongFragmentActionListener")
+        }
+
+        if (context is ListSongFragmentActionListener) {
+            listSongFragmentActionListener = context
+        } else {
+            throw RuntimeException(context.toString() + " must implement ListSongFragmentActionListener")
         }
     }
 
@@ -63,20 +70,12 @@ class SearchSongFragment : Fragment() {
 
     private fun initRecyclerView() {
         recyclerViewSong.layoutManager = LinearLayoutManager(context)
-        songAdapter = SongAdapter(searchedSongs, context, object : SongViewHolderListener {
-            override fun onFavoriteChange(position: Int) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-            }
-
-            override fun onStartListen(position: Int) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-            }
-        })
+        songAdapter = SongAdapter(searchedSongs, context, listSongFragmentActionListener)
         recyclerViewSong.adapter = songAdapter
     }
 
     private fun search(keySearch: String) {
         searchedSongs.clear()
-        searchedSongs.addAll(searchSong((activity as MainActivity).songs, keySearch))
+        searchedSongs.addAll(searchSong((activity as MainActivity).getSongs(), keySearch))
     }
 }

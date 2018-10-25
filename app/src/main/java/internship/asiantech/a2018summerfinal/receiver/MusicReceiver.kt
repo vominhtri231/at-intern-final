@@ -28,13 +28,13 @@ class MusicReceiver(var listener: MusicPlayerEventListener) : BroadcastReceiver(
     }
 
     override fun onReceive(context: Context, intent: Intent) {
-        val letterInfo = Letter.getLetterInfo(intent)
-        @Letter.Companion.LetterType
-        when (letterInfo.letterType) {
-            Letter.START_PLAY_SONG -> listener.onPlayerStart(letterInfo.title, letterInfo.duration)
-            Letter.UPDATE_TIME -> listener.onPlayerPlaying(letterInfo.currentTime)
-            Letter.PAUSE -> listener.onPlayerPause()
-            Letter.UN_PAUSE -> listener.onPlayerUnPause()
+        val letterInfo = IntentBuilderForReceiver.getLetterInfo(intent)
+        @IntentBuilderForReceiver.IntentType
+        when (letterInfo.intentType) {
+            IntentBuilderForReceiver.START_PLAY_SONG -> listener.onPlayerStart(letterInfo.title, letterInfo.duration)
+            IntentBuilderForReceiver.UPDATE_TIME -> listener.onPlayerPlaying(letterInfo.currentTime)
+            IntentBuilderForReceiver.PAUSE -> listener.onPlayerPause()
+            IntentBuilderForReceiver.UN_PAUSE -> listener.onPlayerUnPause()
             else -> {
                 // invalid
             }

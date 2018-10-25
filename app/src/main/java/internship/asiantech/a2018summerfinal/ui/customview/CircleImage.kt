@@ -1,4 +1,4 @@
-package internship.asiantech.a2018summerfinal.ui.custom_view
+package internship.asiantech.a2018summerfinal.ui.customview
 
 import android.content.Context
 import android.graphics.*

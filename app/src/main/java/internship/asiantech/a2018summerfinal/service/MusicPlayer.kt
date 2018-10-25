@@ -116,6 +116,13 @@ class MusicPlayer(private val context: Context, private val listener: MusicPlaye
         }
     }
 
+    fun playWithSongId(songId: Long) {
+        for(i in 0..songs.size) if(songs[i].id==songId){
+            playAt(i)
+            break
+        }
+    }
+
     /**
      * play next song in list song
      */
@@ -196,14 +203,14 @@ class MusicPlayer(private val context: Context, private val listener: MusicPlaye
     }
 
     companion object {
-        @IntDef(MODE_REPEAT, MODE_SHUFFLE, MODE_NEXT)
-        @Retention(AnnotationRetention.SOURCE)
-        annotation class Mode
-
         const val MODE_REPEAT = 0
         const val MODE_SHUFFLE = 1
         const val MODE_NEXT = 2
     }
+
+    @IntDef(MODE_REPEAT, MODE_SHUFFLE, MODE_NEXT)
+    @Retention(AnnotationRetention.SOURCE)
+    annotation class Mode
 
     private class TimeUpdater(musicPlayer: MusicPlayer) : Thread() {
         var musicPlayerReference: WeakReference<MusicPlayer> = WeakReference(musicPlayer)

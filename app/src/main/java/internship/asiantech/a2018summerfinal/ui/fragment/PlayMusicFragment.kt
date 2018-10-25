@@ -1,15 +1,16 @@
-package internship.asiantech.a2018summerfinal.ui.activity
+package internship.asiantech.a2018summerfinal.ui.fragment
 
-import android.Manifest
-import android.content.ComponentName
-import android.content.Intent
-import android.content.IntentFilter
-import android.content.ServiceConnection
-import android.content.pm.PackageManager
+import android.content.*
 import android.os.Bundle
 import android.os.IBinder
+import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.SeekBar
+
 import internship.asiantech.a2018summerfinal.R
 import internship.asiantech.a2018summerfinal.database.model.Song
 import internship.asiantech.a2018summerfinal.receiver.MusicReceiver
@@ -17,12 +18,13 @@ import internship.asiantech.a2018summerfinal.service.CommandBuilder
 import internship.asiantech.a2018summerfinal.service.MusicBinder
 import internship.asiantech.a2018summerfinal.service.MusicPlayer
 import internship.asiantech.a2018summerfinal.service.MusicPlayerEventListener
-import internship.asiantech.a2018summerfinal.utils.askForPermissions
-import internship.asiantech.a2018summerfinal.utils.querySongs
+import internship.asiantech.a2018summerfinal.ui.activity.MainActivity
+import internship.asiantech.a2018summerfinal.ui.fragment.listener.AdditionFragmentActionListener
 import internship.asiantech.a2018summerfinal.utils.timeToString
-import kotlinx.android.synthetic.main.activity_play_music.*
+import kotlinx.android.synthetic.main.fragment_play_music.*
 
-class PlayMusicActivity : AppCompatActivity() {
+
+class PlayMusicFragment : Fragment() {
     private val musicReceiver: MusicReceiver = MusicReceiver(object : MusicPlayerEventListener {
         override fun onPlayerStart(title: String, duration: Int) {
             tvSongName.text = title
@@ -51,7 +53,6 @@ class PlayMusicActivity : AppCompatActivity() {
 
     private val serviceConnection: ServiceConnection = object : ServiceConnection {
         override fun onServiceDisconnected(p0: ComponentName) {
-
         }
 
         override fun onServiceConnected(p0: ComponentName?, p1: IBinder?) {
@@ -60,51 +61,61 @@ class PlayMusicActivity : AppCompatActivity() {
                 setMusicList(songs)
                 transferPlayerState()
             }
+            arguments?.getLong(SONG_ID_KEY)?.let {
+                musicPlayer?.playWithSongId(it)
+            }
         }
     }
 
     private var musicPlayer: MusicPlayer? = null
+    private var backListener: AdditionFragmentActionListener? = null
     private val songs: MutableList<Song> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_play_music)
-        initView()
+        initSongs()
+        initService()
+    }
 
-        if (askForPermissions(this,
-                        arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
-                        READ_EXTERNAL_REQUEST_CODE)) {
-            songs.addAll(querySongs(contentResolver))
-            initService()
+    override fun onAttach(context: Context?) {
+        super.onAttach(context)
+        if (context is AdditionFragmentActionListener) {
+            backListener = context
+        } else {
+            throw RuntimeException(context.toString() + " must implement AdditionFragmentActionListener")
         }
+    }
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                              savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.fragment_play_music, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initView()
     }
 
     override fun onResume() {
         super.onResume()
         val filter = IntentFilter().apply { addAction(MusicReceiver.ACTION_UPDATE_RECEIVER) }
-        registerReceiver(musicReceiver, filter)
+        activity?.registerReceiver(musicReceiver, filter)
     }
 
     override fun onPause() {
         super.onPause()
-        unregisterReceiver(musicReceiver)
+        activity?.unregisterReceiver(musicReceiver)
     }
 
     override fun onDestroy() {
-        unbindService(serviceConnection)
+        activity?.unbindService(serviceConnection)
         super.onDestroy()
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
-        if (requestCode == READ_EXTERNAL_REQUEST_CODE && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            songs.addAll(querySongs(contentResolver))
-            initService()
-        } else {
-            super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        }
-    }
-
     private fun initView() {
+        btnToolBarButtonBack.setOnClickListener {
+            backListener?.onBackToStandard()
+        }
         seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {
             }
@@ -134,13 +145,25 @@ class PlayMusicActivity : AppCompatActivity() {
         }
     }
 
+    private fun initSongs() {
+        songs.clear()
+        songs.addAll((activity as MainActivity).getSongs())
+    }
+
     private fun initService() {
-        val command: Intent = CommandBuilder(this, CommandBuilder.START_SERVICE).build()
-        startService(command)
-        bindService(command, serviceConnection, BIND_AUTO_CREATE)
+        val command: Intent = CommandBuilder(context, CommandBuilder.START_SERVICE).build()
+        activity?.startService(command)
+        activity?.bindService(command, serviceConnection, AppCompatActivity.BIND_AUTO_CREATE)
     }
 
     companion object {
-        const val READ_EXTERNAL_REQUEST_CODE = 231
+        private const val SONG_ID_KEY = "SONG_ID_KEY"
+        @JvmStatic
+        fun newInstance(songId: Long) =
+                PlayMusicFragment().apply {
+                    arguments = Bundle().apply {
+                        this.putLong(SONG_ID_KEY, songId)
+                    }
+                }
     }
 }

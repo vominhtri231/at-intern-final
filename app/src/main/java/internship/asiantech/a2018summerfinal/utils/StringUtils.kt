@@ -5,9 +5,9 @@ fun trimStringToLength(input: String, bound: Int): String {
 }
 
 fun isWordInString(strSearch: String, str: String): Boolean {
-    val words = strSearch.split(" ".toRegex())
+    val words = str.toLowerCase().split(" ".toRegex())
     for (word in words) {
-        return str.toLowerCase().contains(word.toLowerCase())
+        return strSearch.toLowerCase().contains(word.toLowerCase())
     }
     return false
 }

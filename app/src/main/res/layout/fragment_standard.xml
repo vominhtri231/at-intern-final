@@ -36,7 +36,7 @@
                     android:layout_marginEnd="30dp"
                     android:background="@drawable/ic_search" />
 
-                <internship.asiantech.a2018summerfinal.ui.custom_view.CircleImage
+                <internship.asiantech.a2018summerfinal.ui.customview.CircleImage
                     android:id="@+id/imgAvatar"
                     style="@style/SmallIcon"
                     android:src="@drawable/img_avatar" />

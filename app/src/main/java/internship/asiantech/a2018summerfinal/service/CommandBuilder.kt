@@ -12,7 +12,7 @@ import android.support.annotation.StringDef
  *      startService(CommandBuilder(context,CommandBuilder.PLAY_OR_PAUSE).build())
  */
 
-class CommandBuilder(private val context: Context, @CommandType private val command: String) {
+class CommandBuilder(private val context: Context?, @CommandType private val command: String) {
     fun build(): Intent = Intent(context, MusicService::class.java).apply {
         action = command
     }
