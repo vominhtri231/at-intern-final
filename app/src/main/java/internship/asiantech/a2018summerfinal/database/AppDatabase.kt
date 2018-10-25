@@ -14,7 +14,7 @@ import internship.asiantech.a2018summerfinal.database.model.Song
 
 @Database(
         entities = [(Song::class), (Playlist::class), (PlaylistSong::class)],
-        version = 2)
+        version = 3)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun songDAO(): SongDAO
     abstract fun playlistDAO(): PlaylistDAO

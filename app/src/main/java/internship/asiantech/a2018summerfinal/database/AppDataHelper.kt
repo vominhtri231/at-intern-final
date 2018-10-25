@@ -39,14 +39,16 @@ class AppDataHelper private constructor(val database: AppDatabase) {
      *
      * @param song the song that need to add
      */
-    fun addSong(song: Song): AsyncTask<Song, Unit, Unit> = AddSongAsyncTask(database.songDAO()).execute(song)
+    fun addSong(song: Song): AsyncTask<Song, Unit, Unit> =
+            AddSongAsyncTask(database.songDAO()).execute(song)
 
     /**
      * get all songs in the database
      *
      * @param updater the interface that handle the list of songs
      */
-    fun getAllSong(updater: SongUpdater): AsyncTask<Unit, Unit, List<Song>> = GetAllSongAsyncTask(database.songDAO(), updater).execute()
+    fun getAllSong(updater: SongUpdater): AsyncTask<Unit, Unit, List<Song>> =
+            GetAllSongAsyncTask(database.songDAO(), updater).execute()
 
 
     /**
@@ -54,28 +56,33 @@ class AppDataHelper private constructor(val database: AppDatabase) {
      *
      * @param id the song's id
      */
-    fun deleteSongWithId(id: Long): AsyncTask<Long, Unit, Unit> = DeleteSongAsyncTask(database.songDAO()).execute(id)
+    fun deleteSongWithId(id: Long): AsyncTask<Long, Unit, Unit> =
+            DeleteSongAsyncTask(database.songDAO()).execute(id)
 
     /**
      * add playlist to the database
      *
      * @param playlist the playlist that need to add
      */
-    fun addPlaylist(playlist: Playlist, updater: CommonUpdater? = null): AsyncTask<Playlist, Unit, Unit> = AddPlaylistAsyncTask(database.playlistDAO(), updater).execute(playlist)
+    fun addPlaylist(playlist: Playlist, updater: CommonUpdater? = null)
+            : AsyncTask<Playlist, Unit, Unit> =
+            AddPlaylistAsyncTask(database.playlistDAO(), updater).execute(playlist)
 
     /**
      * get all playlists in the database
      *
      * @param updater the interface that handle the list of playlists
      */
-    fun getAllPlaylist(updater: PlaylistUpdater): AsyncTask<Unit, Unit, List<Playlist>> = GetAllPlaylistAsyncTask(database.playlistDAO(), updater).execute()
+    fun getAllPlaylist(updater: PlaylistUpdater): AsyncTask<Unit, Unit, List<Playlist>> =
+            GetAllPlaylistAsyncTask(database.playlistDAO(), updater).execute()
 
     /**
      * delete playlist with title
      *
      * @param name the playlist's title
      */
-    fun deletePlaylist(name: String): AsyncTask<String, Unit, Unit> = DeletePlaylistAsyncTask(database.playlistDAO()).execute(name)
+    fun deletePlaylist(name: String): AsyncTask<String, Unit, Unit> =
+            DeletePlaylistAsyncTask(database.playlistDAO()).execute(name)
 
     /**
      * insert a song to a playlist

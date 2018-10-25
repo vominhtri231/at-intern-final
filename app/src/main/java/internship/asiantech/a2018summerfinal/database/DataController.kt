@@ -24,6 +24,7 @@ class DataController(context: Context) {
     fun changeFavoriteState(songId: Long) {
         for (song in songs) if (song.id == songId) {
             song.changeFavouriteState()
+            appDataHelper.addSong(song)
             if(song.isFavourite){
                 appDataHelper.addSongToPlaylist(favoritePlaylistName,songId)
             }else{

@@ -132,7 +132,7 @@ class MainActivity : AppCompatActivity()
         dataController?.changeFavoriteState(songId)
         val fragment = supportFragmentManager.findFragmentById(R.id.flMain)
         if (fragment is ListSongFragment) {
-            fragment.changeListSongView()
+            fragment.getSongs()
         }
     }
 

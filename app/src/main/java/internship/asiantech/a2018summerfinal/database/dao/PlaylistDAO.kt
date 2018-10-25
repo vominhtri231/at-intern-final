@@ -15,6 +15,6 @@ interface PlaylistDAO {
     @Query("Delete from playlist where title = :title")
     fun deletePlaylistWithName(title: String)
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun addPlaylist(playlist: Playlist)
 }
