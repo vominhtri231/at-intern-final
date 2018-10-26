@@ -1,79 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/drawerLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/toolbarPlayMusicOffline"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@color/colorAzureRadiance">
+
+        <TextView
+            android:id="@+id/tvToolBarName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:text="@string/toolbar_text_libary"
+            android:textColor="@color/colorWhite"
+            android:textSize="16sp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end">
+
+            <Button
+                android:id="@+id/btnToolBarButtonSearch"
+                style="@style/SmallIcon"
+                android:layout_marginEnd="30dp"
+                android:background="@drawable/ic_search" />
+
+            <internship.asiantech.a2018summerfinal.ui.customview.CircleImage
+                android:id="@+id/imgAvatar"
+                style="@style/SmallIcon"
+                android:src="@drawable/img_avatar" />
+        </LinearLayout>
+    </android.support.v7.widget.Toolbar>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/toolbarPlayMusicOffline"
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewPager"
             android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:background="@color/colorAzureRadiance">
+            android:layout_height="0dp"
+            android:layout_weight="1" />
 
-            <TextView
-                android:id="@+id/tvToolBarName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="25dp"
-                android:text="@string/toolbar_text_libary"
-                android:textColor="@color/colorWhite"
-                android:textSize="16sp" />
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end">
-
-                <Button
-                    android:id="@+id/btnToolBarButtonSearch"
-                    style="@style/SmallIcon"
-                    android:layout_marginEnd="30dp"
-                    android:background="@drawable/ic_search" />
-
-                <internship.asiantech.a2018summerfinal.ui.customview.CircleImage
-                    android:id="@+id/imgAvatar"
-                    style="@style/SmallIcon"
-                    android:src="@drawable/img_avatar" />
-            </LinearLayout>
-        </android.support.v7.widget.Toolbar>
-
-        <LinearLayout
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tabLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <android.support.v4.view.ViewPager
-                android:id="@+id/viewPager"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1" />
-
-            <android.support.design.widget.TabLayout
-                android:id="@+id/tabLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/colorWhite"
-                app:tabIndicatorColor="@color/colorBrightTurquoise"
-                app:tabMode="fixed"
-                app:tabTextColor="@color/colorBlack" />
-        </LinearLayout>
+            android:background="@color/colorWhite"
+            app:tabIndicatorColor="@color/colorBrightTurquoise"
+            app:tabMode="fixed"
+            app:tabTextColor="@color/colorBlack" />
     </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/llUserInfo"
-        android:layout_width="300dp"
-        android:layout_height="match_parent"
-        android:layout_gravity="end"
-        android:background="@color/colorWhite">
-
-        <android.support.v7.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </LinearLayout>
-</android.support.v4.widget.DrawerLayout>
+</LinearLayout>

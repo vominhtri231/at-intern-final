@@ -18,7 +18,6 @@ import internship.asiantech.a2018summerfinal.ui.dialog.AddPlaylistDialog
 import internship.asiantech.a2018summerfinal.ui.recyclerview.listener.PlaylistViewHolderListener
 import kotlinx.android.synthetic.main.fragment_playlist.*
 
-@Suppress("DEPRECATION")
 class PlaylistFragment : Fragment(), PlaylistViewHolderListener {
     private var playlists: MutableList<Playlist> = mutableListOf()
 
@@ -29,7 +28,6 @@ class PlaylistFragment : Fragment(), PlaylistViewHolderListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initViews()
-        setListener()
         getPlayList()
     }
 
@@ -48,9 +46,6 @@ class PlaylistFragment : Fragment(), PlaylistViewHolderListener {
     private fun initViews() {
         recyclerViewPlaylist.layoutManager = LinearLayoutManager(activity)
         recyclerViewPlaylist.adapter = PlaylistAdapter(playlists, context, this)
-    }
-
-    private fun setListener() {
         imgAdd.setOnClickListener{
             AddPlaylistDialog().show(activity?.supportFragmentManager,AddPlaylistDialog.NAME)
         }

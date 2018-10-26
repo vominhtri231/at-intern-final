@@ -36,9 +36,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.activity.LoginActivity" />
-        <activity android:name=".ui.activity.ProfileUserActivity" />
-        <activity android:name=".ui.activity.SignUpActivity" />
         <activity android:name=".ui.activity.ListAlbumActivity" />
         <activity android:name=".ui.activity.ListSongInPlaylistActivity" />
 

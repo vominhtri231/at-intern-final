@@ -8,6 +8,7 @@ import internship.asiantech.a2018summerfinal.R
 import internship.asiantech.a2018summerfinal.database.model.Song
 import internship.asiantech.a2018summerfinal.ui.fragment.listener.ListSongFragmentActionListener
 import internship.asiantech.a2018summerfinal.ui.recyclerview.viewholder.SongViewHolder
+import internship.asiantech.a2018summerfinal.utils.trimStringToLength
 
 class SongAdapter(private val musics: List<Song>, private val context: Context?,
                   private val listener: ListSongFragmentActionListener)
@@ -24,7 +25,7 @@ class SongAdapter(private val musics: List<Song>, private val context: Context?,
     }
 
     override fun onBindViewHolder(holder: SongViewHolder, position: Int) {
-        holder.tvTitleSong?.text = musics[position].title
+        holder.tvTitleSong?.text = trimStringToLength(musics[position].title, 30)
         holder.tvSinger?.text = musics[position].artist
         holder.songId = musics[position].id
         if (musics[position].isFavourite) {

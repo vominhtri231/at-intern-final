@@ -1,37 +1,46 @@
-package internship.asiantech.a2018summerfinal.ui.activity
+package internship.asiantech.a2018summerfinal.ui.fragment
 
-import android.annotation.SuppressLint
-import android.app.Activity
-import android.content.Intent
+
+import android.content.Context
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import android.support.v4.app.Fragment
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import internship.asiantech.a2018summerfinal.R
-import internship.asiantech.a2018summerfinal.firebase.AuthUpdater
-import internship.asiantech.a2018summerfinal.firebase.FirebaseAuthUtils
-import internship.asiantech.a2018summerfinal.firebase.FirebaseDatabaseUtils
 import internship.asiantech.a2018summerfinal.model.User
+import internship.asiantech.a2018summerfinal.ui.fragment.listener.SignUpFragmentListener
 import internship.asiantech.a2018summerfinal.utils.checkUserSignUp
-import kotlinx.android.synthetic.main.activity_sign_up.*
+import kotlinx.android.synthetic.main.fragment_sign_up.*
 
-@SuppressLint("Registered")
-@Suppress("DEPRECATED_IDENTITY_EQUALS", "UNUSED_EXPRESSION")
-class SignUpActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapClickListener {
+
+class SignUpFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMapClickListener {
     private lateinit var map: GoogleMap
+    private lateinit var listener: SignUpFragmentListener
     private var location: LatLng = LatLng(16.0544, 108.2022)
 
-    companion object {
-        const val MAIL_KEY = "SIGN_UP_MAIL_KEY"
+    override fun onAttach(context: Context?) {
+        super.onAttach(context)
+        if (context is SignUpFragmentListener) {
+            listener = context
+        } else {
+            throw RuntimeException(context.toString() + " must implement SignUpFragmentListener")
+        }
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_sign_up)
-        val mapFragment = supportFragmentManager
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                              savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.fragment_sign_up, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val mapFragment = childFragmentManager
                 .findFragmentById(R.id.fragmentMap) as SupportMapFragment?
         mapFragment?.getMapAsync(this)
         initListeners()
@@ -77,30 +86,10 @@ class SignUpActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapC
     }
 
     private fun createUser(user: User) {
-        FirebaseAuthUtils.createUser(user.mail, user.password, this, object : AuthUpdater {
-            override fun onSuccess() {
-                addUserInfoToDatabase(user)
-                returnLoginActivityWithMail(user.mail)
-            }
-
-            override fun onFail() {
-                displayErrorMessage(R.string.error_sign_up)
-            }
-        })
+        listener.onSignUp(user)
     }
 
-    private fun addUserInfoToDatabase(user: User) {
-        FirebaseDatabaseUtils.addUser(user)
-    }
-
-    private fun returnLoginActivityWithMail(mail: String) {
-        val intent = Intent(this, LoginActivity::class.java)
-        intent.putExtra(MAIL_KEY, mail)
-        setResult(Activity.RESULT_OK, intent)
-        finish()
-    }
-
-    private fun displayErrorMessage(messageReference: Int) {
+    fun displayErrorMessage(messageReference: Int) {
         tvError.text = resources.getString(messageReference)
         tvError.setBackgroundResource(R.drawable.border_text_view_error)
     }

@@ -10,7 +10,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context=".ui.activity.LoginActivity">
+    tools:context=".ui.fragment.LoginFragment">
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -25,18 +25,22 @@
         android:layout_height="match_parent">
 
         <LinearLayout
-            android:id="@+id/llEmailLoginForm"
+            android:id="@+id/llLoginForm"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
+            android:layout_gravity="center"
             android:orientation="vertical">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:id="@+id/tvError"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/action_sign_up"
-                android:textColor="@color/colorBlack"
-                android:textSize="40dp" />
+                android:gravity="center_horizontal"
+                android:paddingLeft="16dp"
+                android:paddingTop="6dp"
+                android:paddingRight="16dp"
+                android:paddingBottom="6dp"
+                android:textColor="@color/colorMonza" />
 
             <EditText
                 android:id="@+id/edtMail"
@@ -52,52 +56,24 @@
                 android:hint="@string/prompt_password"
                 android:inputType="textPassword" />
 
-            <EditText
-                android:id="@+id/edtRepeatPassword"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/prompt_repeat_password"
-                android:inputType="textPassword" />
-
-            <EditText
-                android:id="@+id/edtName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/prompt_name"
-                android:inputType="text" />
-
-            <EditText
-                android:id="@+id/edtAge"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/prompt_age"
-                android:inputType="number" />
-
-            <fragment
-                android:id="@+id/fragmentMap"
-                android:name="com.google.android.gms.maps.MapFragment"
-                android:layout_width="match_parent"
-                android:layout_height="150dp" />
-
-            <TextView
-                android:id="@+id/tvError"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:paddingLeft="16dp"
-                android:paddingTop="6dp"
-                android:paddingRight="16dp"
-                android:textColor="@color/colorMonza" />
-
             <Button
-                android:id="@+id/btnSignUp"
+                android:id="@+id/btnLogin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:background="@color/colorBlueZodiac"
-                android:text="@string/action_sign_up"
+                android:text="@string/action_login"
                 android:textColor="@color/colorWhite"
                 android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvSignUp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16sp"
+                android:gravity="center_horizontal"
+                android:text="@string/action_register"
+                android:textSize="@dimen/text_size_text_view" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
