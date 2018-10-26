@@ -3,47 +3,27 @@ package internship.asiantech.a2018summerfinal.ui.fragment
 
 import android.app.Activity
 import android.content.Context
-import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v7.widget.LinearLayoutManager
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import internship.asiantech.a2018summerfinal.R
 import internship.asiantech.a2018summerfinal.database.model.Song
 import internship.asiantech.a2018summerfinal.ui.activity.MainActivity
-import internship.asiantech.a2018summerfinal.ui.fragment.listener.AdditionFragmentActionListener
 import internship.asiantech.a2018summerfinal.ui.fragment.listener.ListSongFragmentActionListener
 import internship.asiantech.a2018summerfinal.ui.recyclerview.adapter.SongAdapter
 import internship.asiantech.a2018summerfinal.utils.hideKeyboard
 import internship.asiantech.a2018summerfinal.utils.searchSong
-import kotlinx.android.synthetic.main.fragment_search_song.*
+import kotlinx.android.synthetic.main.fragment_addition.*
+import kotlinx.android.synthetic.main.addition_search_song_header.*
+import kotlinx.android.synthetic.main.addition_recylerview.*
 
-class SearchSongFragment : Fragment() {
+class SearchSongFragment : AdditionFragment() {
     private lateinit var songAdapter: SongAdapter
-    private lateinit var listener: AdditionFragmentActionListener
     private lateinit var listSongFragmentActionListener: ListSongFragmentActionListener
     private var searchedSongs: MutableList<Song> = ArrayList()
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_search_song, container, false)
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        setListeners()
-        initRecyclerView()
-    }
-
     override fun onAttach(context: Context?) {
         super.onAttach(context)
-        if (context is AdditionFragmentActionListener) {
-            listener = context
-        } else {
-            throw RuntimeException(context.toString() + " must implement ListSongFragmentActionListener")
-        }
 
         if (context is ListSongFragmentActionListener) {
             listSongFragmentActionListener = context
@@ -52,10 +32,9 @@ class SearchSongFragment : Fragment() {
         }
     }
 
-    private fun setListeners() {
-        btnToolBarButtonBack.setOnClickListener {
-            listener.onBackToStandard()
-        }
+    override fun initView() {
+        songAdapter = SongAdapter(searchedSongs, context, listSongFragmentActionListener)
+        recyclerView.adapter = songAdapter
         edtSearchInput.setOnKeyListener(View.OnKeyListener { _, key, keyEvent ->
             if (keyEvent?.action == KeyEvent.ACTION_DOWN
                     && key == KeyEvent.KEYCODE_ENTER) {
@@ -68,10 +47,9 @@ class SearchSongFragment : Fragment() {
         edtSearchInput.requestFocus()
     }
 
-    private fun initRecyclerView() {
-        recyclerViewSong.layoutManager = LinearLayoutManager(context)
-        songAdapter = SongAdapter(searchedSongs, context, listSongFragmentActionListener)
-        recyclerViewSong.adapter = songAdapter
+    override fun addDiffViews(inflater: LayoutInflater) {
+        inflater.inflate(R.layout.addition_search_song_header, flDiff)
+        inflater.inflate(R.layout.addition_recylerview, flAdditionContent)
     }
 
     private fun search(keySearch: String) {

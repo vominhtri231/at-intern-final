@@ -1,28 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.fragment.PlayMusicFragment">
-    <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/toolbarPlayMusicOffline"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:background="@color/colorAzureRadiance">
-
-        <Button
-            android:id="@+id/btnToolBarButtonBack"
-            style="@style/SmallIcon"
-            android:layout_marginEnd="30dp"
-            android:background="@drawable/ic_back" />
-
-        <TextView
-            android:id="@+id/tvName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="16sp" />
-    </android.support.v7.widget.Toolbar>
-
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -131,4 +109,4 @@
                 android:src="@drawable/ic_next" />
         </RelativeLayout>
     </RelativeLayout>
-</FrameLayout>
+</merge>

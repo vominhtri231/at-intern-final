@@ -1,16 +1,14 @@
 package internship.asiantech.a2018summerfinal.ui.fragment
 
-import android.content.*
+import android.content.ComponentName
+import android.content.Intent
+import android.content.IntentFilter
+import android.content.ServiceConnection
 import android.os.Bundle
 import android.os.IBinder
-import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.SeekBar
-
 import internship.asiantech.a2018summerfinal.R
 import internship.asiantech.a2018summerfinal.database.model.Song
 import internship.asiantech.a2018summerfinal.receiver.MusicReceiver
@@ -19,12 +17,12 @@ import internship.asiantech.a2018summerfinal.service.MusicBinder
 import internship.asiantech.a2018summerfinal.service.MusicPlayer
 import internship.asiantech.a2018summerfinal.service.MusicPlayerEventListener
 import internship.asiantech.a2018summerfinal.ui.activity.MainActivity
-import internship.asiantech.a2018summerfinal.ui.fragment.listener.AdditionFragmentActionListener
 import internship.asiantech.a2018summerfinal.utils.timeToString
-import kotlinx.android.synthetic.main.fragment_play_music.*
+import kotlinx.android.synthetic.main.addition_play_music.*
+import kotlinx.android.synthetic.main.fragment_addition.*
 
 
-class PlayMusicFragment : Fragment() {
+class PlayMusicFragment : AdditionFragment() {
     private val musicReceiver: MusicReceiver = MusicReceiver(object : MusicPlayerEventListener {
         override fun onPlayerStart(title: String, duration: Int) {
             tvSongName.text = title
@@ -68,7 +66,6 @@ class PlayMusicFragment : Fragment() {
     }
 
     private var musicPlayer: MusicPlayer? = null
-    private var backListener: AdditionFragmentActionListener? = null
     private val songs: MutableList<Song> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -77,45 +74,7 @@ class PlayMusicFragment : Fragment() {
         initService()
     }
 
-    override fun onAttach(context: Context?) {
-        super.onAttach(context)
-        if (context is AdditionFragmentActionListener) {
-            backListener = context
-        } else {
-            throw RuntimeException(context.toString() + " must implement AdditionFragmentActionListener")
-        }
-    }
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_play_music, container, false)
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        initView()
-    }
-
-    override fun onResume() {
-        super.onResume()
-        val filter = IntentFilter().apply { addAction(MusicReceiver.ACTION_UPDATE_RECEIVER) }
-        activity?.registerReceiver(musicReceiver, filter)
-    }
-
-    override fun onPause() {
-        super.onPause()
-        activity?.unregisterReceiver(musicReceiver)
-    }
-
-    override fun onDestroy() {
-        activity?.unbindService(serviceConnection)
-        super.onDestroy()
-    }
-
-    private fun initView() {
-        btnToolBarButtonBack.setOnClickListener {
-            backListener?.onBackToStandard()
-        }
+    override fun initView() {
         seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {
             }
@@ -143,6 +102,26 @@ class PlayMusicFragment : Fragment() {
         imgModeShuffle?.setOnClickListener {
             musicPlayer?.setPlayMode(MusicPlayer.MODE_SHUFFLE)
         }
+    }
+
+    override fun addDiffViews(inflater: LayoutInflater) {
+        inflater.inflate(R.layout.addition_play_music, flAdditionContent)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val filter = IntentFilter().apply { addAction(MusicReceiver.ACTION_UPDATE_RECEIVER) }
+        activity?.registerReceiver(musicReceiver, filter)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        activity?.unregisterReceiver(musicReceiver)
+    }
+
+    override fun onDestroy() {
+        activity?.unbindService(serviceConnection)
+        super.onDestroy()
     }
 
     private fun initSongs() {
