@@ -3,6 +3,7 @@ package internship.asiantech.a2018summerfinal.ui.fragment
 
 import android.app.Activity
 import android.content.Context
+import android.support.v7.widget.LinearLayoutManager
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
@@ -18,7 +19,6 @@ import kotlinx.android.synthetic.main.addition_search_song_header.*
 import kotlinx.android.synthetic.main.addition_recylerview.*
 
 class SearchSongFragment : AdditionFragment() {
-    private lateinit var songAdapter: SongAdapter
     private lateinit var listSongFragmentActionListener: ListSongFragmentActionListener
     private var searchedSongs: MutableList<Song> = ArrayList()
 
@@ -33,8 +33,8 @@ class SearchSongFragment : AdditionFragment() {
     }
 
     override fun initView() {
-        songAdapter = SongAdapter(searchedSongs, context, listSongFragmentActionListener)
-        recyclerView.adapter = songAdapter
+        recyclerView.layoutManager = LinearLayoutManager(activity)
+        recyclerView.adapter =  SongAdapter(searchedSongs, context, listSongFragmentActionListener)
         edtSearchInput.setOnKeyListener(View.OnKeyListener { _, key, keyEvent ->
             if (keyEvent?.action == KeyEvent.ACTION_DOWN
                     && key == KeyEvent.KEYCODE_ENTER) {
@@ -55,5 +55,6 @@ class SearchSongFragment : AdditionFragment() {
     private fun search(keySearch: String) {
         searchedSongs.clear()
         searchedSongs.addAll(searchSong((activity as MainActivity).getSongs(), keySearch))
+        recyclerView.adapter.notifyDataSetChanged()
     }
 }

@@ -1,7 +1,5 @@
 package internship.asiantech.a2018summerfinal.utils
 
-import android.util.Log
-
 fun trimStringToLength(input: String, bound: Int): String {
     return if (input.length < bound) input else input.substring(0, bound)
 }

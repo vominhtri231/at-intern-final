@@ -6,10 +6,10 @@ import android.provider.MediaStore
 import internship.asiantech.a2018summerfinal.database.model.Song
 
 
-fun searchSong(songs: List<Song>, strSearch: String): List<Song> {
+fun searchSong(songs: List<Song>, keySearch: String): List<Song> {
     val result = mutableListOf<Song>()
     for (song in songs) {
-        if (isWordInString(strSearch, song.title) || isWordInString(strSearch, song.artist)) {
+        if (isWordInString(song.title, keySearch) || isWordInString(song.artist, keySearch)) {
             result.add(song)
         }
     }
