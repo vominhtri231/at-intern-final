@@ -2,13 +2,19 @@ package internship.asiantech.a2018summerfinal
 
 import internship.asiantech.a2018summerfinal.utils.isWordInString
 import org.junit.Test
-import org.mockito.internal.util.StringUtil
 
 class CheckWorkInString {
     @Test
-    fun hasWorkInString(){
+    fun hasWorkInStringMiddle(){
         val searchStr="a"
-        val str="asjd qwe fqw"
+        val str="sjd qawe fqw"
+        assert(isWordInString(str,searchStr))
+    }
+
+    @Test
+    fun hasWorkInStringStart(){
+        val searchStr="a"
+        val str="sjad qwe fqw"
         assert(isWordInString(str,searchStr))
     }
 
